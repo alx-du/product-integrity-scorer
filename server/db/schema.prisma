@@ -1,0 +1,98 @@
+// Prisma schema — Product Integrity Scorer
+// Database: PostgreSQL via Supabase
+// Run: npx prisma migrate dev --name init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Products ──────────────────────────────────────────────────────────────
+model Product {
+  id          String       @id @default(uuid())
+  name        String
+  retailer    String       // 'trader_joes' | 'amazon' | etc.
+  productUrl  String       @unique
+  barcode     String?
+  category    String?      // 'eggs' | 'produce' | 'apparel'
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  pillarScores PillarScore[]
+  indicators   Indicator[]
+
+  @@index([retailer, name])
+  @@map("products")
+}
+
+// ─── Pillar Scores ─────────────────────────────────────────────────────────
+// One row per pillar per scoring event
+// 5 pillars: planet | people | quality | value | transparency
+model PillarScore {
+  id         String   @id @default(uuid())
+  productId  String
+  pillar     String   // 'planet' | 'people' | 'quality' | 'value' | 'transparency'
+  score      Int      // 0-100
+  confidence String   // 'high' | 'medium' | 'low'
+  scoredAt   DateTime @default(now())
+  scoredBy   String   @default("ai") // 'ai' | 'manual' | 'cached'
+
+  product    Product  @relation(fields: [productId], references: [id])
+
+  @@index([productId, scoredAt])
+  @@map("pillar_scores")
+}
+
+// ─── Indicators ────────────────────────────────────────────────────────────
+// Evidence items that back each score (used in Layer 3 display)
+model Indicator {
+  id             String  @id @default(uuid())
+  productId      String
+  pillar         String  // which pillar this indicator belongs to
+  label          String  // human-readable indicator name
+  present        Boolean // does this product have this indicator?
+  confidence     String  // 'high' | 'medium' | 'low'
+  source         String? // 'USDA' | 'B Lab' | 'Brand claim' | etc.
+  sourceUrl      String?
+  pointsEarned   Int
+  pointsMax      Int
+
+  product        Product @relation(fields: [productId], references: [id])
+
+  @@index([productId, pillar])
+  @@map("indicators")
+}
+
+// ─── Certifications Lookup ─────────────────────────────────────────────────
+model Certification {
+  id                String  @id @default(uuid())
+  name              String  @unique // 'USDA Organic' | 'B Corp' | etc.
+  issuer            String
+  verificationType  String  // 'third_party' | 'self_certified' | 'retailer_badge'
+  confidenceWeight  Float   // how much this boosts confidence (0.0-1.0)
+  primaryPillar     String  // which pillar it primarily affects
+  description       String?
+
+  @@map("certifications")
+}
+
+// ─── Local Farms Cache ─────────────────────────────────────────────────────
+// For Localize integration — local farm alternatives
+model LocalFarm {
+  id           String   @id @default(uuid())
+  name         String
+  lat          Float?
+  lng          Float?
+  zip          String?
+  state        String?
+  categories   String[] // ['eggs', 'dairy', 'produce']
+  productCount Int      @default(0)
+  localizeId   String?  // Localize's internal farm ID
+  lastSynced   DateTime @default(now())
+
+  @@map("local_farms")
+}
