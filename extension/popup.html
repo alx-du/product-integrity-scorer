@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Integrity Scorer</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      width: 360px;
+      min-height: 480px;
+      background: #fff;
+      color: #1a1a1a;
+    }
+
+    .header {
+      background: #1a1a2e;
+      color: white;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header h1 { font-size: 15px; font-weight: 600; }
+    .header .subtitle { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+    .product-name {
+      padding: 14px 16px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+      color: #333;
+    }
+
+    .pillars { padding: 8px 0; }
+
+    .pillar {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f5f5f5;
+      cursor: pointer;
+    }
+    .pillar:hover { background: #fafafa; }
+
+    .pillar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pillar-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .pillar-score {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .pillar-score--high { color: #22a853; }
+    .pillar-score--mid  { color: #f59e0b; }
+    .pillar-score--low  { color: #ef4444; }
+
+    .pillar-bar {
+      margin-top: 6px;
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .pillar-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    .pillar-bar-fill--high { background: #22a853; }
+    .pillar-bar-fill--mid  { background: #f59e0b; }
+    .pillar-bar-fill--low  { background: #ef4444; }
+
+    .pillar-detail {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .pillar.open .pillar-detail { display: block; }
+
+    .indicator {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    .confidence-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .confidence-dot--high { background: #22a853; }
+    .confidence-dot--mid  { background: #f59e0b; }
+    .confidence-dot--low  { background: #ef4444; }
+
+    .source-tag {
+      font-size: 10px;
+      color: #999;
+      margin-left: 16px;
+    }
+
+    .footer {
+      padding: 12px 16px;
+      font-size: 11px;
+      color: #aaa;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+    .footer a { color: #666; text-decoration: none; }
+
+    #no-product {
+      padding: 32px 16px;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>Product Integrity Scorer</h1>
+      <div class="subtitle">5 independent pillar scores</div>
+    </div>
+  </div>
+
+  <div id="product-view" style="display:none">
+    <div id="product-name" class="product-name">Loading...</div>
+
+    <div class="pillars" id="pillars-container">
+      <!-- Pillar rows injected by popup.js -->
+    </div>
+
+    <div class="footer">
+      Scores based on publicly available data.
+      <a href="#" id="methodology-link">How we score</a>
+    </div>
+  </div>
+
+  <div id="no-product">
+    <p>Navigate to a supported product page to see integrity scores.</p>
+    <br/>
+    <p style="font-size:11px">Supported: Trader Joe's</p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
