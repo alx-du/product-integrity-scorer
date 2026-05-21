@@ -1,0 +1,44 @@
+{
+  "name": "product-integrity-scorer",
+  "version": "0.1.0",
+  "description": "Chrome extension + API backend for scoring product integrity across 5 pillars",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "lint": "eslint . --ext .js",
+    "test": "jest",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "@prisma/client": "^5.14.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "prisma": "^5.14.0"
+  },
+  "keywords": [
+    "chrome-extension",
+    "product-transparency",
+    "esg",
+    "consumer-protection",
+    "greenwashing",
+    "sustainability"
+  ],
+  "author": "Alex Du",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alx-du/product-integrity-scorer"
+  }
+}
