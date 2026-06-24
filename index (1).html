@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Evidence-based evaluation of alternatives to conventional disposable diapers, including hybrid reusable systems, compostable disposables, and reduced-chemistry disposables." />
+  <title>Alternatives to Conventional Disposable Diapers</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --paper: #fffdf8;
+      --ink: #25312b;
+      --muted: #66736c;
+      --brand: #2f7d5f;
+      --brand-dark: #1e5d46;
+      --brand-soft: #dcefe7;
+      --accent: #d89442;
+      --border: #e2ddd2;
+      --shadow: 0 20px 45px rgba(37, 49, 43, 0.10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(47, 125, 95, 0.16), transparent 35rem),
+        radial-gradient(circle at top right, rgba(216, 148, 66, 0.15), transparent 32rem),
+        var(--bg);
+      line-height: 1.65;
+    }
+
+    a { color: var(--brand-dark); }
+    a:hover { color: var(--accent); }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header.hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, rgba(255, 253, 248, 0.96), rgba(230, 244, 237, 0.95));
+      border: 1px solid rgba(47, 125, 95, 0.18);
+      border-radius: calc(var(--radius) + 10px);
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5vw, 56px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -70px;
+      top: -70px;
+      background: rgba(47, 125, 95, 0.13);
+      border-radius: 999px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: 0.82rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 22px 0 18px;
+      font-size: clamp(2.35rem, 7vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .lead {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 2vw, 1.24rem);
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--brand);
+      text-decoration: none;
+      font-weight: 750;
+    }
+
+    .button.primary {
+      background: var(--brand);
+      color: white;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--brand-dark);
+    }
+
+    nav.toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin: -20px 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 10px 0;
+      backdrop-filter: blur(10px);
+    }
+
+    nav.toc a {
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.86);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    section {
+      margin: 28px 0;
+      padding: clamp(22px, 4vw, 34px);
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(37, 49, 43, 0.06);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    p { margin: 0 0 16px; }
+    p:last-child { margin-bottom: 0; }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 18px;
+      background: #f5faf7;
+      border: 1px solid #dcefe7;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1;
+      color: var(--brand-dark);
+      margin-bottom: 6px;
+    }
+
+    .ranked-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .brand-card {
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #ffffff, #fffaf0);
+      position: relative;
+    }
+
+    .brand-card .rank {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--brand);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .score {
+      display: inline-flex;
+      margin-left: 8px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #fff0d9;
+      color: #86520f;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .rubric {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      margin-top: 18px;
+      background: white;
+    }
+
+    .rubric th,
+    .rubric td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .rubric th {
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .rubric tr:last-child td { border-bottom: 0; }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 1.25rem;
+    }
+
+    li { margin-bottom: 10px; }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: #fff5e5;
+      border: 1px solid #f0d2a3;
+    }
+
+    .references {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px 18px;
+      padding-left: 0;
+      list-style: none;
+      font-size: 0.94rem;
+    }
+
+    .references li {
+      margin: 0;
+      word-break: break-word;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #faf7ef;
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      padding: 34px 0 56px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    @media (max-width: 680px) {
+      header.hero { padding-top: 34px; }
+      nav.toc { position: static; grid-template-columns: 1fr 1fr; }
+      .rubric { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero page">
+    <div class="hero-card">
+      <span class="eyebrow">Evidence-based shortlist</span>
+      <h1>Alternatives to Conventional Disposable Diapers</h1>
+      <p class="lead">A practical evaluation of hybrid/reusable systems, compostable disposables, and higher-transparency reduced-chemistry disposables using environmental, safety, performance, cost, end-of-life, and governance criteria.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#rankings">View rankings</a>
+        <a class="button secondary" href="#recommendations">Consumer recommendations</a>
+      </div>
+      <div class="metric-grid" aria-label="Topline scores">
+        <div class="metric"><strong>80</strong>GroVia hybrid top score</div>
+        <div class="metric"><strong>77</strong>Dyper compostable + take-back</div>
+        <div class="metric"><strong>6</strong>Shortlisted alternatives</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <nav class="toc" aria-label="Page sections">
+      <a href="#summary">Summary</a>
+      <a href="#methods">Methods</a>
+      <a href="#rankings">Rankings</a>
+      <a href="#cost">Cost</a>
+      <a href="#environment">Environment</a>
+      <a href="#safety">Safety</a>
+      <a href="#recommendations">Recommendations</a>
+      <a href="#references">References</a>
+    </nav>
+
+    <section id="summary">
+      <h2>Executive summary</h2>
+      <p>A small set of current alternatives meaningfully reduce landfill contribution and chemical exposure versus conventional disposables according to the available evidence: hybrid/reusable systems built around reusable waterproof shells and cloth inserts, compostable/biobased disposable systems with industrial take-back, and higher-transparency reduced-chemistry disposables.</p>
+      <p>The scoring rubric ranks GroVia hybrid highest overall, followed by Dyper, Eco by Naty / Kudos, Moltex, and Bambo Nature. Key constraints include limited industrial composting access, uneven independent chemical testing across brands, and variable on-bench performance among eco-branded disposables.</p>
+    </section>
+
+    <section id="methods">
+      <h2>Methods and scoring rubric</h2>
+      <p>Criteria are weighted to balance household value, environmental impact, chemical safety, performance, end-of-life feasibility, and corporate governance. Scores run from 0–100 per criterion, and the weighted sum yields the overall score.</p>
+      <table class="rubric">
+        <thead>
+          <tr><th>Criterion</th><th>Weight</th><th>What it captures</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost-to-quality ratio</td><td>20</td><td>Price relative to durability, absorbency, convenience, and overall value.</td></tr>
+          <tr><td>Environmental impact</td><td>25</td><td>Lifecycle impact, degradability, fossil-plastic content, and SAP content.</td></tr>
+          <tr><td>Chemical safety and transparency</td><td>20</td><td>Ingredient disclosure, chemical limits, certifications, and independent testing.</td></tr>
+          <tr><td>Performance</td><td>15</td><td>Absorbency, leakage prevention, fit, ease of use, and skin outcomes.</td></tr>
+          <tr><td>Practical end-of-life support</td><td>10</td><td>Take-back, composting, recycling, and local infrastructure availability.</td></tr>
+          <tr><td>Corporate and ethical sourcing/governance</td><td>10</td><td>Supply-chain credibility, certifications, governance transparency, and labor evidence.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="rankings">
+      <h2>Shortlist: ranked recommendations</h2>
+      <div class="ranked-grid">
+        <article class="brand-card">
+          <span class="rank">1</span>
+          <h3>GroVia <span class="score">80</span></h3>
+          <p><strong>Hybrid + BioSoaker.</strong> Reusable shell plus biodegradable BioSoaker inserts reduce landfill mass. The brand documents low-chemical BioSoaker options and clear system sizing guidance; third-party testing reports strong ease-of-use and performance for hybrid systems.</p>
+        </article>
+        <article class="brand-card">
+          <span class="rank">2</span>
+          <h3>Dyper <span class="score">77</span></h3>
+          <p><strong>Compostable disposable + REDYPER take-back.</strong> Strong ingredient limits, certifications, and a paid composting/take-back program make it unusually complete for a disposable alternative, though absorption performance can vary.</p>
+        </article>
+        <article class="brand-card">
+          <span class="rank">3</span>
+          <h3>Eco by Naty <span class="score">74</span></h3>
+          <p><strong>Plant-based disposable.</strong> Longstanding eco-disposable option with ECOCERT, OEKO-TEX, and FSC claims, plus high lab absorption in some tests. Performance and fragrance notes are mixed across tests and user reports.</p>
+        </article>
+        <article class="brand-card">
+          <span class="rank">4</span>
+          <h3>Kudos <span class="score">74</span></h3>
+          <p><strong>Reduced-chemistry disposable.</strong> Transparent ingredient list, TCF pulp, cotton topsheet, OEKO-TEX certification, and independent PFAS non-detect reporting support strong chemical-safety positioning. Compostability is not claimed.</p>
+        </article>
+        <article class="brand-card">
+          <span class="rank">5</span>
+          <h3>Moltex Pure &amp; Nature <span class="score">72</span></h3>
+          <p><strong>Plant-based disposable.</strong> Marketed as 100% plant-based and chlorine-free with moderate retail pricing in Australia. Evidence supports plant-based claims, but widespread composting infrastructure is not established.</p>
+        </article>
+        <article class="brand-card">
+          <span class="rank">6</span>
+          <h3>Bambo Nature <span class="score">71</span></h3>
+          <p><strong>Certified reduced-chemistry disposable.</strong> Multiple certifications and chlorine-free formulation, but brand disclosures note non-biodegradable plastic components, and lab review performance is mixed.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="cost">
+      <h2>Cost-to-quality calculations</h2>
+      <p>Assumptions are based on two diaper-use scenarios over 2.5 years: 4.16 changes per day and 6.10 changes per day. Over 912.5 days, that equals about 3,793 diapers in scenario A or 5,578 diapers in scenario B.</p>
+      <p>Using an illustrative Dyper price range of $0.54–$1.08 per diaper, total disposable costs are roughly $2,048–$4,096 under scenario A and $3,012–$6,024 under scenario B. Hybrid/reusable systems require upfront purchase of shells and inserts, but can lower per-change material waste and lifecycle impact when washing is optimized.</p>
+      <div class="callout"><strong>Consumer takeaway:</strong> cost sensitivity matters. Reusable/hybrid systems can be more attractive when households can maintain efficient washing routines, while compostable disposables may be worth the premium only where verified take-back or industrial composting is available.</div>
+    </section>
+
+    <section id="environment">
+      <h2>Environmental and end-of-life notes</h2>
+      <ul>
+        <li>Compostable claims require industrial composting and are not equivalent to backyard composting.</li>
+        <li>Compostable diaper programs depend on industrial facilities and logistics; REDYPER operates in selected U.S. cities with prepaid shipping to industrial processors.</li>
+        <li>Reusable systems can have lower CO₂-equivalent impact per change when laundering is optimized, though results depend on wash method, load factors, and drying.</li>
+        <li>Some biodegradable disposables still include SAP and non-biodegradable elastic or film components, so they do not fully eliminate long-lived landfill fractions.</li>
+      </ul>
+    </section>
+
+    <section id="safety">
+      <h2>Chemical safety, testing, and transparency</h2>
+      <p>Brands with the strongest chemical-safety positioning publish ingredient lists, hold dermatological or textile certifications such as OEKO-TEX, Dermatest, or ECOCERT, and provide third-party biobased or compost certifications where relevant. Dyper and Kudos are notable examples in the shortlist.</p>
+      <p>Independent PFAS screening exists for selected brands, but testing coverage is patchy. No single authoritative public dataset covers all major diaper brands across PFAS and broader chemical markers.</p>
+    </section>
+
+    <section id="governance">
+      <h2>Labor, governance, and sourcing credibility</h2>
+      <p>Dyper’s B-Corp certification and public B-Impact metrics increase governance transparency relative to many competitors. Other brands provide eco-labels or supply-chain claims such as FSC and OEKO-TEX, but the evidence base for labor practices and fair trade practices remains limited. Take-back claims should be independently scrutinized because recycling and composting programs vary in credibility and execution.</p>
+    </section>
+
+    <section id="sensitivity">
+      <h2>Sensitivity analysis</h2>
+      <p>Increasing the chemical-safety weight to 35% while reducing environmental weight to 15% and corporate governance to 5% improves the relative position of transparent brands like Kudos and Dyper. The top placement of hybrid systems remains stable because their combination of performance and lifecycle benefit remains strong under realistic washing and usage assumptions.</p>
+    </section>
+
+    <section id="recommendations">
+      <h2>Practical consumer recommendations</h2>
+      <ul>
+        <li><strong>For maximum landfill reduction:</strong> choose a reusable/hybrid system such as GroVia/Flip and optimize washing through high load factors and line drying where possible.</li>
+        <li><strong>For households unable or unwilling to launder:</strong> consider compostable disposables with a verified industrial take-back program, such as Dyper + REDYPER, where available.</li>
+        <li><strong>For chemical-safety-focused buyers:</strong> prefer brands that publish full ingredient lists, hold credible certifications, and have independent lab tests for PFAS or similar markers.</li>
+        <li><strong>For all buyers:</strong> verify local composting or municipal programs before relying on compostability claims.</li>
+      </ul>
+    </section>
+
+    <section id="gaps">
+      <h2>Evidence gaps</h2>
+      <ul>
+        <li>No comprehensive public LCA compares all shortlisted brands under the same methodology.</li>
+        <li>Independent systematic PFAS and broader chemical screening across major brands is incomplete.</li>
+        <li>Real-world degradation timelines for compostable diapers in different industrial facilities are not fully documented.</li>
+      </ul>
+    </section>
+
+    <section id="references">
+      <h2>References</h2>
+      <ol class="references">
+        <li><a href="https://dyper.com/products/diaper-single-pack" target="_blank" rel="noopener">Dyper diaper single pack</a></li>
+        <li><a href="https://dyper.com/products/redyper-pickups" target="_blank" rel="noopener">REDYPER pickups</a></li>
+        <li><a href="https://prnewswire.com/news-releases/dyper-introduces-the-worlds-first-compostable-diaper-partners-with-terracycle-to-implement-us-redyper-program-301005759.html" target="_blank" rel="noopener">Dyper and TerraCycle REDYPER announcement</a></li>
+        <li><a href="https://dyper.com/blogs/news/dyper-s-commitment-to-safety-transparency-and-trust" target="_blank" rel="noopener">Dyper safety, transparency, and trust</a></li>
+        <li><a href="https://bambonature.com/pages/sustainability-faq" target="_blank" rel="noopener">Bambo Nature sustainability FAQ</a></li>
+        <li><a href="https://leafscore.com/eco-friendly-kids-products/best-eco-friendly-disposable-diapers" target="_blank" rel="noopener">LeafScore eco-friendly disposable diapers</a></li>
+        <li><a href="https://grovia.com/pages/learn-cloth-diapers" target="_blank" rel="noopener">GroVia cloth diaper learning guide</a></li>
+        <li><a href="https://grovia.com/products/biosoaker-50-count" target="_blank" rel="noopener">GroVia BioSoaker</a></li>
+        <li><a href="https://flipdiapers.com" target="_blank" rel="noopener">Flip diapers</a></li>
+        <li><a href="https://cedelft.eu/wp-content/uploads/sites/2/2025/12/CE_Delft_250264_LCA_centralised_washing_of_cloth_diapers_Def.pdf" target="_blank" rel="noopener">CE Delft LCA of centralized washing of cloth diapers</a></li>
+        <li><a href="https://lifecycleinitiative.org/wp-content/uploads/2021/03/UNEP-D003-Nappies-Report_lowres.pdf" target="_blank" rel="noopener">UNEP nappies lifecycle report</a></li>
+        <li><a href="https://babygearlab.com/topics/diapering-potty/best-disposable-diaper" target="_blank" rel="noopener">BabyGearLab disposable diaper review</a></li>
+        <li><a href="https://babygearlab.com/reviews/diapering-potty/disposable-diaper/bambo-nature" target="_blank" rel="noopener">BabyGearLab Bambo Nature review</a></li>
+        <li><a href="https://mykudos.com/products/diaper" target="_blank" rel="noopener">Kudos diaper product page</a></li>
+        <li><a href="https://mykudos.com/blogs/news/kudos-diapers-pfas" target="_blank" rel="noopener">Kudos PFAS testing</a></li>
+        <li><a href="https://mamavation.com/motherhood/diapers-pfas-forever-chemicals.html" target="_blank" rel="noopener">Mamavation diaper PFAS testing</a></li>
+        <li><a href="https://7157e75ac0509b6a8f5c-5b19c577d01b9ccfe75d2f9e4b17ab55.ssl.cf1.rackcdn.com/JVXOTQRZ-PDF-4-491194-4447575596.pdf" target="_blank" rel="noopener">PDF source</a></li>
+        <li><a href="https://bcorporation.net/find-a-b-corp/company/dyper-inc" target="_blank" rel="noopener">Dyper B-Corp profile</a></li>
+        <li><a href="https://ethicalconsumer.org/home-garden/terracycle-sustainable-or-greenwashing" target="_blank" rel="noopener">Ethical Consumer on TerraCycle</a></li>
+        <li><a href="https://diaperstork.com/Articles.asp?ID=343" target="_blank" rel="noopener">Diaper Stork composting article</a></li>
+        <li><a href="https://dataintelo.com/report/global-biodegradable-diaper-market" target="_blank" rel="noopener">DataIntelo biodegradable diaper market report</a></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="page">
+    <p>Static HTML page generated from the provided research text. Ready for GitHub Pages or any static web host.</p>
+  </footer>
+</body>
+</html>
