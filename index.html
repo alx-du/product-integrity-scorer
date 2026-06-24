@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<!--
+  ═══════════════════════════════════════════════════════
+  GITHUB PAGES DEPLOYMENT — QUICK START
+  ═══════════════════════════════════════════════════════
+  1. Create a new GitHub repo (e.g. "cart-concerns")
+  2. Drop this file in as index.html (root of repo)
+  3. Go to Settings → Pages → Source: "Deploy from branch"
+  4. Select branch: main, folder: / (root) → Save
+  5. Your site will be live at:
+     https://[your-username].github.io/[repo-name]/
+  ═══════════════════════════════════════════════════════
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's Really in Your Cart — US Grocery &amp; Home Goods</title>
+  <meta name="description" content="A consumer awareness index of primary concerns behind America's 10 best-selling grocery and home goods categories.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════════
+       RESET & TOKENS
+    ══════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:             #F5F4F0;
+      --surface:        #FFFFFF;
+      --text:           #18181B;
+      --text-muted:     #6B6B74;
+      --border:         #E2E1DC;
+      --border-strong:  #C9C8C2;
+
+      /* Concern-type color tokens */
+      --env-text:       #14532D;
+      --env-bg:         #DCFCE7;
+      --env-border:     #86EFAC;
+      --env-stripe:     #4ADE80;
+
+      --health-text:    #7F1D1D;
+      --health-bg:      #FEE2E2;
+      --health-border:  #FCA5A5;
+      --health-stripe:  #F87171;
+
+      --labor-text:     #78350F;
+      --labor-bg:       #FEF3C7;
+      --labor-border:   #FCD34D;
+      --labor-stripe:   #FBBF24;
+
+      --mono-text:      #1E3A5F;
+      --mono-bg:        #DBEAFE;
+      --mono-border:    #93C5FD;
+      --mono-stripe:    #60A5FA;
+
+      --font-display:   'Space Grotesk', sans-serif;
+      --font-body:      'Inter', sans-serif;
+      --font-mono:      'Space Mono', monospace;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ══════════════════════════════════
+       TOP BANNER
+    ══════════════════════════════════ */
+    .top-banner {
+      background: var(--text);
+      color: rgba(255,255,255,0.75);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.65rem 1rem;
+    }
+
+    /* ══════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════ */
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ══════════════════════════════════
+       HEADER
+    ══════════════════════════════════ */
+    .site-header {
+      padding: 5.5rem 0 3.5rem;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .site-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6.5vw, 4.25rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.4rem;
+    }
+
+    .site-header h1 span {
+      color: var(--text-muted);
+    }
+
+    .intro {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+    }
+
+    /* ══════════════════════════════════
+       LEGEND
+    ══════════════════════════════════ */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .legend-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 0.25rem;
+    }
+
+    /* ══════════════════════════════════
+       BADGES
+    ══════════════════════════════════ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.7rem;
+      border-radius: 2px;
+      border: 1px solid;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .badge-env     { color: var(--env-text);    background: var(--env-bg);    border-color: var(--env-border); }
+    .badge-health  { color: var(--health-text); background: var(--health-bg); border-color: var(--health-border); }
+    .badge-labor   { color: var(--labor-text);  background: var(--labor-bg);  border-color: var(--labor-border); }
+    .badge-mono    { color: var(--mono-text);   background: var(--mono-bg);   border-color: var(--mono-border); }
+
+    /* ══════════════════════════════════
+       ENTRIES LIST
+    ══════════════════════════════════ */
+    .entries { padding: 0; }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      column-gap: 2rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    /* Colored left stripe per concern type */
+    .entry::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .entry:hover::before { opacity: 1; }
+
+    .entry[data-type="env"]::before    { background: var(--env-stripe); }
+    .entry[data-type="health"]::before { background: var(--health-stripe); }
+    .entry[data-type="labor"]::before  { background: var(--labor-stripe); }
+    .entry[data-type="mono"]::before   { background: var(--mono-stripe); }
+
+    /* ══════════════════════════════════
+       RANK COLUMN
+    ══════════════════════════════════ */
+    .entry-rank {
+      font-family: var(--font-mono);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--border-strong);
+      line-height: 1;
+      padding-top: 0.4rem;
+      user-select: none;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════
+       ENTRY CONTENT
+    ══════════════════════════════════ */
+    .entry-header {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .entry-category {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+    }
+
+    .entry-sales {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .concern-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .primary-concern {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ══════════════════════════════════
+       ALSO WATCH
+    ══════════════════════════════════ */
+    .also-watch {
+      border-top: 1px solid var(--border);
+      padding-top: 0.9rem;
+    }
+
+    .also-watch-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.22rem 0.6rem;
+      line-height: 1.4;
+    }
+
+    /* ══════════════════════════════════
+       SOURCES
+    ══════════════════════════════════ */
+    .sources-section {
+      padding: 3.5rem 0 2.5rem;
+      border-top: 2px solid var(--text);
+      margin-top: 1rem;
+    }
+
+    .sources-section h2 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.1rem;
+    }
+
+    .sources-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .sources-list li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .sources-list a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--border-strong);
+    }
+
+    .sources-list a:hover { color: var(--text); }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    .site-footer {
+      padding: 1.75rem 0 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .site-footer p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 640px) {
+      .container { padding: 0 1.25rem; }
+
+      .site-header { padding: 3rem 0 2rem; }
+
+      .entry {
+        grid-template-columns: 44px 1fr;
+        column-gap: 1rem;
+        padding: 2.25rem 0;
+      }
+
+      .entry-rank { font-size: 1.25rem; }
+      .entry-category { font-size: 1.2rem; }
+      .primary-concern { font-size: 0.9rem; }
+
+      .entry::before { left: -1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+
+    /* Focus styles for accessibility */
+    a:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    Consumer Awareness Research Index &nbsp;·&nbsp; US Grocery &amp; Home Goods &nbsp;·&nbsp; 2024–2025
+  </div>
+
+  <div class="container">
+
+    <!-- ══ HEADER ══ -->
+    <header class="site-header">
+      <p class="eyebrow">Top 10 Category Concerns — United States</p>
+      <h1>What's Really<br><span>in Your Cart</span></h1>
+      <p class="intro">
+        America's best-selling grocery and home goods categories generate hundreds of billions in annual sales.
+        Behind each one is a primary concern most packaging won't mention — from deforestation and child labor
+        to chemical exposure and aquifer depletion.
+      </p>
+      <div class="legend">
+        <span class="legend-label">Concern types:</span>
+        <span class="badge badge-env">Environment</span>
+        <span class="badge badge-labor">Labor</span>
+        <span class="badge badge-health">Health</span>
+        <span class="badge badge-mono">Monopoly / Market Power</span>
+      </div>
+    </header>
+
+    <!-- ══ ENTRIES ══ -->
+    <main class="entries">
+
+      <!-- 01 Soda -->
+      <article class="entry" data-type="env">
+        <div class="entry-rank">01</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Carbonated Soft Drinks</span>
+            <span class="badge badge-env">Environment</span>
+          </div>
+          <div class="entry-sales">~$42B annual US sales &nbsp;·&nbsp; Coca-Cola, Pepsi, Dr Pepper, Sprite</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            The Coca-Cola Company has been the world's #1 plastic polluter for six consecutive years according to
+            Break Free From Plastic's annual brand audit — its branded plastic was found in 40 of 42 participating
+            countries in 2023, more than the next two polluters combined. PepsiCo holds the #2 or #3 spot every year.
+            Both companies' recycling pledges have had measurable impact on neither their packaging volumes nor the
+            amounts found in the environment.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Sugar-linked health effects</span>
+              <span class="tag">Water extraction in drought regions</span>
+              <span class="tag">Sugar cane labor abuses</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 Beer -->
+      <article class="entry" data-type="mono">
+        <div class="entry-rank">02</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Beer</span>
+            <span class="badge badge-mono">Monopoly</span>
+          </div>
+          <div class="entry-sales">~$40B annual US retail sales &nbsp;·&nbsp; Modelo, Michelob Ultra, Bud Light, Coors Light</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            AB InBev (Anheuser-Busch) controls 500+ brands globally and dominates distribution networks in ways
+            that disadvantage independent craft breweries — locking up tap handles, wholesaler relationships, and
+            retail shelf placement. Regulators have blocked multiple AB InBev acquisitions over the past decade
+            for antitrust reasons. The "craft" aisle is less independent than it appears: many recognizable
+            labels are quietly owned by the same two or three conglomerates.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Alcohol addiction &amp; health costs</span>
+              <span class="tag">Marketing to young adults</span>
+              <span class="tag">Water-intensive brewing</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 Salty Snacks -->
+      <article class="entry" data-type="health">
+        <div class="entry-rank">03</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Salty Snacks</span>
+            <span class="badge badge-health">Health</span>
+          </div>
+          <div class="entry-sales">~$36B annual US sales &nbsp;·&nbsp; Lay's, Doritos, Ruffles, Pringles</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            Salty snacks are among the most aggressively engineered ultra-processed foods — formulated with precise
+            combinations of salt, fat, and flavor compounds calibrated to override satiety signals. Research
+            consistently links heavy ultra-processed food diets to obesity, hypertension, and metabolic disease.
+            Separately, multi-layer foil-plastic chip bags are functionally non-recyclable in virtually all US
+            curbside programs yet carry no on-pack disclosure of this.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Non-recyclable multi-layer packaging</span>
+              <span class="tag">Palm oil in some snack lines</span>
+              <span class="tag">PepsiCo / Frito-Lay among top plastic polluters</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 Toilet Paper -->
+      <article class="entry" data-type="env">
+        <div class="entry-rank">04</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Toilet Paper</span>
+            <span class="badge badge-env">Environment</span>
+          </div>
+          <div class="entry-sales">~$9B annual US sales &nbsp;·&nbsp; Charmin, Angel Soft, Quilted Northern, Cottonelle</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            Over 1 million acres of Canada's boreal forest — one of the world's largest carbon sinks,
+            storing nearly twice the carbon of all recoverable oil reserves — are clear-cut annually, in part
+            to produce single-use toilet paper. NRDC's annual <em>Issue with Tissue</em> scorecard has awarded
+            Charmin, Angel Soft, and Kirkland F grades for six+ consecutive years for sourcing exclusively from
+            virgin forest fiber, despite recycled-content and bamboo alternatives now being widely available.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Chlorine bleaching byproducts</span>
+              <span class="tag">Harm to Indigenous boreal communities</span>
+              <span class="tag">Boreal caribou &amp; lynx habitat loss</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 05 Paper Towels -->
+      <article class="entry" data-type="env">
+        <div class="entry-rank">05</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Paper Towels</span>
+            <span class="badge badge-env">Environment</span>
+          </div>
+          <div class="entry-sales">~$7B annual US sales &nbsp;·&nbsp; Bounty, Brawny, Sparkle, Scott</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            Covered by the same NRDC <em>Issue with Tissue</em> framework as toilet paper — Bounty, Brawny, and
+            Sparkle consistently earn F grades for relying on virgin forest fiber over recycled content. Bounty's
+            market share fell from ~39% in 2008 as private label and sustainable alternatives grew, but the major
+            brands have largely resisted meaningful reformulation while continuing to market single-use
+            convenience as a feature.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Designed for single use</span>
+              <span class="tag">Plastic shrink-wrap on multi-packs</span>
+              <span class="tag">Bleaching chemical residues</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 06 Coffee -->
+      <article class="entry" data-type="labor">
+        <div class="entry-rank">06</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Coffee</span>
+            <span class="badge badge-labor">Labor</span>
+          </div>
+          <div class="entry-sales">~$7B US retail/grocery sales &nbsp;·&nbsp; Folgers, Starbucks, Maxwell House, Dunkin'</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            The coffee industry ranks 4th among all industries for child labor prevalence (ILO). Smallholder
+            farmers receive as little as 1–3% of a product's retail price, pushing families into poverty and
+            children into the fields. Investigative reporting documented children as young as six working on
+            Rainforest Alliance– and Starbucks-certified farms in Mexico, exposing major "ethical" certification
+            schemes as insufficient. Nestlé has publicly acknowledged it cannot fully guarantee its supply
+            chains are free of forced labor.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Forced labor in Brazilian supply chains</span>
+              <span class="tag">Pesticide exposure for farm workers</span>
+              <span class="tag">Certification greenwashing</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07 Laundry Detergent -->
+      <article class="entry" data-type="health">
+        <div class="entry-rank">07</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Laundry Detergent</span>
+            <span class="badge badge-health">Health</span>
+          </div>
+          <div class="entry-sales">~$7B annual US sales &nbsp;·&nbsp; Tide, Gain, Persil, Arm &amp; Hammer</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            1,4-dioxane — a probable human carcinogen — has been detected as a manufacturing byproduct in
+            major detergent brands. California enacted a 2 ppm cap, prompting some reformulations, but no
+            federal disclosure requirement exists. Synthetic fragrances contain dozens of unlisted volatile
+            organic compounds (VOCs). Single-dose pods introduce polyvinyl alcohol microplastics directly into
+            wastewater systems, and their dissolution rate in cold water has been questioned by independent
+            researchers.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Synthetic fragrance VOCs</span>
+              <span class="tag">Plastic jug waste</span>
+              <span class="tag">Legacy phosphate water pollution</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 08 Bottled Water -->
+      <article class="entry" data-type="mono">
+        <div class="entry-rank">08</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Bottled Water</span>
+            <span class="badge badge-mono">Monopoly / Market Power</span>
+          </div>
+          <div class="entry-sales">~$20B annual US sales &nbsp;·&nbsp; Private label, Aquafina, Smartwater, Dasani, Poland Spring</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            Bottled water companies extract public water resources at near-zero cost and resell them at markups
+            of up to 3,000× the cost of tap water. Nestlé/BlueTriton pumped 130M+ gallons per year from Michigan
+            wells for just $200/year in extraction fees — while the Flint water crisis was unfolding in the same
+            state. California regulators ordered BlueTriton to stop diverting water it had extracted without valid
+            rights from a national forest spring for nearly 100 years. Indigenous communities from Ontario to
+            California have been directly harmed by extraction near their territories.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Plastic bottle waste</span>
+              <span class="tag">Aquifer &amp; stream depletion</span>
+              <span class="tag">Indigenous water rights violations</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 09 Diapers -->
+      <article class="entry" data-type="env">
+        <div class="entry-rank">09</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Disposable Diapers</span>
+            <span class="badge badge-env">Environment</span>
+          </div>
+          <div class="entry-sales">~$10B annual US sales &nbsp;·&nbsp; Pampers, Huggies, Luvs, Hello Bello</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            The EPA estimates 4.2 million tons of disposable diaper waste are generated in the US annually,
+            accounting for over 12% of all nondurable landfill waste. Diapers can take up to 500 years to
+            decompose, releasing methane and potentially leaching pathogens into groundwater in the process.
+            Scientific assessments have detected pesticides, glyphosate, and dioxin traces in commercial diapers,
+            yet manufacturers face no federal requirement to disclose ingredients or test for these chemicals
+            before products reach the market.
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Dioxin from chlorine bleaching</span>
+              <span class="tag">No federal ingredient disclosure requirement</span>
+              <span class="tag">Petroleum-based plastic inputs</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 Cereal -->
+      <article class="entry" data-type="health">
+        <div class="entry-rank">10</div>
+        <div class="entry-content">
+          <div class="entry-header">
+            <span class="entry-category">Breakfast Cereal</span>
+            <span class="badge badge-health">Health</span>
+          </div>
+          <div class="entry-sales">~$10B annual US sales &nbsp;·&nbsp; Cheerios, Frosted Flakes, Honey Nut Cheerios, Froot Loops</div>
+          <div class="concern-label">Primary concern</div>
+          <p class="primary-concern">
+            Several leading children's cereals exceed 40% sugar by weight, yet are marketed directly to children
+            through cartoon mascots, toy tie-ins, and Saturday morning TV advertising. The FTC has raised concerns
+            about food marketing to children for decades with limited regulatory result. EWG independent testing
+            has also detected glyphosate residue in oat-based cereals including some Cheerios products — an
+            herbicide the WHO classifies as "probably carcinogenic to humans."
+          </p>
+          <div class="also-watch">
+            <div class="also-watch-label">Also watch</div>
+            <div class="tags">
+              <span class="tag">Glyphosate in oat-based cereals (EWG)</span>
+              <span class="tag">3-company market concentration (~75%)</span>
+              <span class="tag">Synthetic vitamins masking ultra-processing</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- ══ SOURCES ══ -->
+    <section class="sources-section">
+      <h2>Key Sources</h2>
+      <ul class="sources-list">
+        <li>Break Free From Plastic — <a href="https://www.breakfreefromplastic.org" target="_blank" rel="noopener">2023 Global Brand Audit</a> (plastic pollution rankings)</li>
+        <li>NRDC — <a href="https://www.nrdc.org/resources/issue-tissue" target="_blank" rel="noopener">The Issue with Tissue</a> (annual scorecard, 2019–2025, toilet paper &amp; paper towels)</li>
+        <li>Coffee Watch / ILO — <a href="https://coffeewatch.org" target="_blank" rel="noopener">Child Labor in Coffee Supply Chains</a></li>
+        <li>California State Water Resources Control Board — <a href="https://waterboards.ca.gov/waterrights/water_issues/programs/enforcement/complaints/nestle.html" target="_blank" rel="noopener">BlueTriton/Nestlé Water Rights Investigation</a></li>
+        <li>EPA — Disposable Diaper Waste Statistics (2017–2018)</li>
+        <li>Environmental Working Group (EWG) — <a href="https://www.ewg.org/research/diaper-guide" target="_blank" rel="noopener">Guide to Safer Diapers</a> &amp; Cereal Pesticide Reports</li>
+        <li>Borgen Project — <a href="https://borgenproject.org/labor-exploitation-in-coffee-production/" target="_blank" rel="noopener">Labor Exploitation in Coffee Production</a></li>
+        <li>Circana / NielsenIQ — Sales data via publicly available industry reporting (2024–2025)</li>
+        <li>Beverage Digest, Statista, company disclosures — Brand market share data</li>
+      </ul>
+    </section>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="site-footer">
+      <p>Research compiled June 2025 &nbsp;·&nbsp; Sources: Circana, NielsenIQ, NRDC, Break Free From Plastic, ILO, EPA, EWG &nbsp;·&nbsp; Built with Claude</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
