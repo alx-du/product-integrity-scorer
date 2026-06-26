@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practical, research-ready framework for assessing consumer products by product type</title>
+  <meta name="description" content="A practical, research-ready framework for assessing consumer products across product types using measurable indicators, scoring rubrics, and prioritized evidence sources." />
+  <style>
+    :root {
+      --bg: #f6f8f5;
+      --paper: #ffffff;
+      --ink: #18221c;
+      --muted: #637065;
+      --line: #dde7df;
+      --green: #2f7d57;
+      --green-dark: #145638;
+      --green-soft: #e8f3ec;
+      --gold: #c98622;
+      --shadow: 0 18px 45px rgba(20, 60, 37, 0.10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(47,125,87,0.16), transparent 34rem),
+        linear-gradient(180deg, #fbfdfb 0%, var(--bg) 45%, #eef4ef 100%);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a { color: var(--green-dark); }
+    a:hover { color: var(--green); }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,248,245,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 13px 22px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--green-dark);
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .navlinks::-webkit-scrollbar { display: none; }
+
+    .navlinks a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.88rem;
+      white-space: nowrap;
+      padding: 7px 11px;
+      border-radius: 999px;
+    }
+
+    .navlinks a:hover {
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 76px 22px 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+      gap: 36px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 6vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.075em;
+      margin: 0 0 24px;
+      max-width: 980px;
+    }
+
+    .lead {
+      font-size: clamp(1.04rem, 2vw, 1.25rem);
+      color: #344039;
+      max-width: 820px;
+      margin: 0;
+    }
+
+    .score-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .score-card h2 {
+      font-size: 1rem;
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 0;
+      border-top: 1px solid var(--line);
+      font-size: 0.94rem;
+    }
+
+    .metric strong { color: var(--green-dark); }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .preamble {
+      background: linear-gradient(135deg, #ffffff 0%, #f2f8f4 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 4vw, 36px);
+      margin-bottom: 22px;
+    }
+
+    .preamble p:first-child { margin-top: 0; }
+    .preamble p:last-child { margin-bottom: 0; }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0 34px;
+    }
+
+    .quick-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .quick-card .number {
+      color: var(--green-dark);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .quick-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 4vw, 38px);
+      margin: 22px 0;
+      scroll-margin-top: 78px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.3rem);
+      letter-spacing: -0.05em;
+      line-height: 1.08;
+    }
+
+    h3 {
+      margin: 28px 0 8px;
+      font-size: 1.05rem;
+      color: var(--green-dark);
+    }
+
+    p { margin: 0 0 14px; }
+    ul, ol { padding-left: 1.25rem; margin: 8px 0 18px; }
+    li { margin-bottom: 8px; }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      max-width: 380px;
+      border-radius: 999px;
+      background: #fff8eb;
+      color: #74440d;
+      border: 1px solid #f0d5a7;
+      padding: 7px 11px;
+      font-size: 0.78rem;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .cite {
+      text-decoration: none;
+      background: var(--green-soft);
+      border-radius: 6px;
+      padding: 0 3px;
+      font-weight: 700;
+    }
+
+    .references {
+      background: #13261b;
+      color: #eef8f1;
+      border: 0;
+    }
+
+    .references h2 { color: white; }
+    .references a { color: #afe5c3; word-break: break-word; }
+    .references ol {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 22px;
+      font-size: 0.9rem;
+    }
+    .ref-num {
+      color: #f0c36d;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 36px 22px 56px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 44px;
+      }
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-heading {
+        display: block;
+      }
+      .section-badge {
+        margin-top: 12px;
+        max-width: none;
+      }
+      .references ol {
+        grid-template-columns: 1fr;
+      }
+      .brand {
+        display: none;
+      }
+    }
+
+    @media print {
+      .topbar { position: static; }
+      body { background: white; }
+      .panel, .preamble, .score-card, .quick-card { box-shadow: none; }
+      .navlinks { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Page sections">
+      <div class="brand">Product Integrity Framework</div>
+      <div class="navlinks">
+        <a href="#1-food-beverage-packaged-fresh">1. Food &amp; Beverage (packaged &amp; fresh)</a>
+<a href="#2-personal-care-cosmetics">2. Personal Care &amp; Cosmetics</a>
+<a href="#3-apparel-footwear">3. Apparel &amp; Footwear</a>
+<a href="#4-consumer-electronics-phones-laptops-smart-home">4. Consumer Electronics (phones, laptops, smart home)</a>
+<a href="#5-household-cleaning-home-care-products">5. Household Cleaning &amp; Home Care Products</a>
+<a href="#6-furniture-home-furnishings">6. Furniture &amp; Home Furnishings</a>
+<a href="#7-baby-child-products-toys-car-seats">7. Baby &amp; Child Products (toys, car seats)</a>
+<a href="#8-otc-supplements-nonprescription-health-products">8. OTC Supplements &amp; Nonprescription Health Products</a>
+<a href="#9-small-kitchen-appliances-cookware">9. Small Kitchen Appliances &amp; Cookware</a>
+<a href="#10-packaged-snacks-beverages">10. Packaged Snacks &amp; Beverages</a>
+<a href="#11-outdoor-tools-equipment">11. Outdoor Tools &amp; Equipment</a>
+<a href="#12-evidence-gaps-cross-cutting">12. Evidence Gaps (cross-cutting)</a>
+<a href="#how-to-apply-this-framework-quickly-in-practice">How to apply this framework quickly in practice</a>
+        <a href="#references">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Research-ready scoring framework</div>
+        <h1>Practical, research-ready framework for assessing consumer products by product type</h1>
+        <p class="lead">A reusable, evidence-based rubric for comparing consumer products across sustainability, transparency, safety, performance, repairability, sourcing, and value.</p>
+      </div>
+      <aside class="score-card" aria-label="Scoring summary">
+        <h2>Default scoring model</h2>
+        <div class="metric"><span>Scale</span><strong>0–5</strong></div>
+        <div class="metric"><span>Default weighting</span><strong>Equal</strong></div>
+        <div class="metric"><span>Recommended</span><strong>≥ 4.2</strong></div>
+        <div class="metric"><span>Consider</span><strong>3.0–4.19</strong></div>
+        <div class="metric"><span>Caution</span><strong>&lt; 3.0</strong></div>
+      </aside>
+    </section>
+
+    <div class="container">
+      <section class="preamble">
+        <p>This report provides, for each product type in the default list, (a) concise, product-specific interpretations of assessment categories, (b) 3-6 measurable indicators (with priority order), (c) a simple 0-5 scoring rubric per category and a method to combine category scores, (d) prioritized source types to collect evidence, and (e) one elite product example from the supplied evidence (or an evidence gap if no suitable product is present). The rubric is intended for repeated use across product families while allowing product-specific indicator selection.</p>
+<p>Scoring note (applies to all types): each category is scored 0-5 where 0 = no evidence / fails critical requirements, 1 = very poor, 2 = below average, 3 = acceptable, 4 = good, 5 = best-in-class with independent verification. Combine by weighting all categories equally by default and averaging to a 0-5 overall score; translate to labels: &gt;=4.2 “Recommended”, 3.0-4.19 “Good value / Consider”, &lt;3.0 “Avoid / Needs caution”. Adapt weights where certain categories are clearly material (e.g., Safety higher weight for baby products).</p>
+<hr>
+      </section>
+
+      <div class="quick-grid" aria-label="Page statistics">
+        <div class="quick-card">
+          <div class="number">12</div>
+          <p>Product types covered with tailored indicators and scoring logic.</p>
+        </div>
+        <div class="quick-card">
+          <div class="number">0–5</div>
+          <p>Simple category score with evidence-based thresholds.</p>
+        </div>
+        <div class="quick-card">
+          <div class="number">39</div>
+          <p>Reference links included for traceable evidence collection.</p>
+        </div>
+      </div>
+
+      
+<section class="panel" id="1-food-beverage-packaged-fresh">
+  <div class="section-heading">
+    <h2>1. Food &amp; Beverage (packaged &amp; fresh)</h2>
+    <span class="section-badge">Oatly - supports measurable corporate reporting and ingredient-level footprint disclosures and </span>
+  </div>
+  <p>Category interpretations (selective): Environmental Sustainability = product and ingredient lifecycle impacts; Ingredient Transparency = complete ingredient &amp; allergen labeling; Packaging &amp; End-of-life = material recyclability/compostability and circularity.</p>
+<p>Measurable indicators (priority order): 1) published LCA or cradle-to-grave GHG/water footprints (highest priority); 2) Eco-Score or equivalent product lifecycle score; 3) ingredient &amp; allergen label completeness and format; 4) supplier/ingredient sourcing claims and traceability; 5) packaging material and recyclability rate.</p>
+<p>Scoring rubric: apply 0-5 per category. For Environmental Sustainability a 5 requires a publicly available LCA with low footprint relative to category and third-party verification; a 3 requires internal LCA or published footprint without third-party review.</p>
+<p>Prioritized sources: peer-reviewed LCA guidance and methods (ISO/LCA frameworks) and product Eco-Score disclosures; regulator label rules for allergens and ingredient lists.</p>
+<p>Elite product (evidence-based): Oatly - supports measurable corporate reporting and ingredient-level footprint disclosures and public reduction targets, making it an exemplar among beverage alternatives <a href="#ref-1" class="cite">[1]</a>, <a href="#ref-2" class="cite">[2]</a>, <a href="#ref-3" class="cite">[3]</a>.</p>
+<p>Supporting evidence (selected): published Oatly sustainability update; lifecycle and Eco-Score references (LCA guidance) <a href="#ref-1" class="cite">[1]</a>, <a href="#ref-2" class="cite">[2]</a>, <a href="#ref-3" class="cite">[3]</a>.</p>
+<p>Evidence: public company sustainability disclosure and lifecycle reporting are the highest-priority evidence for Food &amp; Beverage assessment <a href="#ref-2" class="cite">[2]</a>, <a href="#ref-15" class="cite">[15]</a>, <a href="#ref-14" class="cite">[14]</a>. [Note: numbers refer to Sources list.]</p>
+<hr>
+</section>
+
+<section class="panel" id="2-personal-care-cosmetics">
+  <div class="section-heading">
+    <h2>2. Personal Care &amp; Cosmetics</h2>
+    <span class="section-badge">Evidence gaps: no single clear, evidence-backed “everyone should buy” cosmetic product is prese</span>
+  </div>
+  <p>Category interpretations: Environmental Sustainability = ingredient sourcing impacts and product LCA; Packaging = protection, circularity and recyclability; Ingredient Transparency = full INCI lists and clear banned ingredients; Animal Welfare = supply-chain animal testing policy.</p>
+<p>Measurable indicators (priority): 1) product or ingredient LCA / carbon footprint; 2) full INCI ingredient list and concentration disclosures; 3) verified cruelty-free / leaping-bunny style audit; 4) packaging recyclability score; 5) third-party ecodesign or cosmetic LCA tool output.</p>
+<p>Scoring rubric: a 5 in Ingredient Transparency requires a full INCI list, clear allergen reporting and third-party verification; a 0 means missing required label elements.</p>
+<p>Prioritized sources: cosmetic LCA tools and benchmarks, packaging recyclability studies and regulatory labelling rules.</p>
+<p>Evidence gaps: no single clear, evidence-backed “everyone should buy” cosmetic product is present in the provided findings; product-level exemplars are not specified. The available evidence supplies metrics and LCA practice but not a named best product <a href="#ref-4" class="cite">[4]</a>, <a href="#ref-39" class="cite">[39]</a>, <a href="#ref-41" class="cite">[41]</a>.</p>
+<p>Supporting evidence: cosmetic LCA methods and Devera benchmark data for body cream carbon footprints and packaging recyclability considerations <a href="#ref-39" class="cite">[39]</a>, <a href="#ref-40" class="cite">[40]</a>, <a href="#ref-41" class="cite">[41]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="3-apparel-footwear">
+  <div class="section-heading">
+    <h2>3. Apparel &amp; Footwear</h2>
+    <span class="section-badge">Patagonia - documented emphasis on durability, ethical sourcing and repair/resale programs make</span>
+  </div>
+  <p>Category interpretations: Environmental Sustainability = material production impacts and end-of-life; Labor &amp; Ethical Sourcing = factory code, living wages and audit coverage; Durability/Repairability = textile longevity and repairability.</p>
+<p>Measurable indicators (priority): 1) supplier code / % of factories Fair Trade / audit reports (highest priority for social dimensions); 2) independent durability testing / measured garment lifespan; 3) percent recycled content and certifications (GOTS/RCS); 4) repair/resale/recirculation programs; 5) price premium vs. benchmark.</p>
+<p>Scoring rubric: a 5 for Labor requires third-party factory certification (e.g., SA8000 or certified Fair Trade facilities) and public supplier lists; a 5 for Durability requires independent testing showing above-category life expectancy.</p>
+<p>Prioritized sources: durability studies and brand case studies that document repair programs and audited supply chains.</p>
+<p>Elite product (evidence-based): Patagonia - documented emphasis on durability, ethical sourcing and repair/resale programs makes it a model for apparel assessment <a href="#ref-5" class="cite">[5]</a>, <a href="#ref-35" class="cite">[35]</a>.</p>
+<p>Supporting evidence: Patagonia public sustainability/repair programs and garment durability research <a href="#ref-5" class="cite">[5]</a>, <a href="#ref-35" class="cite">[35]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="4-consumer-electronics-phones-laptops-smart-home">
+  <div class="section-heading">
+    <h2>4. Consumer Electronics (phones, laptops, smart home)</h2>
+    <span class="section-badge">Fairphone 5 - high repairability index and extended support commitments make it a replicable mo</span>
+  </div>
+  <p>Category interpretations: Environmental Sustainability = manufacturing and use-phase energy intensity and material sourcing; Durability/Repairability = spare parts availability and repairability index; Data Privacy &amp; Security = data-collection transparency and legal compliance.</p>
+<p>Measurable indicators (priority): 1) repairability score or published parts/repair policy (highest priority); 2) third-party ecolabels (EPEAT) and published LCAs; 3) warranty length and spare-parts availability; 4) software support duration; 5) data-privacy policy and security CVE history.</p>
+<p>Scoring rubric: a 5 in Repairability requires high repairability index and multi-year spare parts availability; a 5 in Sustainability requires EPEAT registration plus LCA evidence.</p>
+<p>Prioritized sources: repairability scoring methodologies, EPEAT registry, company repairability commitments.</p>
+<p>Elite product (evidence-based): Fairphone 5 - high repairability index and extended support commitments make it a replicable model for sustainable consumer electronics <a href="#ref-18" class="cite">[18]</a>, <a href="#ref-21" class="cite">[21]</a>, <a href="#ref-22" class="cite">[22]</a>.</p>
+<p>Supporting evidence: Fairphone repairability scores and published impact reporting <a href="#ref-21" class="cite">[21]</a>, <a href="#ref-22" class="cite">[22]</a>, <a href="#ref-23" class="cite">[23]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="5-household-cleaning-home-care-products">
+  <div class="section-heading">
+    <h2>5. Household Cleaning &amp; Home Care Products</h2>
+    <span class="section-badge">Method - documented use of recycled PET and cradle-to-cradle certifications positions it as an </span>
+  </div>
+  <p>Category interpretations: Ingredient Safety = toxicity and aquatic impact of actives; Environmental Sustainability = biodegradability and life-cycle impacts; Packaging = recycled content and refillability.</p>
+<p>Measurable indicators (priority): 1) third-party Safer Choice or equivalent ingredient review (highest priority); 2) performance parity data; 3) packaging recycled content and refill infrastructure; 4) ingredient disclosure beyond generic “fragrance”; 5) company cradle-to-cradle certifications.</p>
+<p>Scoring rubric: products with Safer Choice certification and verifiable performance get 5; missing ingredient listing or hazardous actives scores 0-1.</p>
+<p>Prioritized sources: EPA Safer Choice lists and company material disclosures.</p>
+<p>Elite product (evidence-based): Method - documented use of recycled PET and cradle-to-cradle certifications positions it as an exemplar among cleaning products <a href="#ref-24" class="cite">[24]</a>, <a href="#ref-18" class="cite">[18]</a>, <a href="#ref-26" class="cite">[26]</a>.</p>
+<p>Supporting evidence: Method product and certification disclosures and Safer Choice criteria <a href="#ref-24" class="cite">[24]</a>, <a href="#ref-18" class="cite">[18]</a>, <a href="#ref-26" class="cite">[26]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="6-furniture-home-furnishings">
+  <div class="section-heading">
+    <h2>6. Furniture &amp; Home Furnishings</h2>
+    <span class="section-badge">IKEA SÖDERHAMN series - documented 10-year limited warranty and removable covers make it a prac</span>
+  </div>
+  <p>Category interpretations: Environmental Sustainability = embodied carbon and material sourcing; Indoor Emissions = VOCs and material health; Durability = service life and repairability.</p>
+<p>Measurable indicators (priority): 1) FSC or equivalent wood sourcing and LCA / carbon sequestration claims; 2) GREENGUARD/GREENGUARD Gold VOC certification (highest priority for indoor use); 3) warranty length and remanufacturing/repair options; 4) recycled content; 5) guidance on end-of-life reuse.</p>
+<p>Scoring rubric: GREENGUARD Gold + FSC + &gt;=10 year expected service life rates 5; lack of VOC testing or unknown materials rates 0-2.</p>
+<p>Prioritized sources: FSC guidance, GREENGUARD certification, brand warranty and repair policies.</p>
+<p>Elite product (evidence-based): IKEA SÖDERHAMN series - documented 10-year limited warranty and removable covers make it a practical, repairable furnishing exemplar in the evidence <a href="#ref-27" class="cite">[27]</a>, <a href="#ref-25" class="cite">[25]</a>, <a href="#ref-26" class="cite">[26]</a>.</p>
+<p>Supporting evidence: IKEA product warranty and FSC/VOC sources <a href="#ref-27" class="cite">[27]</a>, <a href="#ref-25" class="cite">[25]</a>, <a href="#ref-26" class="cite">[26]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="7-baby-child-products-toys-car-seats">
+  <div class="section-heading">
+    <h2>7. Baby &amp; Child Products (toys, car seats)</h2>
+    <span class="section-badge">Nuna RAVA convertible car seat - cited with long seat lifespan and documented testing/warranty </span>
+  </div>
+  <p>Category interpretations: Safety &amp; Regulatory Compliance = compliance with child-product safety standards and lab testing; Material Safety = absence of lead, phthalates, etc.</p>
+<p>Measurable indicators (priority): 1) required lab test certificates / Children’s Product Certificate (CPC) from accredited labs (highest priority); 2) compliance with ASTM F standards cited for relevant product; 3) product lifespan and expiration rules; 4) toxicant testing reports; 5) warranty and replacement policy.</p>
+<p>Scoring rubric: a 5 requires CPC/lab testing evidence and compliance with ASTM/CPSC rules; &lt;2 if no testing/certification evidence.</p>
+<p>Prioritized sources: CPSC standards and accredited-lab test requirements.</p>
+<p>Elite product (evidence-based): Nuna RAVA convertible car seat - cited with long seat lifespan and documented testing/warranty information in the evidence <a href="#ref-29" class="cite">[29]</a>, <a href="#ref-28" class="cite">[28]</a>.</p>
+<p>Supporting evidence: product review with lifespan/warranty and regulatory testing references <a href="#ref-29" class="cite">[29]</a>, <a href="#ref-28" class="cite">[28]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="8-otc-supplements-nonprescription-health-products">
+  <div class="section-heading">
+    <h2>8. OTC Supplements &amp; Nonprescription Health Products</h2>
+    <span class="section-badge">Nature Made adult gummy vitamins - USP Verified mark cited in the evidence supports this produc</span>
+  </div>
+  <p>Category interpretations: Ingredient Truthfulness = label accuracy and absence of undeclared substances; Safety/Regulatory Compliance = adherence to cGMPs and new-ingredient notifications; Third-party verification = independent purity/contaminant testing.</p>
+<p>Measurable indicators (priority): 1) third-party USP/NSF/BSCG verification certificates (highest priority); 2) cGMP facility audits and regulatory filings; 3) published lab test results for contaminants (heavy metals, banned substances); 4) clear ingredient &amp; dosage labeling and allowed claims; 5) adverse event reporting/recall history.</p>
+<p>Scoring rubric: 5 requires USP/NSF/BSCG verification plus clean lab results; 0 if unverified or with safety recalls.</p>
+<p>Prioritized sources: FDA/FTC oversight documents, USP/NSF/BSCG certification listings, and accredited-lab reports.</p>
+<p>Elite product (evidence-based): Nature Made adult gummy vitamins - USP Verified mark cited in the evidence supports this product as a higher-confidence supplement choice <a href="#ref-32" class="cite">[32]</a>, <a href="#ref-6" class="cite">[6]</a>, <a href="#ref-11" class="cite">[11]</a>.</p>
+<p>Supporting evidence: Nature Made USP Verified announcement and regulatory context for supplements <a href="#ref-32" class="cite">[32]</a>, <a href="#ref-6" class="cite">[6]</a>, <a href="#ref-11" class="cite">[11]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="9-small-kitchen-appliances-cookware">
+  <div class="section-heading">
+    <h2>9. Small Kitchen Appliances &amp; Cookware</h2>
+    <span class="section-badge">Breville Smart Oven Air Fryer Pro - independent editors’ choice review and performance recognit</span>
+  </div>
+  <p>Category interpretations: Energy Efficiency = operating energy use; Durability/Repairability = parts availability and repair scoring; Safety = electrical safety standards and certifications.</p>
+<p>Measurable indicators (priority): 1) ENERGY STAR or equivalent energy efficiency claims and savings estimates (highest priority for electric cooking); 2) independent reviews on performance and durability; 3) spare-parts/repair guidance; 4) safety certifications; 5) MSRP vs. typical market price.</p>
+<p>Scoring rubric: a 5 requires ENERGY STAR (or clear efficiency claim) plus good repairability and long service life.</p>
+<p>Prioritized sources: ENERGY STAR product pages, independent performance reviews.</p>
+<p>Elite product (evidence-based): Breville Smart Oven Air Fryer Pro - independent editors’ choice review and performance recognition appear in the evidence as a recommended small appliance example <a href="#ref-30" class="cite">[30]</a>, <a href="#ref-18" class="cite">[18]</a>.</p>
+<p>Supporting evidence: independent review and ENERGY STAR guidance for electric cooking devices <a href="#ref-30" class="cite">[30]</a>, <a href="#ref-18" class="cite">[18]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="10-packaged-snacks-beverages">
+  <div class="section-heading">
+    <h2>10. Packaged Snacks &amp; Beverages</h2>
+    <span class="section-badge">KIND Bars (dairy-free varieties examined in evidence) used as a referenced packaged snack examp</span>
+  </div>
+  <p>Category interpretations: Nutrition/Allergen Transparency = complete labeling and allergen prominence; Environmental Sustainability = ingredient sourcing footprint and packaging circularity.</p>
+<p>Measurable indicators (priority): 1) accurate ingredient &amp; allergen labelling and nutrition panel (highest priority); 2) packaging circularity metrics and SPHERE/MCI alignment; 3) supply-chain sourcing claims (e.g., dairy-free, organic); 4) third-party quality seals; 5) stated environmental targets from manufacturer.</p>
+<p>Scoring rubric: a 5 requires clear labeling plus strong packaging circularity and verified sourcing claims.</p>
+<p>Prioritized sources: packaging circularity frameworks and nutrition/allergen regulation differences.</p>
+<p>Elite product (evidence-based): KIND Bars (dairy-free varieties examined in evidence) used as a referenced packaged snack example where ingredient detail and labeling considerations are discussed <a href="#ref-34" class="cite">[34]</a>, <a href="#ref-1" class="cite">[1]</a>.</p>
+<p>Supporting evidence: product review detail and packaging/label frameworks <a href="#ref-34" class="cite">[34]</a>, <a href="#ref-1" class="cite">[1]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="11-outdoor-tools-equipment">
+  <div class="section-heading">
+    <h2>11. Outdoor Tools &amp; Equipment</h2>
+    <span class="section-badge">Evidence gap: the provided findings include industry standards lists but do not name an evidenc</span>
+  </div>
+  <p>Category interpretations: Environmental Sustainability = material sourcing and durability; Safety = user-safety standards; Repairability = parts and service network.</p>
+<p>Measurable indicators (priority): 1) supplier environmental management system (e.g., ISO 14001) and recycled content claims; 2) warranty length and documented durability; 3) parts/service availability; 4) energy efficiency for powered tools; 5) third-party standards/certifications.</p>
+<p>Scoring rubric: a 5 requires formal environmental management (ISO 14001) and long warranty + service network; 0 if unknown.</p>
+<p>Prioritized sources: industry sustainability standards lists and certification registries.</p>
+<p>Evidence gap: the provided findings include industry standards lists but do not name an evidence-backed single elite outdoor tool product; therefore no product exemplar can be selected from the supplied evidence <a href="#ref-47" class="cite">[47]</a>.</p>
+<p>Supporting evidence: overview of common standards used in the outdoor industry <a href="#ref-47" class="cite">[47]</a>.</p>
+<hr>
+</section>
+
+<section class="panel" id="12-evidence-gaps-cross-cutting">
+  <div class="section-heading">
+    <h2>12. Evidence Gaps (cross-cutting)</h2>
+    
+  </div>
+  <ul>
+<li>No named elite product in Personal Care/Cosmetics and Outdoor Tools in the provided findings; cosmetic evidence supplies methods and benchmarks but not a product-level exemplar <a href="#ref-39" class="cite">[39]</a>, <a href="#ref-40" class="cite">[40]</a>, <a href="#ref-41" class="cite">[41]</a>.</li>
+<li>Some product categories (e.g., mobility/EVs, mattresses) are not present in the supplied findings; those were not added to avoid inventing facts.</li>
+</ul>
+<hr>
+</section>
+
+<section class="panel" id="how-to-apply-this-framework-quickly-in-practice">
+  <div class="section-heading">
+    <h2>How to apply this framework quickly in practice</h2>
+    
+  </div>
+  <ol>
+<li>For a given product, collect the prioritized indicators listed for its type, starting with the highest-priority items (e.g., LCA/Eco-Score for foods; repairability and EPEAT for electronics; third-party safety certificates for baby products). Use the prioritized source types named above.</li>
+<li>Score each category 0-5 using the thresholds described. Average scores (or apply custom weights where materiality differs) to produce the overall label: Recommended / Good value / Avoid.</li>
+<li>Record sources and certificates for auditability (manufacturer disclosures, third-party certs, regulator databases, independent lab reports).</li>
+</ol>
+<hr>
+</section>
+
+
+      <section class="panel references" id="references">
+        <div class="section-heading">
+          <h2>References</h2>
+        </div>
+        <ol>
+          <li id="ref-1"><span class="ref-num">[1]</span> <a href="https://a.storyblok.com/f/107921/x/cbdb92c917/oatly-sustainability-update-2024.pdf" target="_blank" rel="noopener">https://a.storyblok.com/f/107921/x/cbdb92c917/oatly-sustainability-update-2024.pdf</a></li>
+<li id="ref-2"><span class="ref-num">[2]</span> <a href="https://mdpi.com/2071-1050/11/3/925" target="_blank" rel="noopener">https://mdpi.com/2071-1050/11/3/925</a></li>
+<li id="ref-3"><span class="ref-num">[3]</span> <a href="https://stibosystems.com/blog/life-cycle-assessment-scoring-for-food-products" target="_blank" rel="noopener">https://stibosystems.com/blog/life-cycle-assessment-scoring-for-food-products</a></li>
+<li id="ref-4"><span class="ref-num">[4]</span> <a href="https://devera.ai/resources/lush-cosmetics-sustainability-lca-real-carbon-data" target="_blank" rel="noopener">https://devera.ai/resources/lush-cosmetics-sustainability-lca-real-carbon-data</a></li>
+<li id="ref-5"><span class="ref-num">[5]</span> <a href="https://youtube.com/watch?v=LDeVrG5eMEg" target="_blank" rel="noopener">https://youtube.com/watch?v=LDeVrG5eMEg</a></li>
+<li id="ref-6"><span class="ref-num">[6]</span> <a href="https://cohenhealthcarelaw.com/navigating-fda-and-healthcare-laws-for-dietary-supplements-compliance-made-clear" target="_blank" rel="noopener">https://cohenhealthcarelaw.com/navigating-fda-and-healthcare-laws-for-dietary-supplements-compliance-made-clear</a></li>
+<li id="ref-7"><span class="ref-num">[7]</span> <a href="https://fda.gov/media/116340/download" target="_blank" rel="noopener">https://fda.gov/media/116340/download</a></li>
+<li id="ref-8"><span class="ref-num">[8]</span> <a href="https://4ocean.com/blogs/industry-news/sustainability-in-the-supplement-what-consumers-need-to-know-industry" target="_blank" rel="noopener">https://4ocean.com/blogs/industry-news/sustainability-in-the-supplement-what-consumers-need-to-know-industry</a></li>
+<li id="ref-9"><span class="ref-num">[9]</span> <a href="https://sustainalytics.com/docs/default-source/meis/product-governance_backgrounder_vs.pdf?sfvrsn=cbb30be1_2" target="_blank" rel="noopener">https://sustainalytics.com/docs/default-source/meis/product-governance_backgrounder_vs.pdf?sfvrsn=cbb30be1_2</a></li>
+<li id="ref-10"><span class="ref-num">[10]</span> <a href="https://corpgov.law.harvard.edu/2022/08/24/esg-ratings-a-compass-without-direction" target="_blank" rel="noopener">https://corpgov.law.harvard.edu/2022/08/24/esg-ratings-a-compass-without-direction</a></li>
+<li id="ref-11"><span class="ref-num">[11]</span> <a href="https://fullscript.com/blog/third-party-certifications" target="_blank" rel="noopener">https://fullscript.com/blog/third-party-certifications</a></li>
+<li id="ref-12"><span class="ref-num">[12]</span> <a href="https://bscg.org" target="_blank" rel="noopener">https://bscg.org</a></li>
+<li id="ref-13"><span class="ref-num">[13]</span> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8048984" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC8048984</a></li>
+<li id="ref-14"><span class="ref-num">[14]</span> <a href="https://rangeme.com/blog/taking-a-closer-look-at-food-standards-eu-versus-u-s" target="_blank" rel="noopener">https://rangeme.com/blog/taking-a-closer-look-at-food-standards-eu-versus-u-s</a></li>
+<li id="ref-15"><span class="ref-num">[15]</span> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10489983" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC10489983</a></li>
+<li id="ref-16"><span class="ref-num">[16]</span> <a href="https://groundedpackaging.co/blog/five-sustainability-metrics-for-packaging-what-businesses-need-to-consider" target="_blank" rel="noopener">https://groundedpackaging.co/blog/five-sustainability-metrics-for-packaging-what-businesses-need-to-consider</a></li>
+<li id="ref-17"><span class="ref-num">[17]</span> <a href="https://epeat.net" target="_blank" rel="noopener">https://epeat.net</a></li>
+<li id="ref-18"><span class="ref-num">[18]</span> <a href="https://ifixit.com/News/75533/how-ifixit-scores-repairability" target="_blank" rel="noopener">https://ifixit.com/News/75533/how-ifixit-scores-repairability</a></li>
+<li id="ref-19"><span class="ref-num">[19]</span> <a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/new-eu-labels-help-consumers-choose-more-repairable-electronics-2025-06-20_en" target="_blank" rel="noopener">https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/new-eu-labels-help-consumers-choose-more-repairable-electronics-2025-06-20_en</a></li>
+<li id="ref-20"><span class="ref-num">[20]</span> <a href="https://fairphone.com/stories/what-do-all-our-certifications-mean" target="_blank" rel="noopener">https://fairphone.com/stories/what-do-all-our-certifications-mean</a></li>
+<li id="ref-21"><span class="ref-num">[21]</span> <a href="https://fairphone.com/legal/fairphone-5-tagline-explained" target="_blank" rel="noopener">https://fairphone.com/legal/fairphone-5-tagline-explained</a></li>
+<li id="ref-22"><span class="ref-num">[22]</span> <a href="https://fairphone.com/wp-content/uploads/2022/06/Fairphone-Impact-Report-2021.pdf" target="_blank" rel="noopener">https://fairphone.com/wp-content/uploads/2022/06/Fairphone-Impact-Report-2021.pdf</a></li>
+<li id="ref-23"><span class="ref-num">[23]</span> <a href="https://methodhome.jp/wp-content/uploads/method_2014_company_pressbook.pdf" target="_blank" rel="noopener">https://methodhome.jp/wp-content/uploads/method_2014_company_pressbook.pdf</a></li>
+<li id="ref-24"><span class="ref-num">[24]</span> <a href="https://loomlan.com/pages/sustainable-eco-friendly-furniture-guide-designers" target="_blank" rel="noopener">https://loomlan.com/pages/sustainable-eco-friendly-furniture-guide-designers</a></li>
+<li id="ref-25"><span class="ref-num">[25]</span> <a href="https://ocp.dc.gov/sites/default/files/dc/sites/ocp/page_content/attachments/Furn_guidance.pdf" target="_blank" rel="noopener">https://ocp.dc.gov/sites/default/files/dc/sites/ocp/page_content/attachments/Furn_guidance.pdf</a></li>
+<li id="ref-26"><span class="ref-num">[26]</span> <a href="https://ikea.com/us/en/files/pdf/f8/a4/f8a449da/soederhamn_oct_2022_np.pdf" target="_blank" rel="noopener">https://ikea.com/us/en/files/pdf/f8/a4/f8a449da/soederhamn_oct_2022_np.pdf</a></li>
+<li id="ref-27"><span class="ref-num">[27]</span> <a href="https://klugonyx.com/post/how-to-make-safe-baby-products" target="_blank" rel="noopener">https://klugonyx.com/post/how-to-make-safe-baby-products</a></li>
+<li id="ref-28"><span class="ref-num">[28]</span> <a href="https://babygearlab.com/reviews/vehicle-safety/convertible-car-seat/nuna-rava" target="_blank" rel="noopener">https://babygearlab.com/reviews/vehicle-safety/convertible-car-seat/nuna-rava</a></li>
+<li id="ref-29"><span class="ref-num">[29]</span> <a href="https://techgearlab.com/reviews/kitchen/toaster-oven/breville-smart-oven-air-fryer-pro" target="_blank" rel="noopener">https://techgearlab.com/reviews/kitchen/toaster-oven/breville-smart-oven-air-fryer-pro</a></li>
+<li id="ref-30"><span class="ref-num">[30]</span> <a href="https://nutraceuticalbusinessreview.com/nature-made-adult-gummies-receive-usp-verified-mark-for-quality-115863" target="_blank" rel="noopener">https://nutraceuticalbusinessreview.com/nature-made-adult-gummies-receive-usp-verified-mark-for-quality-115863</a></li>
+<li id="ref-31"><span class="ref-num">[31]</span> <a href="https://wbcsd.org/resources/sphere-the-packaging-sustainability-framework" target="_blank" rel="noopener">https://wbcsd.org/resources/sphere-the-packaging-sustainability-framework</a></li>
+<li id="ref-32"><span class="ref-num">[32]</span> <a href="https://godairyfree.org/product-reviews/kind-bars" target="_blank" rel="noopener">https://godairyfree.org/product-reviews/kind-bars</a></li>
+<li id="ref-33"><span class="ref-num">[33]</span> <a href="https://sustonmagazine.com/top-25-sustainability-standards-in-the-outdoor-industry" target="_blank" rel="noopener">https://sustonmagazine.com/top-25-sustainability-standards-in-the-outdoor-industry</a></li>
+<li id="ref-34"><span class="ref-num">[34]</span> <a href="https://eprints.whiterose.ac.uk/id/eprint/229192/1/120_Morris-Measuring%2BPhysical%2BGarment%2BDurability_a.pdf" target="_blank" rel="noopener">https://eprints.whiterose.ac.uk/id/eprint/229192/1/120_Morris-Measuring%2BPhysical%2BGarment%2BDurability_a.pdf</a></li>
+<li id="ref-35"><span class="ref-num">[35]</span> <a href="https://mdpi.com/2079-9284/12/2/56" target="_blank" rel="noopener">https://mdpi.com/2079-9284/12/2/56</a></li>
+<li id="ref-36"><span class="ref-num">[36]</span> <a href="https://summerschool-aidi.it/images/papers/session_3_2022/ID_084.pdf" target="_blank" rel="noopener">https://summerschool-aidi.it/images/papers/session_3_2022/ID_084.pdf</a></li>
+<li id="ref-37"><span class="ref-num">[37]</span> <a href="https://plasticsindustry.org/articles/examining-metrics-gauge-performance-reusable-plastic-packaging" target="_blank" rel="noopener">https://plasticsindustry.org/articles/examining-metrics-gauge-performance-reusable-plastic-packaging</a></li>
+<li id="ref-38"><span class="ref-num">[38]</span> <a href="https://issa.com/articles/epa-safer-choice-cleaning-product-list" target="_blank" rel="noopener">https://issa.com/articles/epa-safer-choice-cleaning-product-list</a></li>
+<li id="ref-39"><span class="ref-num">[39]</span> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10489983" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC10489983</a></li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Built as a static HTML page for GitHub Pages. Update the source text, regenerate this file, then commit and push.
+  </footer>
+</body>
+</html>

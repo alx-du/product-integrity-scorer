@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLEARCART — Product Integrity Score</title>
+  <meta name="description" content="Evidence-based product integrity scoring across consumer categories. Research, frameworks, and analysis for conscious shoppers." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F5F4F0;
+      --surface:      #FFFFFF;
+      --ink:          #18181B;
+      --muted:        #6B6B74;
+      --border:       #E2E1DC;
+      --border-strong:#C9C8C2;
+
+      --brand:        #2f7d5f;
+      --brand-dark:   #1e5d46;
+      --brand-soft:   #dcefe7;
+      --brand-mid:    #4a9e7e;
+
+      --accent:       #d89442;
+      --accent-soft:  #fff3df;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+
+      --radius:       20px;
+      --shadow:       0 18px 45px rgba(20, 60, 37, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--ink);
+      color: rgba(255,255,255,0.65);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.6rem 1rem;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 0 4rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 0.97;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.6rem;
+      max-width: 760px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--brand);
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      padding: 3.5rem 0 2rem;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-header p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    /* ── NAV CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      padding-bottom: 5rem;
+    }
+
+    .nav-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(20,60,37,0.06);
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-card:hover {
+      box-shadow: 0 12px 40px rgba(20,60,37,0.13);
+      transform: translateY(-3px);
+      border-color: var(--brand-mid);
+    }
+
+    /* Colored top accent bar */
+    .nav-card::before {
+      content: '';
+      display: block;
+      height: 4px;
+      width: 100%;
+    }
+
+    .nav-card.accent-green::before  { background: var(--brand); }
+    .nav-card.accent-amber::before  { background: var(--accent); }
+    .nav-card.accent-ink::before    { background: var(--ink); }
+    .nav-card.accent-blue::before   { background: #0071e3; }
+
+    .nav-card-body {
+      padding: 1.75rem 1.75rem 1.5rem;
+    }
+
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 2px;
+      border: 1px solid;
+      margin-bottom: 1rem;
+      white-space: nowrap;
+    }
+
+    .tag-green  { color: #1e5d46; background: #dcefe7; border-color: #9fd4bc; }
+    .tag-amber  { color: #7a4d10; background: #fff3df; border-color: #f4c87a; }
+    .tag-ink    { color: #fff;    background: #18181b; border-color: #18181b; }
+    .tag-blue   { color: #004ea8; background: #e8f1fd; border-color: #93c5fd; }
+
+    .nav-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .nav-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .meta-pill {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.2rem 0.55rem;
+      line-height: 1.4;
+    }
+
+    .card-arrow {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.75rem;
+      font-size: 0.75rem;
+      color: var(--border-strong);
+      font-family: var(--font-mono);
+      letter-spacing: 0.08em;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .nav-card:hover .card-arrow {
+      color: var(--brand);
+      transform: translateX(4px);
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 0;
+      margin-bottom: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .about-item h4 {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--brand-dark);
+    }
+
+    .about-item p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 2rem 0 3.5rem;
+    }
+
+    .site-footer p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .container { padding: 0 1.25rem; }
+      .hero { padding: 3rem 0 2.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .about-strip { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .nav-card-body { padding: 1.4rem 1.4rem 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-card { transition: none; }
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    Consumer Awareness &amp; Product Integrity Research &nbsp;·&nbsp; CLEARCART &nbsp;·&nbsp; 2025–2026
+  </div>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="hero">
+      <p class="eyebrow">Product Integrity Score — Research Hub</p>
+      <h1>Know what's<br>really in <em>your cart</em></h1>
+      <p class="hero-lead">
+        Evidence-based scoring across consumer product categories — combining environmental impact,
+        labor practices, chemical safety, pricing fairness, and supply-chain transparency.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">5</span>
+          <span class="stat-label">Scoring pillars</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">12</span>
+          <span class="stat-label">Product types covered</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">10</span>
+          <span class="stat-label">Category concerns indexed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Confidence tiers</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CARDS -->
+    <div class="section-header">
+      <h2>Research &amp; Analysis</h2>
+      <p>Browse the four sections that make up the Product Integrity Score library.</p>
+    </div>
+
+    <nav class="cards-grid" aria-label="Site sections">
+
+      <!-- Cart Concerns -->
+      <a class="nav-card accent-ink" href="Cart-Concerns.html">
+        <div class="nav-card-body">
+          <span class="card-tag tag-ink">Awareness Index</span>
+          <h3>What's Really in Your Cart</h3>
+          <p>America's 10 best-selling grocery and home goods categories, ranked by primary concern —
+             from plastic pollution and child labor to chemical exposure and market monopolies.</p>
+          <div class="card-meta">
+            <span class="meta-pill">10 categories</span>
+            <span class="meta-pill">US market data</span>
+            <span class="meta-pill">Environment · Labor · Health · Monopoly</span>
+          </div>
+        </div>
+        <span class="card-arrow">OPEN →</span>
+      </a>
+
+      <!-- Framework -->
+      <a class="nav-card accent-green" href="Product_Assessment_Framework.html">
+        <div class="nav-card-body">
+          <span class="card-tag tag-green">Scoring Framework</span>
+          <h3>Product Integrity Framework</h3>
+          <p>A reusable, research-ready rubric for assessing any consumer product — with product-specific
+             indicators, 0–5 scoring logic, source prioritization, and elite product examples across 12 types.</p>
+          <div class="card-meta">
+            <span class="meta-pill">12 product types</span>
+            <span class="meta-pill">0–5 rubric</span>
+            <span class="meta-pill">39 references</span>
+          </div>
+        </div>
+        <span class="card-arrow">OPEN →</span>
+      </a>
+
+      <!-- Diapers -->
+      <a class="nav-card accent-green" href="Diapers-combined.html">
+        <div class="nav-card-body">
+          <span class="card-tag tag-green">Category Deep Dive</span>
+          <h3>Diaper Alternatives Guide</h3>
+          <p>An evidence-based shortlist of hybrid/reusable systems, compostable disposables, and
+             reduced-chemistry brands — with scored recommendations, cost modeling, and chemical
+             safety analysis.</p>
+          <div class="card-meta">
+            <span class="meta-pill">6 products scored</span>
+            <span class="meta-pill">GroVia #1 · 80/100</span>
+            <span class="meta-pill">Cost + Safety + End-of-life</span>
+          </div>
+        </div>
+        <span class="card-arrow">OPEN →</span>
+      </a>
+
+      <!-- iPhone -->
+      <a class="nav-card accent-blue" href="iphone15pro-analysis.html">
+        <div class="nav-card-body">
+          <span class="card-tag tag-blue">Product Analysis</span>
+          <h3>iPhone 15 Pro — Value &amp; Integrity Score</h3>
+          <p>A multidimensional capstone analysis: environmental sustainability, ethical sourcing,
+             pricing fairness, repairability, and lifecycle economics — with quantitative scoring
+             and a composite P/Q ratio.</p>
+          <div class="card-meta">
+            <span class="meta-pill">Composite score 0.71</span>
+            <span class="meta-pill">11 dimensions</span>
+            <span class="meta-pill">P/Q ratio ~$1,430</span>
+          </div>
+        </div>
+        <span class="card-arrow">OPEN →</span>
+      </a>
+
+    </nav>
+
+    <!-- ABOUT STRIP -->
+    <div class="about-strip">
+      <div class="about-item">
+        <h4>Three-tier confidence</h4>
+        <p>Every score carries a confidence level: <strong>High</strong> (independently verified),
+           <strong>Medium</strong> (brand claim + evidence), or <strong>Low</strong> (inferred).
+           No score without a source.</p>
+      </div>
+      <div class="about-item">
+        <h4>Five pillar architecture</h4>
+        <p>Planet · People &amp; Supply Chain · Quality · Value · Transparency.
+           Each pillar stands alone — no misleading composite that lets one strength hide a failure.</p>
+      </div>
+      <div class="about-item">
+        <h4>Built for the extension</h4>
+        <p>This research library underpins the CLEARCART Chrome extension — overlaying live product
+           integrity scores on Trader Joe's, Amazon, and other retailer pages.</p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <p>CLEARCART — Product Integrity Score &nbsp;·&nbsp; Research compiled 2025–2026 &nbsp;·&nbsp; Built with Claude</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
