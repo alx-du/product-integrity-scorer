@@ -1,0 +1,20 @@
+{
+  "source_name": "Clarity Insight Advisory (Buy Better With Brian)",
+  "evidence_type": "desk_research",
+  "methodology_summary": "Brian, a former Wall Street credit trader, applies a risk-management framework to consumer products: he checks ingredients and certifications against primary regulatory and toxicology sources rather than performing hands-on product testing. His stated rubric weighs cumulative exposure across many products, no-safe-dose chemical categories (sensitizers, DNA-damaging carcinogens), the gap between 'approved' and 'proven safe', and downstream environmental/water impact, scoring products 0-10 against cheaper-or-equal, lower-risk alternatives.",
+  "monetization": ["affiliate_links", "newsletter"],
+  "conflict_of_interest_notes": "The site explicitly discloses that affiliate links are attached to products after they are scored ('the research picks the product, then the link gets attached') and states it has taken $0 in brand sponsorships. This is a self-reported claim of independence rather than an independently audited one.",
+  "pillar_coverage": {
+    "planet": { "coverage": "partial", "note": "Covers downstream environmental impact through the lens of water contamination (e.g. PFAS passing through wastewater treatment into drinking water), but not broader environmental footprint such as manufacturing emissions, packaging, or biodegradability." },
+    "people_supply_chain": { "coverage": "absent", "note": "No discussion of labor conditions, factory practices, or sourcing ethics; focus is entirely on chemical exposure to the end user." },
+    "quality": { "coverage": "absent", "note": "No performance or durability testing described; the rubric is oriented around toxicological risk, not how well a product performs its function." },
+    "value": { "coverage": "partial", "note": "Core rating question directly compares price against risk ('is there an alternative that does the same job for about the same money without the risk'), but only through that risk-avoidance lens, not broader value factors like longevity or features." },
+    "transparency": { "coverage": "strong", "note": "Explicit 0-10 rubric, a named individual with stated credentials, and disclosed monetization model with a stated claim that commissions don't affect scoring." }
+  },
+  "trust_tier": "medium",
+  "trust_tier_rationale": "The four-pillar framework is grounded in citable external facts (EPA no-threshold policy for certain carcinogens, 2024 EPA PFAS drinking-water limits, historical regulatory-lag examples like asbestos and leaded gasoline), and the monetization model is disclosed. However, this is desk research and rubric-based reasoning rather than hands-on testing, and the fetched content did not include a worked example of the ingredient-to-primary-source verification process for an actual product.",
+  "verifiability": "The general framework's premises (EPA regulatory positions, historical examples) are publicly checkable. The actual per-product 0-10 scoring process — checking 'every ingredient and every certification against primary sources' — was not demonstrated with an example in the fetched content, so an individual product's score can't be independently reproduced from this alone.",
+  "slug": "clarity-insight",
+  "fetched_at": "2026-07-19T01:26:51.000Z",
+  "attribution": { "name": "Clarity Insight Advisory (Buy Better With Brian)", "url": "https://clarityinsightadvisory.com/" }
+}

@@ -1,0 +1,55 @@
+{
+  "product_name": "Naturepedic EOS Classic Mattress",
+  "brand": "Naturepedic",
+  "category": "mattresses",
+  "reviewer_verdict": "The reviewer names this the most certified organic mattress on the market, citing a world-first UL 2884 PFAS validation plus GOLS-certified latex and GOTS-certified cotton/wool construction, and recommends it over Avocado Green (citing a high rate of one-star sagging complaints) and PlushBeds Botanical Bliss (citing thin wool-certification transparency relative to price), while noting the firmer latex feel and week-long break-in period as tradeoffs.",
+  "pillars": {
+    "planet": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "Uses GOLS-certified organic latex and GOTS-certified organic cotton/wool, standards that require organic (reduced pesticide/chemical) agricultural production of the raw materials in addition to their health-safety criteria", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "people_supply_chain": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "Handcrafted by Amish artisans in a Ohio factory that manufactures only GOTS-allowed materials, which the reviewer states eliminates cross-contamination risk from mixed production lines", "evidence_kind": "brand_claim_repeated", "confidence": "low" }
+      ],
+      "gap_note": ""
+    },
+    "quality": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "Reviewer rejected the Avocado Green mattress as an alternative because 79% of its ConsumerAffairs reviews are one-star, citing significant sagging complaints", "evidence_kind": "cited_third_party", "confidence": "medium" },
+        { "claim": "Backed by a 25-year warranty and positioned as a buy-it-for-life product", "evidence_kind": "brand_claim_repeated", "confidence": "low" },
+        { "claim": "The all-latex Dunlop feel runs firmer than memory foam and takes about a week to break in", "evidence_kind": "anecdotal", "confidence": "low" }
+      ],
+      "gap_note": ""
+    },
+    "value": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "At roughly $3,500 across a 25-year warranty, the reviewer calculates a cost of about $140/year", "evidence_kind": "tested", "confidence": "medium" },
+        { "claim": "Reviewer rejected PlushBeds Botanical Bliss as an alternative, judging its price inflated relative to the GOLS verification it actually carries", "evidence_kind": "anecdotal", "confidence": "low" }
+      ],
+      "gap_note": ""
+    },
+    "transparency": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "Holds a UL 2884 PFAS validation, which the reviewer states no competitor mattress holds", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    }
+  },
+  "notable_signals": [
+    "Grounds competitor rejections in named third-party data (ConsumerAffairs review sentiment, relative certification-vs-price comparison) rather than a generic 'better than X' claim.",
+    "UL 2884 is a specific, checkable third-party PFAS-validation standard ClearCart could use as a comparable certification benchmark across bedding/mattress products."
+  ],
+  "source_slug": "clarity-insight",
+  "source_trust_tier": "medium",
+  "source_url": "https://clarityinsightadvisory.com/gear/",
+  "fetched_at": "2026-07-20T16:31:12.000Z",
+  "attribution": { "reviewer": "Clarity Insight Advisory (Buy Better With Brian)", "review_url": "https://clarityinsightadvisory.com/gear/", "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis." }
+}

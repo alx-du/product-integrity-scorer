@@ -1,0 +1,20 @@
+{
+  "source_name": "Fineas Jackson",
+  "evidence_type": "desk_research",
+  "methodology_summary": "In the sampled content, Fineas Jackson explains the engineering and material differences behind product-quality signals (e.g. zipper tooth formation and polishing, tape density, slider alloy; down fill-power and moisture handling) using historical and technical context rather than disclosed hands-on testing of specific products. No stated protocol for how he selects, acquires, or personally verifies products appears in this content.",
+  "monetization": ["none_disclosed"],
+  "conflict_of_interest_notes": "No monetization, sponsorship, or affiliate disclosure appears anywhere in the fetched channel page or video transcripts, so conflicts of interest can't be assessed from available content. Note: the channel's YouTube page lists a 'Brand: fineasjackson.com' link that wasn't captured in the fetched text (YouTube's channel page returned almost no readable content — mostly site chrome) — this may be worth checking separately.",
+  "pillar_coverage": {
+    "planet": { "coverage": "absent", "note": "No environmental or sustainability content in the sampled videos." },
+    "people_supply_chain": { "coverage": "partial", "note": "Names countries of origin for premium hardware (Riri/Switzerland, Lampo/Italy, YKK) as a quality signal, and describes hand-harvesting labor for eiderdown, but doesn't address labor conditions or sourcing ethics as such." },
+    "quality": { "coverage": "strong", "note": "Detailed technical breakdown of what differentiates cheap vs. premium construction (tooth formation/polishing, tape density, slider alloy; fill power and moisture management) directly addressing durability and performance." },
+    "value": { "coverage": "absent", "note": "No price-to-quality comparisons or specific product pricing in the sampled content." },
+    "transparency": { "coverage": "absent", "note": "No disclosed methodology, rubric, or stated evaluation criteria — content is educational/explanatory rather than a disclosed rating system." }
+  },
+  "trust_tier": "low",
+  "trust_tier_rationale": "Content is technically detailed and plausible but presented as asserted fact without citations, named sources, or demonstrated hands-on comparison of specific products. There's no stated criteria for how products or brands discussed are chosen, and no disclosed testing or verification process.",
+  "verifiability": "General factual claims (zipper patent history, named premium hardware brands, fill-power as an industry metric) are publicly checkable. The qualitative judgments about construction and material quality aren't backed by shown measurements or tests a third party could replicate.",
+  "slug": "fineas-jackson",
+  "fetched_at": "2026-07-19T01:26:51.000Z",
+  "attribution": { "name": "Fineas Jackson", "url": "https://www.youtube.com/@FineasJackson" }
+}
