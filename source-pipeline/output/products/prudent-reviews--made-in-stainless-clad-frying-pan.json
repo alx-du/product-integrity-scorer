@@ -1,0 +1,55 @@
+{
+  "product_name": "Made In Stainless Clad Frying Pan",
+  "brand": "Made In",
+  "category": "cookware",
+  "reviewer_verdict": "The reviewer found Made In's 5-ply stainless cookware to match or beat premium competitors like All-Clad and Calphalon on heat conduction and retention, at a meaningfully lower price, over three-plus years of regular use. Noted drawbacks were a limited product range, shallow pan walls that can spill, and a hard-to-clean spot near the handle base.",
+  "pillars": {
+    "planet": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No environmental-impact information (materials sourcing footprint, manufacturing emissions, packaging, recyclability) was covered; ClearCart must source this independently."
+    },
+    "people_supply_chain": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "Made In sources raw materials from suppliers in Kentucky, Pennsylvania, and Illinois, and partners with family-owned manufacturers in Italy and France to produce the cookware", "evidence_kind": "brand_claim_repeated", "confidence": "low" }
+      ],
+      "gap_note": ""
+    },
+    "quality": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "The 12-inch stainless frying pan reached a rolling boil faster (2 min 21 sec) than All-Clad, Calphalon, and most other brands tested, attributed to its 5-ply construction with a triple-layer aluminum core", "evidence_kind": "tested", "confidence": "high" },
+        { "claim": "In heat-retention testing, the pan held more heat after 5 and 10 minutes than All-Clad, Calphalon, and most competitors, trailing only the Demeyere Atlantis", "evidence_kind": "tested", "confidence": "high" },
+        { "claim": "Over three-plus years of regular use, the reviewer found no quality-control issues despite Made In not owning its own factories", "evidence_kind": "tested", "confidence": "medium" },
+        { "claim": "A small crevice at the base of the handle is difficult to clean and becomes stained over time", "evidence_kind": "anecdotal", "confidence": "low" }
+      ],
+      "gap_note": ""
+    },
+    "value": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "Made In is priced below traditional premium brands like All-Clad while matching or exceeding their measured heat performance, positioning it as strong value within the premium cookware tier", "evidence_kind": "tested", "confidence": "medium" },
+        { "claim": "In a structured, blinded customer-service test (3 emails per brand across 9 cookware brands, using fake identities), Made In was the only brand to earn top marks on factual, expertise, and warranty questions, with fast, knowledgeable, real-person replies", "evidence_kind": "tested", "confidence": "high" }
+      ],
+      "gap_note": ""
+    },
+    "transparency": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "Made In publishes a detailed, product-by-product manufacturing-country table and discloses recent manufacturing changes (e.g. stainless steel production moving from the USA to Italy in late 2023)", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    }
+  },
+  "notable_signals": [
+    "Structured, blinded multi-brand customer-service testing protocol (fake identities, standardized question sets, response-time and accuracy scoring) is a rigorous, reusable technique for assessing brand support quality.",
+    "Long-term (3+ year) real-world durability tracking, with the product retained as an ongoing benchmark against new competitors.",
+    "Publishes raw comparative data tables (boil times, retention temperatures) across 15-20+ competing products rather than just a summary verdict."
+  ],
+  "source_slug": "prudent-reviews",
+  "source_trust_tier": "high",
+  "source_url": "https://prudentreviews.com/made-in-cookware-review/",
+  "fetched_at": "2026-07-19T01:26:51.000Z",
+  "attribution": { "reviewer": "Prudent Reviews", "review_url": "https://prudentreviews.com/made-in-cookware-review/", "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis." }
+}

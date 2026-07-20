@@ -1,0 +1,48 @@
+{
+  "product_name": "AspenClean Laundry Powder + Booster",
+  "brand": "AspenClean",
+  "category": "laundry detergent",
+  "reviewer_verdict": "The reviewer rates AspenClean 9/10 as one of only 8 cleaning brands (of 21 audited) to pass a zero-tolerance ingredient screen, citing its EWG Verified status and glucoside-based formulation as an alternative to detergents like Tide PODS Free & Gentle, which the reviewer found still contains ethoxylated surfactants, a PEG compound, and an optical brightener despite fragrance-free marketing.",
+  "pillars": {
+    "planet": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "AspenClean's glucoside-based surfactant formulation is EWG Verified and avoids the MIT/BIT preservatives the reviewer links to aquatic toxicity, which caused 13 of 21 competing 'natural' brands to fail the reviewer's screen", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "people_supply_chain": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No labor or supply-chain sourcing information was given for this product beyond the company being founded in Vancouver in 2004."
+    },
+    "quality": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No cleaning-performance/efficacy testing was provided for this specific product; the assessment is based entirely on ingredient and certification screening, not use performance."
+    },
+    "value": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "AspenClean's full product line costs roughly $20-30/month for a family of four, per the reviewer's cost breakdown of the passing cleaning brands", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "transparency": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "First cleaning company to receive EWG Verified certification, and holds 21 EWG Verified products rating EWG A across its line, following the reviewer's zero-tolerance ingredient audit that failed 13 of 21 competing 'natural' cleaning brands for undisclosed preservatives (MIT/BIT) and ethoxylated surfactants", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    }
+  },
+  "notable_signals": [
+    "Reviewer applies an explicit certification hierarchy (MADE SAFE > EWG Verified > EPA Safer Choice > EWG A-F product-level ratings > brand self-claims) — a reusable framework ClearCart could adopt for scoring any personal-care/cleaning product's certification credibility.",
+    "Reviewer discloses affiliate-revenue and funding conflicts of interest in a third-party data source (EWG) it relies on, rather than citing EWG uncritically — a transparency practice worth crediting."
+  ],
+  "source_slug": "clarity-insight",
+  "source_trust_tier": "medium",
+  "source_url": "https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/",
+  "fetched_at": "2026-07-20T16:31:12.000Z",
+  "attribution": { "reviewer": "Clarity Insight Advisory (Buy Better With Brian)", "review_url": "https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/", "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis." }
+}

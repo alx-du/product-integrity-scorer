@@ -1,0 +1,44 @@
+{
+  "product_name": "Feathered Friends Bavarian 850 Fill Comforter",
+  "brand": "Feathered Friends",
+  "category": "comforters/bedding",
+  "reviewer_verdict": "This video is primarily an educational explainer on comforter fill materials (polyester, wool, down, eiderdown) rather than a dedicated review; the Feathered Friends Bavarian is cited once as a representative example of the premium 850-fill goose-down tier, said to deliver strong warmth relative to its weight and thinness.",
+  "pillars": {
+    "planet": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No environmental-impact information (down sourcing sustainability, animal-welfare certification such as Responsible Down Standard, packaging, biodegradability) was provided for this product; ClearCart must source this independently."
+    },
+    "people_supply_chain": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No supply-chain or labor-sourcing information was given for this specific product. The video does describe hand-harvested eiderdown labor, but that concerns a different, non-named down tier, not the Feathered Friends product."
+    },
+    "quality": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "850+ fill European white goose down gives high loft (air-trapping capacity) relative to weight, so less material is needed to achieve the same warmth as lower fill-power alternatives, and a cotton shell keeps the comforter thinner and lighter than synthetic-fill comforters", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "value": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No pricing or price-to-performance information was given for this specific product (a price range was mentioned for eiderdown comforters generally, not for this product)."
+    },
+    "transparency": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No certification or ethical-sourcing disclosure (e.g. down-sourcing standards) was addressed for this product."
+    }
+  },
+  "notable_signals": [
+    "Explains fill power (cubic inches of loft per ounce of down) as an objective, industry-standard spec ClearCart could use as a comparable metric across down bedding products.",
+    "Distinguishes moisture-management performance across fill materials (polyester traps moisture against the skin; wool and down manage it) — a comfort/durability axis independent of price."
+  ],
+  "source_slug": "fineas-jackson",
+  "source_trust_tier": "low",
+  "source_url": "https://www.youtube.com/watch?v=oHKDXIYv2Bo",
+  "fetched_at": "2026-07-19T01:26:51.000Z",
+  "attribution": { "reviewer": "Fineas Jackson", "review_url": "https://www.youtube.com/watch?v=oHKDXIYv2Bo", "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis." }
+}
