@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CLEARCART — Source Attribution Pipeline</title>
+<meta name="description" content="How CLEARCART turns content-creator review sites into structured, credited, gap-aware evidence for the five pillars." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:           #F5F4F0;
+    --surface:      #FFFFFF;
+    --ink:          #18181B;
+    --muted:        #6B6B74;
+    --border:       #E2E1DC;
+    --border-strong:#C9C8C2;
+
+    --brand:        #2f7d5f;
+    --brand-dark:   #1e5d46;
+    --brand-soft:   #dcefe7;
+
+    --accent:       #d89442;
+    --accent-soft:  #fff3df;
+
+    --purple:       #7c3aed;
+    --purple-dark:  #4c1d95;
+    --purple-soft:  #ede9fe;
+
+    --red: #b23b3b;
+    --red-soft: #fbe4e2;
+    --grey-soft: #ececec;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --font-mono:    'Space Mono', monospace;
+
+    --radius: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .top-banner {
+    background: var(--ink);
+    color: rgba(255,255,255,0.65);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.6rem 1rem;
+  }
+
+  .container { max-width: 1020px; margin: 0 auto; padding: 0 2rem; }
+
+  .top-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    overflow-x: auto;
+    padding: 1.1rem 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .top-nav::-webkit-scrollbar { display: none; }
+
+  .top-nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .top-nav-link:hover { color: var(--ink); }
+
+  .top-nav-link.active {
+    color: var(--purple-dark);
+    border-bottom-color: var(--purple);
+  }
+
+  header.hero {
+    padding: 2.5rem 0 3rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    max-width: 760px;
+  }
+
+  h1 em { font-style: normal; color: var(--purple); }
+
+  .hero-lead {
+    font-size: clamp(1rem, 1.6vw, 1.12rem);
+    color: var(--muted);
+    max-width: 700px;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 0.6rem;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  p { margin-bottom: 1rem; max-width: 760px; }
+  p.lead { color: var(--muted); }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--purple-soft);
+    color: var(--purple-dark);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  /* ── FLOW ── */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin: 1.75rem 0 0.5rem;
+  }
+  .flow-step {
+    flex: 1 1 160px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    position: relative;
+  }
+  .flow-step .num {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .flow-step p { font-size: 0.82rem; color: var(--muted); margin-bottom: 0; }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border-strong);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+  }
+
+  /* ── Design decisions ── */
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .decision-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+  }
+  .decision-card h4 {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    margin-bottom: 0.35rem;
+  }
+  .decision-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0; }
+
+  /* ── Trust tag ── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .trust-high   { color: #1e5d46; background: var(--brand-soft); border-color: #9fd4bc; }
+  .trust-medium { color: #7a4d10; background: var(--accent-soft); border-color: #f4c87a; }
+  .trust-low    { color: #7a1f1f; background: var(--red-soft); border-color: #e0a6a1; }
+
+  .evidence-tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* ── Source cards ── */
+  .source-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.9rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 20px rgba(20,60,37,0.05);
+  }
+  .source-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .source-card-head h3 { margin-bottom: 0; font-size: 1.15rem; }
+  .source-card .source-url {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .source-card .source-url a { color: var(--muted); }
+  .source-card p.methodology { font-size: 0.88rem; margin-bottom: 1rem; }
+  .source-card p.coi {
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .source-card p.coi strong { color: var(--ink); }
+
+  .pillar-coverage-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .pillar-coverage-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .pillar-coverage-table td {
+    padding: 0.6rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .pillar-coverage-table tr:last-child td { border-bottom: none; }
+  .pillar-coverage-table td.pname { font-weight: 600; white-space: nowrap; }
+  .pillar-coverage-table td.note { color: var(--muted); font-size: 0.8rem; }
+
+  .cov-strong  { color: #1e5d46; font-weight: 700; }
+  .cov-partial { color: #7a4d10; font-weight: 700; }
+  .cov-absent  { color: var(--muted); font-weight: 600; }
+
+  /* ── Products table ── */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 12px; }
+  table.products { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 860px; background: var(--surface); }
+  table.products thead th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 0.7rem 0.85rem;
+    border-bottom: 1px solid var(--border);
+  }
+  table.products tbody td {
+    padding: 0.8rem 0.85rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.products tbody tr:last-child td { border-bottom: none; }
+  td.pname-cell { font-weight: 600; max-width: 190px; }
+  td.pname-cell a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--border-strong); }
+  td.pname-cell a:hover { color: var(--purple); text-decoration-color: var(--purple); }
+  td.pname-cell .brand-cat { display: block; font-weight: 400; color: var(--muted); font-size: 0.74rem; margin-top: 0.15rem; }
+  td.status-cell { text-align: center; font-size: 0.9rem; }
+
+  .status-evidenced      { color: #1e5d46; }
+  .status-brand_claim_only { color: #7a4d10; }
+  .status-gap             { color: var(--muted); }
+
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.75rem;
+  }
+  .legend-row span.dot { margin-right: 0.35rem; }
+
+  /* ── Confidence framework ── */
+  .conf-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 1rem; }
+  .conf-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .conf-table td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); }
+  .conf-table tr:last-child td { border-bottom: none; }
+
+  a.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  a.back-link:hover { color: var(--purple); }
+
+  .site-footer { padding: 2.5rem 0 4rem; }
+  .site-footer p { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+  @media (max-width: 760px) {
+    .container { padding: 0 1.25rem; }
+    .decision-grid { grid-template-columns: 1fr; }
+    .flow-arrow { display: none; }
+    .top-nav { gap: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-banner">CLEARCART &nbsp;·&nbsp; Source Attribution Pipeline &nbsp;·&nbsp; Internal Tool</div>
+
+<div class="container">
+
+  <nav class="top-nav" aria-label="Section navigation">
+    <a class="top-nav-link" href="index.html">Overview</a>
+    <a class="top-nav-link" href="Cart-Concerns.html">Cart Concerns</a>
+    <a class="top-nav-link" href="Product_Assessment_Framework.html">Framework</a>
+    <a class="top-nav-link active" href="Source-Pipeline.html">Source Pipeline</a>
+    <a class="top-nav-link" href="Diapers-combined.html">Diaper Guide</a>
+    <a class="top-nav-link" href="iphone15pro-analysis.html">iPhone Analysis</a>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">Data Pipeline — Evidence Ingestion</p>
+    <h1>Turning creator reviews into <em>credited evidence</em></h1>
+    <p class="hero-lead">
+      CLEARCART's five-pillar scores need evidence, and hands-on testing every product in every category isn't
+      feasible for a pilot. This pipeline takes content-creator review sites — the people already buying, testing,
+      and disassembling products — profiles how trustworthy their methodology is, and extracts their claims into
+      structured, pillar-mapped, confidence-rated records with mandatory attribution back to the original reviewer.
+    </p>
+
+    <div class="flow">
+      <div class="flow-step"><span class="num">01</span><p>Fetch a source's homepage, methodology page, and product review pages (or YouTube transcript)</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="num">02</span><p>Profile the reviewer's methodology, monetization, and pillar coverage into a trust tier</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="num">03</span><p>Extract per-product claims, typed by evidence kind, mapped to the five pillars</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="num">04</span><p>Flag every pillar the reviewer didn't cover as an explicit gap, not a silent zero</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="num">05</span><p>Emit attributed JSON records ready for the dashboard</p></div>
+    </div>
+    <p style="font-size: 0.78rem; color: var(--muted); margin-top: 1rem;">
+      Step 01 extraction — standard web pages, JS-rendered tables (e.g. Clarity Insight's swaps database), and
+      YouTube video transcripts alike — is powered by
+      <a href="https://tavily.com" target="_blank" rel="noopener" style="color: var(--purple-dark);">Tavily</a>.
+    </p>
+  </header>
+
+  <!-- ═══ DESIGN DECISIONS ═══ -->
+  <section>
+    <p class="section-tag">01 — Design Decisions</p>
+    <h2>What this pipeline refuses to do</h2>
+    <div class="decision-grid">
+      <div class="decision-card">
+        <h4>Claims, not scores, are ingested</h4>
+        <p>A reviewer's overall verdict (e.g. "9/10") is stored as context only. What actually feeds the pillars is
+        individual claims, each typed by evidence kind — CLEARCART does its own scoring on top of that.</p>
+      </div>
+      <div class="decision-card">
+        <h4>Gaps are first-class data</h4>
+        <p>Every pillar a reviewer skips is recorded as an explicit <code>gap</code> with a note on what CLEARCART
+        must source independently — not left blank or implicitly scored as zero. That gap record is itself the
+        differentiation story.</p>
+      </div>
+      <div class="decision-card">
+        <h4>Attribution is mandatory</h4>
+        <p>Every record carries the reviewer's name and source URL so the dashboard — and eventually the extension —
+        can credit exactly whose testing backs a claim.</p>
+      </div>
+      <div class="decision-card">
+        <h4>Confidence caps by evidence kind</h4>
+        <p>Anecdotes cap at <strong>low</strong>, third-party citations cap at <strong>medium</strong> until
+        independently verified, and only instrumented testing reaches <strong>high</strong> — regardless of how
+        confidently the reviewer states it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOURCES PROFILED ═══ -->
+  <section>
+    <p class="section-tag">02 — Sources Profiled</p>
+    <h2>Three reviewers, three trust tiers</h2>
+    <p class="lead">The same profiling step applied to three very different kinds of review sites — showing why
+    trust tier can't be assumed from a source's popularity or polish alone.</p>
+
+    <!-- Prudent Reviews -->
+    <div class="source-card">
+      <div class="source-card-head">
+        <h3>Prudent Reviews</h3>
+        <span class="tag trust-high">High Trust</span>
+        <span class="evidence-tag">hands_on_testing</span>
+      </div>
+      <p class="source-url"><a href="https://prudentreviews.com/" target="_blank" rel="noopener">prudentreviews.com</a> &nbsp;·&nbsp; monetization: free samples (declined by default) + newsletter</p>
+      <p class="methodology">
+        Physically buys and uses each product for weeks to years — real-world use tests plus instrumented experiments
+        (heat-conduction and heat-retention timing with surface thermometers). Supplements with expert interviews for
+        categories impractical to fully test, and retains products as long-term benchmarks against new competitors.
+      </p>
+      <p class="coi"><strong>Conflict of interest:</strong> discloses that most free-sample offers from brands are
+      declined, and reviews accepted samples the same as purchased ones, including reporting negative findings. No
+      explicit affiliate disclosure surfaced in the fetched text — footers are stripped before analysis, so this
+      should be verified directly on the site.</p>
+      <table class="pillar-coverage-table">
+        <thead><tr><th>Pillar</th><th>Coverage</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td class="pname">🌱 Planet</td><td class="cov-absent">Absent</td><td class="note">No environmental impact or materials-footprint content found.</td></tr>
+          <tr><td class="pname">🤝 People</td><td class="cov-partial">Partial</td><td class="note">Reports country of manufacture and raw-material regions, but no labor conditions or factory audits.</td></tr>
+          <tr><td class="pname">⭐ Quality</td><td class="cov-strong">Strong</td><td class="note">Instrumented, repeatable testing across 15+ competing products.</td></tr>
+          <tr><td class="pname">💰 Value</td><td class="cov-strong">Strong</td><td class="note">Explicit price-vs-competitor positioning tied directly to test results.</td></tr>
+          <tr><td class="pname">🔍 Transparency</td><td class="cov-strong">Strong</td><td class="note">Dedicated methodology page, named reviewer, published raw data tables.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Clarity Insight -->
+    <div class="source-card">
+      <div class="source-card-head">
+        <h3>Clarity Insight Advisory (Buy Better With Brian)</h3>
+        <span class="tag trust-medium">Medium Trust</span>
+        <span class="evidence-tag">desk_research</span>
+      </div>
+      <p class="source-url"><a href="https://clarityinsightadvisory.com/" target="_blank" rel="noopener">clarityinsightadvisory.com</a> &nbsp;·&nbsp; monetization: affiliate links + newsletter</p>
+      <p class="methodology">
+        A former Wall Street credit trader applying a risk-management framework: checks ingredients and
+        certifications against primary regulatory/toxicology sources rather than hands-on testing. Weighs cumulative
+        exposure, no-safe-dose chemical categories, the gap between "approved" and "proven safe," and downstream
+        environmental impact — scoring 0–10 against cheaper-or-equal, lower-risk alternatives.
+      </p>
+      <p class="coi"><strong>Conflict of interest:</strong> discloses that affiliate links are attached only after a
+      product is scored ("the research picks the product, then the link gets attached") and states $0 in brand
+      sponsorships — a self-reported claim of independence, not an independently audited one.</p>
+      <table class="pillar-coverage-table">
+        <thead><tr><th>Pillar</th><th>Coverage</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td class="pname">🌱 Planet</td><td class="cov-partial">Partial</td><td class="note">Covers downstream water contamination (e.g. PFAS in wastewater) but not manufacturing emissions, packaging, or biodegradability.</td></tr>
+          <tr><td class="pname">🤝 People</td><td class="cov-absent">Absent</td><td class="note">No discussion of labor conditions, factory practices, or sourcing ethics.</td></tr>
+          <tr><td class="pname">⭐ Quality</td><td class="cov-absent">Absent</td><td class="note">Oriented around toxicological risk, not performance or durability.</td></tr>
+          <tr><td class="pname">💰 Value</td><td class="cov-partial">Partial</td><td class="note">Compares price against risk-avoidance only, not broader factors like longevity.</td></tr>
+          <tr><td class="pname">🔍 Transparency</td><td class="cov-strong">Strong</td><td class="note">Explicit 0–10 rubric, named individual, disclosed monetization model.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Fineas Jackson -->
+    <div class="source-card">
+      <div class="source-card-head">
+        <h3>Fineas Jackson</h3>
+        <span class="tag trust-low">Low Trust</span>
+        <span class="evidence-tag">desk_research (video)</span>
+      </div>
+      <p class="source-url"><a href="https://www.youtube.com/@FineasJackson" target="_blank" rel="noopener">youtube.com/@FineasJackson</a> &nbsp;·&nbsp; monetization: none disclosed</p>
+      <p class="methodology">
+        Explains the engineering and material differences behind quality signals (zipper tooth formation, tape
+        density, slider alloy; down fill-power and moisture handling) using historical and technical context —
+        without a disclosed protocol for how products are selected, acquired, or personally verified.
+      </p>
+      <p class="coi"><strong>Conflict of interest:</strong> no monetization, sponsorship, or affiliate disclosure
+      found in the fetched content, so conflicts can't be assessed from what's available. A "Brand:
+      fineasjackson.com" link on the channel page wasn't captured in the fetched text and is worth checking
+      separately.</p>
+      <table class="pillar-coverage-table">
+        <thead><tr><th>Pillar</th><th>Coverage</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td class="pname">🌱 Planet</td><td class="cov-absent">Absent</td><td class="note">No environmental or sustainability content in sampled videos.</td></tr>
+          <tr><td class="pname">🤝 People</td><td class="cov-partial">Partial</td><td class="note">Names countries of origin for premium hardware as a quality signal; doesn't address labor conditions directly.</td></tr>
+          <tr><td class="pname">⭐ Quality</td><td class="cov-strong">Strong</td><td class="note">Detailed technical breakdown of cheap-vs-premium construction and materials.</td></tr>
+          <tr><td class="pname">💰 Value</td><td class="cov-absent">Absent</td><td class="note">No price-to-quality comparisons in sampled content.</td></tr>
+          <tr><td class="pname">🔍 Transparency</td><td class="cov-absent">Absent</td><td class="note">No disclosed methodology or rubric — educational rather than a disclosed rating system.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ PRODUCTS SCORED ═══ -->
+  <section>
+    <p class="section-tag">03 — Products Extracted</p>
+    <h2>Six products, pillar by pillar</h2>
+    <p class="lead">Per-product status shows whether each pillar has directly evidenced claims, brand-claim-only
+    support, or is an open gap this source didn't cover.</p>
+
+    <div class="table-wrap">
+      <table class="products">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Source</th>
+            <th>🌱 Planet</th>
+            <th>🤝 People</th>
+            <th>⭐ Quality</th>
+            <th>💰 Value</th>
+            <th>🔍 Transparency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pname-cell"><a href="https://prudentreviews.com/made-in-cookware-review/" target="_blank" rel="noopener">Made In Stainless Clad Frying Pan</a><span class="brand-cat">Made In · cookware</span></td>
+            <td>Prudent Reviews</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+          </tr>
+          <tr>
+            <td class="pname-cell"><a href="https://clarityinsightadvisory.com/non-toxic-cookware-guide/" target="_blank" rel="noopener">de Buyer Mineral B Pro Carbon Steel</a><span class="brand-cat">de Buyer · cookware</span></td>
+            <td>Clarity Insight</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+          </tr>
+          <tr>
+            <td class="pname-cell"><a href="https://clarityinsightadvisory.com/gear/" target="_blank" rel="noopener">Naturepedic EOS Classic Mattress</a><span class="brand-cat">Naturepedic · mattresses</span></td>
+            <td>Clarity Insight</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+          </tr>
+          <tr>
+            <td class="pname-cell"><a href="https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/" target="_blank" rel="noopener">AspenClean Laundry Powder + Booster</a><span class="brand-cat">AspenClean · laundry detergent</span></td>
+            <td>Clarity Insight</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+          </tr>
+          <tr>
+            <td class="pname-cell"><a href="https://clarityinsightadvisory.com/gear/" target="_blank" rel="noopener">Schlage Encode Plus Smart Lock</a><span class="brand-cat">Schlage · smart locks</span></td>
+            <td>Clarity Insight</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-brand_claim_only">◐ Brand claim</td>
+          </tr>
+          <tr>
+            <td class="pname-cell"><a href="https://www.youtube.com/watch?v=oHKDXIYv2Bo" target="_blank" rel="noopener">Feathered Friends Bavarian 850 Fill Comforter</a><span class="brand-cat">Feathered Friends · bedding</span></td>
+            <td>Fineas Jackson</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-evidenced">● Evidenced</td>
+            <td class="status-cell status-gap">○ Gap</td>
+            <td class="status-cell status-gap">○ Gap</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend-row">
+      <span><span class="dot status-evidenced">●</span> Evidenced — tested or independently cited claim</span>
+      <span><span class="dot status-brand_claim_only">◐</span> Brand claim only — repeated, not independently verified</span>
+      <span><span class="dot status-gap">○</span> Gap — this source didn't cover the pillar; CLEARCART must source independently</span>
+    </div>
+  </section>
+
+  <!-- ═══ CONFIDENCE FRAMEWORK ═══ -->
+  <section>
+    <p class="section-tag">04 — Confidence Framework</p>
+    <h2>Evidence kind sets a confidence ceiling</h2>
+    <p class="lead">Whatever confidence a reviewer implies, this pipeline caps it by how the claim was actually
+    substantiated — matching the same three-tier confidence system (High/Medium/Low) used by the extension's
+    scoring engine (<code>pillars.js</code>), so pipeline output plugs directly into pillar scoring without
+    re-mapping.</p>
+    <table class="conf-table">
+      <thead><tr><th>Evidence kind</th><th>Confidence cap</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><code>tested</code></td><td>High</td><td>Prudent Reviews' instrumented boil-time and heat-retention measurements</td></tr>
+        <tr><td><code>cited_third_party</code></td><td>Medium (until verified)</td><td>Clarity Insight citing a University of Newcastle 2022 microplastics study</td></tr>
+        <tr><td><code>brand_claim_repeated</code></td><td>Low</td><td>"Handcrafted by Amish artisans in an Ohio factory" — Naturepedic's own claim, repeated by the reviewer</td></tr>
+        <tr><td><code>anecdotal</code></td><td>Low</td><td>Owner reports from r/carbonsteel on long-term seasoning behavior</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="site-footer">
+    <p>CLEARCART — Source Attribution Pipeline &nbsp;·&nbsp; Internal tool documentation &nbsp;·&nbsp; Extraction via Tavily &nbsp;·&nbsp; Built with Claude</p>
+    <a class="back-link" href="index.html">← Back to research hub</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

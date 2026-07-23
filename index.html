@@ -66,9 +66,43 @@
       padding: 0 2rem;
     }
 
+    /* ── TOP NAV ── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      overflow-x: auto;
+      padding: 1.1rem 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .top-nav::-webkit-scrollbar { display: none; }
+
+    .top-nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .top-nav-link:hover { color: var(--ink); }
+
+    .top-nav-link.active {
+      color: var(--brand-dark);
+      border-bottom-color: var(--brand);
+    }
+
     /* ── HERO ── */
     .hero {
-      padding: 5rem 0 4rem;
+      padding: 2.5rem 0 4rem;
       border-bottom: 2px solid var(--ink);
     }
 
@@ -104,34 +138,82 @@
       margin-bottom: 2.5rem;
     }
 
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .stat {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--brand-dark);
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .stat-label {
+    /* ── FIVE PILLARS ── */
+    .pillars-lead {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.62rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
+      margin-bottom: 1.1rem;
     }
+
+    .pillars-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .pillar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 1rem 1rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--brand);
+      border-radius: 10px;
+    }
+
+    .pillar-item.p-people   { border-top-color: var(--accent); }
+    .pillar-item.p-quality  { border-top-color: #0071e3; }
+    .pillar-item.p-value    { border-top-color: var(--ink); }
+    .pillar-item.p-transparency { border-top-color: #7a4d10; }
+
+    .pillar-icon { font-size: 1.3rem; line-height: 1; }
+
+    .pillar-name {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .pillar-desc {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .pillars-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 1.1rem;
+      max-width: none;
+    }
+
+    .pillars-note + .pillars-note { margin-top: 0.9rem; }
+
+    .pillars-note strong { color: var(--ink); font-weight: 600; }
+
+    .pillar-tailor-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin: 0.7rem 0 0.2rem;
+    }
+
+    .pillar-tailor-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .pillar-tailor-list li span.emoji { font-size: 0.9rem; }
 
     /* ── SECTION HEADER ── */
     .section-header {
@@ -190,6 +272,7 @@
     .nav-card.accent-amber::before  { background: var(--accent); }
     .nav-card.accent-ink::before    { background: var(--ink); }
     .nav-card.accent-blue::before   { background: #0071e3; }
+    .nav-card.accent-purple::before { background: #7c3aed; }
 
     .nav-card-body {
       padding: 1.75rem 1.75rem 1.5rem;
@@ -214,6 +297,7 @@
     .tag-amber  { color: #7a4d10; background: #fff3df; border-color: #f4c87a; }
     .tag-ink    { color: #fff;    background: #18181b; border-color: #18181b; }
     .tag-blue   { color: #004ea8; background: #e8f1fd; border-color: #93c5fd; }
+    .tag-purple { color: #4c1d95; background: #ede9fe; border-color: #c4b5fd; }
 
     .nav-card h3 {
       font-family: var(--font-display);
@@ -309,8 +393,9 @@
       .hero { padding: 3rem 0 2.5rem; }
       .cards-grid { grid-template-columns: 1fr; }
       .about-strip { grid-template-columns: 1fr; }
-      .hero-stats { gap: 1.5rem; }
+      .pillars-strip { grid-template-columns: 1fr 1fr; }
       .nav-card-body { padding: 1.4rem 1.4rem 1.25rem; }
+      .top-nav { gap: 1.25rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -327,10 +412,20 @@
 <body>
 
   <div class="top-banner">
-    Consumer Awareness &amp; Product Integrity Research &nbsp;·&nbsp; CLEARCART &nbsp;·&nbsp; 2025–2026
+    Consumer Awareness &amp; Product Integrity Research &nbsp;·&nbsp; CLEARCART &nbsp;·&nbsp; Summer 2026
   </div>
 
   <div class="container">
+
+    <!-- TOP NAV -->
+    <nav class="top-nav" aria-label="Section navigation">
+      <a class="top-nav-link active" href="index.html">Overview</a>
+      <a class="top-nav-link" href="Cart-Concerns.html">Cart Concerns</a>
+      <a class="top-nav-link" href="Product_Assessment_Framework.html">Framework</a>
+      <a class="top-nav-link" href="Source-Pipeline.html">Source Pipeline</a>
+      <a class="top-nav-link" href="Diapers-combined.html">Diaper Guide</a>
+      <a class="top-nav-link" href="iphone15pro-analysis.html">iPhone Analysis</a>
+    </nav>
 
     <!-- HERO -->
     <header class="hero">
@@ -340,30 +435,52 @@
         Evidence-based scoring across consumer product categories — combining environmental impact,
         labor practices, chemical safety, pricing fairness, and supply-chain transparency.
       </p>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-number">5</span>
-          <span class="stat-label">Scoring pillars</span>
+      <p class="pillars-lead">Five independent pillars — no composite score</p>
+      <div class="pillars-strip">
+        <div class="pillar-item p-planet">
+          <span class="pillar-icon">🌱</span>
+          <span class="pillar-name">Planet</span>
+          <p class="pillar-desc">Environmental footprint — sourcing, land use, packaging, and emissions.</p>
         </div>
-        <div class="stat">
-          <span class="stat-number">12</span>
-          <span class="stat-label">Product types covered</span>
+        <div class="pillar-item p-people">
+          <span class="pillar-icon">🤝</span>
+          <span class="pillar-name">People &amp; Supply Chain</span>
+          <p class="pillar-desc">Labor conditions and whether the origin of materials is actually disclosed.</p>
         </div>
-        <div class="stat">
-          <span class="stat-number">10</span>
-          <span class="stat-label">Category concerns indexed</span>
+        <div class="pillar-item p-quality">
+          <span class="pillar-icon">⭐</span>
+          <span class="pillar-name">Quality</span>
+          <p class="pillar-desc">Durability and ingredient integrity — does it hold up to how it's marketed.</p>
         </div>
-        <div class="stat">
-          <span class="stat-number">3</span>
-          <span class="stat-label">Confidence tiers</span>
+        <div class="pillar-item p-value">
+          <span class="pillar-icon">💰</span>
+          <span class="pillar-name">Value</span>
+          <p class="pillar-desc">Pricing fairness and who actually owns the brand behind the label.</p>
+        </div>
+        <div class="pillar-item p-transparency">
+          <span class="pillar-icon">🔍</span>
+          <span class="pillar-name">Transparency</span>
+          <p class="pillar-desc">Whether the claims on the package are backed by verifiable evidence.</p>
         </div>
       </div>
+      <p class="pillars-note">
+        Each pillar is scored and shown on its own — a product that excels on <strong>Planet</strong> but fails on
+        <strong>People &amp; Supply Chain</strong> shows both, instead of averaging into one number that hides the tradeoff.
+      </p>
+      <p class="pillars-note">
+        The five pillars stay constant across categories, but the indicators behind each one don't — so each
+        pillar's rating method is tailored per product category rather than applied as one fixed checklist:
+      </p>
+      <ul class="pillar-tailor-list">
+        <li><span class="emoji">🥚</span> <strong>Eggs:</strong> pasture certification &amp; feed sourcing</li>
+        <li><span class="emoji">📱</span> <strong>Electronics:</strong> e-waste handling &amp; rare-earth mineral sourcing</li>
+      </ul>
     </header>
 
     <!-- CARDS -->
     <div class="section-header">
       <h2>Research &amp; Analysis</h2>
-      <p>Browse the four sections that make up the Product Integrity Score library.</p>
+      <p>Browse the sections that make up the Product Integrity Score library.</p>
     </div>
 
     <nav class="cards-grid" aria-label="Site sections">
@@ -429,6 +546,23 @@
             <span class="meta-pill">Composite score 0.71</span>
             <span class="meta-pill">11 dimensions</span>
             <span class="meta-pill">P/Q ratio ~$1,430</span>
+          </div>
+        </div>
+        <span class="card-arrow">OPEN →</span>
+      </a>
+
+      <!-- Source Pipeline -->
+      <a class="nav-card accent-purple" href="Source-Pipeline.html">
+        <div class="nav-card-body">
+          <span class="card-tag tag-purple">Data Pipeline</span>
+          <h3>Source Attribution Pipeline</h3>
+          <p>Turns content-creator review sites into structured, credited evidence mapped to the five pillars —
+             extracting per-product claims with evidence typing, flagging pillar gaps a reviewer didn't cover,
+             and crediting every source.</p>
+          <div class="card-meta">
+            <span class="meta-pill">3 sources profiled</span>
+            <span class="meta-pill">Claims, not scores, ingested</span>
+            <span class="meta-pill">Gaps as first-class data</span>
           </div>
         </div>
         <span class="card-arrow">OPEN →</span>

@@ -134,6 +134,74 @@
     }
 
     /* ══════════════════════════════════
+       SCOPE & INTENT
+    ══════════════════════════════════ */
+    .scope-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--text);
+      border-radius: 4px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+    }
+
+    .scope-note h2 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .scope-note p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .scope-note p + p { margin-top: 0.9rem; }
+
+    .scope-note strong { color: var(--text); font-weight: 600; }
+
+    /* ══════════════════════════════════
+       TOP NAV
+    ══════════════════════════════════ */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      overflow-x: auto;
+      padding: 1.1rem 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .top-nav::-webkit-scrollbar { display: none; }
+
+    .top-nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .top-nav-link:hover { color: var(--text); }
+
+    .top-nav-link.active {
+      color: var(--text);
+      border-bottom-color: var(--env-stripe);
+    }
+
+    /* ══════════════════════════════════
        LEGEND
     ══════════════════════════════════ */
     .legend {
@@ -372,6 +440,7 @@
       .primary-concern { font-size: 0.9rem; }
 
       .entry::before { left: -1.25rem; }
+      .top-nav { gap: 1.25rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -389,10 +458,20 @@
 <body>
 
   <div class="top-banner">
-    Consumer Awareness Research Index &nbsp;·&nbsp; US Grocery &amp; Home Goods &nbsp;·&nbsp; 2024–2025
+    Consumer Awareness Research Index &nbsp;·&nbsp; US Grocery &amp; Home Goods &nbsp;·&nbsp; Summer 2026
   </div>
 
   <div class="container">
+
+    <!-- TOP NAV -->
+    <nav class="top-nav" aria-label="Section navigation">
+      <a class="top-nav-link" href="index.html">Overview</a>
+      <a class="top-nav-link active" href="Cart-Concerns.html">Cart Concerns</a>
+      <a class="top-nav-link" href="Product_Assessment_Framework.html">Framework</a>
+      <a class="top-nav-link" href="Source-Pipeline.html">Source Pipeline</a>
+      <a class="top-nav-link" href="Diapers-combined.html">Diaper Guide</a>
+      <a class="top-nav-link" href="iphone15pro-analysis.html">iPhone Analysis</a>
+    </nav>
 
     <!-- ══ HEADER ══ -->
     <header class="site-header">
@@ -403,6 +482,26 @@
         Behind each one is a primary concern most packaging won't mention — from deforestation and child labor
         to chemical exposure and aquifer depletion.
       </p>
+
+      <div class="scope-note">
+        <h2>Why these 10 categories, not all categories</h2>
+        <p>
+          <strong>Scale is the selection criterion.</strong> These ten categories were chosen because they carry the
+          highest sales volume in the American grocery and home goods basket — not because their concerns are
+          uniquely severe. A behavior-change intervention aimed at a $42B category (Carbonated Soft Drinks) reaches
+          orders of magnitude more households and dollars per unit of research effort than the same intervention
+          aimed at a niche category with a fraction of the shelf presence. Research and scoring capacity is finite;
+          it should go where a shift in purchasing behavior compounds across the most transactions.
+        </p>
+        <p>
+          <strong>Next step: category-specific behavioral change plans.</strong> Each entry above is a candidate for
+          its own plan — the comparative framing, "better option" swap prompts, and confidence-weighted scoring
+          being built into the CLEARCART extension, tailored to that category's specific concern (plastic pollution
+          for soda, market concentration for beer, chemical disclosure for detergent, and so on). The index here is
+          the prioritization layer; the behavioral plan for each category is the execution layer that follows it.
+        </p>
+      </div>
+
       <div class="legend">
         <span class="legend-label">Concern types:</span>
         <span class="badge badge-env">Environment</span>

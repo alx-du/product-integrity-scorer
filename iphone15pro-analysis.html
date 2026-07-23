@@ -1,355 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iPhone 15 Pro – Product Recommendation &amp; Value-for-Money Analysis</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CLEARCART — iPhone 15 Pro Value &amp; Integrity Analysis</title>
+<meta name="description" content="A multidimensional capstone analysis of the iPhone 15 Pro: environmental sustainability, ethical sourcing, pricing fairness, repairability, and lifecycle economics." />
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #f4f6f9;
-      color: #1a1a2e;
-      line-height: 1.7;
-      padding: 2rem 1rem;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      padding: 3rem 3.5rem;
-    }
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Header */
-    .header {
-      border-bottom: 3px solid #0071e3;
-      padding-bottom: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-    .badge {
-      display: inline-block;
-      background: #e8f1fd;
-      color: #0071e3;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
-    }
-    h1 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #0d0d0d;
-      line-height: 1.25;
-      margin-bottom: 0.6rem;
-    }
-    .subtitle {
-      color: #555;
-      font-size: 0.97rem;
-    }
+  :root {
+    --bg:           #F5F4F0;
+    --surface:      #FFFFFF;
+    --ink:          #18181B;
+    --muted:        #6B6B74;
+    --border:       #E2E1DC;
+    --border-strong:#C9C8C2;
 
-    /* Chosen product card */
-    .product-card {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      background: linear-gradient(135deg, #0071e3 0%, #005bb5 100%);
-      color: #fff;
-      border-radius: 12px;
-      padding: 1.4rem 1.8rem;
-      margin-bottom: 2.5rem;
-    }
-    .product-icon {
-      font-size: 2.6rem;
-      flex-shrink: 0;
-    }
-    .product-info strong { font-size: 1.05rem; display: block; }
-    .product-info span { font-size: 0.88rem; opacity: 0.88; }
+    --blue:         #0071e3;
+    --blue-dark:    #004ea8;
+    --blue-soft:    #e8f1fd;
 
-    /* Sections */
-    h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #0071e3;
-      margin: 2.2rem 0 0.8rem;
-      padding-left: 0.75rem;
-      border-left: 4px solid #0071e3;
-    }
-    h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin: 1.4rem 0 0.4rem;
-    }
-    p { margin-bottom: 0.9rem; font-size: 0.96rem; }
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --font-mono:    'Space Mono', monospace;
 
-    /* Scoring table */
-    .table-wrap { overflow-x: auto; margin: 1.2rem 0 1.8rem; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.93rem;
-    }
-    thead tr { background: #0071e3; color: #fff; }
-    thead th { padding: 0.65rem 1rem; text-align: left; font-weight: 600; }
-    tbody tr:nth-child(even) { background: #f0f6ff; }
-    tbody tr:nth-child(odd)  { background: #fff; }
-    tbody td { padding: 0.55rem 1rem; }
-    .score-cell { font-weight: 700; text-align: center; }
+    --radius: 20px;
+    --shadow: 0 18px 45px rgba(20, 60, 37, 0.10);
+  }
 
-    /* Score bar */
-    .bar-container { display: flex; align-items: center; gap: 0.6rem; }
-    .bar-track {
-      flex: 1; height: 8px; background: #e0e0e0; border-radius: 999px; overflow: hidden;
-    }
-    .bar-fill { height: 100%; border-radius: 999px; background: #0071e3; }
+  html { scroll-behavior: smooth; }
 
-    /* Lifecycle list */
-    ol, ul { padding-left: 1.4rem; margin-bottom: 0.9rem; }
-    li { margin-bottom: 0.45rem; font-size: 0.96rem; }
-    li strong { color: #1a1a2e; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    /* Formula box */
-    .formula {
-      background: #f0f6ff;
-      border: 1px solid #c8ddf7;
-      border-radius: 8px;
-      padding: 0.9rem 1.2rem;
-      font-family: "Courier New", Courier, monospace;
-      font-size: 0.88rem;
-      margin: 1rem 0 1.2rem;
-      color: #004a9e;
-    }
+  .top-banner {
+    background: var(--ink);
+    color: rgba(255,255,255,0.65);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.6rem 1rem;
+  }
 
-    /* Sources */
-    .sources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 0.8rem;
-      margin-top: 1rem;
-    }
-    .source-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      background: #f8f9fb;
-      border: 1px solid #e2e5ea;
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      color: inherit;
-      transition: box-shadow 0.18s;
-    }
-    .source-card:hover { box-shadow: 0 2px 12px rgba(0,113,227,0.15); }
-    .source-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-    .source-title { font-size: 0.85rem; font-weight: 600; color: #0071e3; }
-    .source-domain { font-size: 0.75rem; color: #888; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
 
-    /* Footer */
-    .footer {
-      margin-top: 3rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid #e2e5ea;
-      font-size: 0.8rem;
-      color: #999;
-      text-align: center;
-    }
+  .top-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    overflow-x: auto;
+    padding: 1.1rem 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
-    @media (max-width: 640px) {
-      .container { padding: 1.8rem 1.2rem; }
-      h1 { font-size: 1.45rem; }
-      .product-card { flex-direction: column; text-align: center; }
-    }
-  </style>
+  .top-nav::-webkit-scrollbar { display: none; }
+
+  .top-nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .top-nav-link:hover { color: var(--ink); }
+
+  .top-nav-link.active {
+    color: var(--blue-dark);
+    border-bottom-color: var(--blue);
+  }
+
+  header.hero {
+    padding: 1.5rem 0 3rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    background: var(--blue-soft);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    max-width: 760px;
+  }
+
+  .hero-lead {
+    font-size: clamp(1rem, 1.6vw, 1.12rem);
+    color: var(--muted);
+    max-width: 700px;
+    line-height: 1.75;
+  }
+
+  /* ── Chosen product card ── */
+  .product-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 1.5rem 1.9rem;
+    margin: 2rem 0 0;
+  }
+  .product-icon { font-size: 2.4rem; flex-shrink: 0; }
+  .product-info strong { font-size: 1.02rem; display: block; margin-bottom: 0.2rem; }
+  .product-info span { font-size: 0.85rem; opacity: 0.88; }
+
+  section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 1.4rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 1rem; max-width: 760px; }
+  p.note { font-size: 0.85rem; color: var(--muted); }
+  ol, ul { margin: 0 0 1rem 1.3rem; max-width: 760px; }
+  li { margin-bottom: 0.5rem; }
+  strong { font-weight: 600; }
+
+  /* ── Scoring table ── */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 560px; background: var(--surface); }
+  thead th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  .score-cell { font-weight: 700; text-align: center; font-family: var(--font-mono); }
+
+  .bar-container { display: flex; align-items: center; gap: 0.6rem; }
+  .bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; background: var(--blue); }
+
+  /* ── Formula box ── */
+  .formula {
+    background: var(--blue-soft);
+    border: 1px solid #c8ddf7;
+    border-radius: 10px;
+    padding: 1rem 1.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin: 1rem 0 1.2rem;
+    color: var(--blue-dark);
+  }
+
+  /* ── Sources ── */
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+  .source-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.18s, border-color 0.18s;
+  }
+  .source-card:hover { box-shadow: 0 8px 24px rgba(0,113,227,0.12); border-color: var(--blue); }
+  .source-icon { font-size: 1.05rem; flex-shrink: 0; margin-top: 1px; }
+  .source-title { font-size: 0.83rem; font-weight: 600; color: var(--blue-dark); }
+  .source-domain { font-size: 0.74rem; color: var(--muted); }
+
+  a.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  a.back-link:hover { color: var(--blue); }
+
+  .site-footer { padding: 2.5rem 0 4rem; }
+  .site-footer p { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+  @media (max-width: 700px) {
+    .container { padding: 0 1.25rem; }
+    .product-card { flex-direction: column; align-items: flex-start; text-align: left; }
+    .top-nav { gap: 1.25rem; }
+  }
+</style>
 </head>
 <body>
+
+<div class="top-banner">CLEARCART &nbsp;·&nbsp; Product Analysis &nbsp;·&nbsp; iPhone 15 Pro</div>
+
 <div class="container">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="badge">Research Report &middot; Tavily AI</div>
-    <h1>Product Recommendation &amp; Value-for-Money Analysis</h1>
-    <p class="subtitle">Based on a multidimensional capstone proposal rubric covering environmental sustainability, ethical sourcing, quality, pricing fairness, and lifecycle economics.</p>
-  </div>
+  <nav class="top-nav" aria-label="Section navigation">
+    <a class="top-nav-link" href="index.html">Overview</a>
+    <a class="top-nav-link" href="Cart-Concerns.html">Cart Concerns</a>
+    <a class="top-nav-link" href="Product_Assessment_Framework.html">Framework</a>
+    <a class="top-nav-link" href="Source-Pipeline.html">Source Pipeline</a>
+    <a class="top-nav-link" href="Diapers-combined.html">Diaper Guide</a>
+    <a class="top-nav-link active" href="iphone15pro-analysis.html">iPhone Analysis</a>
+  </nav>
 
-  <!-- Chosen product -->
-  <div class="product-card">
-    <div class="product-icon">&#63743;</div>
-    <div class="product-info">
-      <strong>Apple iPhone 15 Pro &mdash; 128 GB, Titanium Frame</strong>
-      <span>MSRP: $999 (CNET) &nbsp;|&nbsp; Overall Composite Score: ~0.71 &nbsp;|&nbsp; P/Q Ratio: ~$1,430</span>
+  <header class="hero">
+    <span class="eyebrow">Research Report · Tavily AI</span>
+    <h1>Product Recommendation &amp; Value-for-Money Analysis</h1>
+    <p class="hero-lead">Based on a multidimensional capstone proposal rubric covering environmental sustainability, ethical sourcing, quality, pricing fairness, and lifecycle economics.</p>
+
+    <div class="product-card">
+      <div class="product-icon">&#63743;</div>
+      <div class="product-info">
+        <strong>Apple iPhone 15 Pro &mdash; 128 GB, Titanium Frame</strong>
+        <span>MSRP: $999 (CNET) &nbsp;|&nbsp; Overall Composite Score: ~0.71 &nbsp;|&nbsp; P/Q Ratio: ~$1,430</span>
+      </div>
     </div>
-  </div>
+  </header>
 
   <!-- Section 1 -->
-  <h2>1. Mapping Product Characteristics to Scoring Dimensions</h2>
+  <section>
+    <p class="section-tag">01 — Scoring Dimensions</p>
+    <h2>Mapping Product Characteristics to Scoring Dimensions</h2>
 
-  <h3>1.1 Environmental Sustainability</h3>
-  <p>Apple&rsquo;s 2023 Product Environmental Report shows that the iPhone 15 Pro contains &ge;&nbsp;35&nbsp;% recycled plastic, 100&nbsp;% recycled aluminum for the internal frame, 100&nbsp;% recycled tin, cobalt, tungsten, rare-earth elements, and 100&nbsp;% recycled copper on the logic board. The total recycled-or-renewable content is 20&nbsp;% of the device mass. Normalizing to a 0&ndash;1 scale yields a sustainability score of <strong>0.20</strong>.</p>
+    <h3>1.1 Environmental Sustainability</h3>
+    <p>Apple&rsquo;s 2023 Product Environmental Report shows that the iPhone 15 Pro contains &ge;&nbsp;35&nbsp;% recycled plastic, 100&nbsp;% recycled aluminum for the internal frame, 100&nbsp;% recycled tin, cobalt, tungsten, rare-earth elements, and 100&nbsp;% recycled copper on the logic board. The total recycled-or-renewable content is 20&nbsp;% of the device mass. Normalizing to a 0&ndash;1 scale yields a sustainability score of <strong>0.20</strong>.</p>
 
-  <h3>1.2 Labor &amp; Ethical Sourcing</h3>
-  <p>Apple requires 100&nbsp;% of identified tin, tantalum, tungsten, gold, cobalt and lithium smelters to participate in third-party conflict-free programs, and the battery uses 100&nbsp;% recycled cobalt. These policies justify a high qualitative rating of <strong>0.85</strong>.</p>
+    <h3>1.2 Labor &amp; Ethical Sourcing</h3>
+    <p>Apple requires 100&nbsp;% of identified tin, tantalum, tungsten, gold, cobalt and lithium smelters to participate in third-party conflict-free programs, and the battery uses 100&nbsp;% recycled cobalt. These policies justify a high qualitative rating of <strong>0.85</strong>.</p>
 
-  <h3>1.3 Product Quality &amp; Durability</h3>
-  <p>Performance: Geekbench 6 multi-core score 7,149 &rarr; 0.72. Expert review: CNET 9.2/10 &rarr; 0.60. Durability: Ceramic Shield glass, IP68 water-resistance, and a titanium chassis justify a durability score of 0.80. Combined quality &amp; durability score: <strong>0.78</strong>.</p>
+    <h3>1.3 Product Quality &amp; Durability</h3>
+    <p>Performance: Geekbench 6 multi-core score 7,149 &rarr; 0.72. Expert review: CNET 9.2/10 &rarr; 0.60. Durability: Ceramic Shield glass, IP68 water-resistance, and a titanium chassis justify a durability score of 0.80. Combined quality &amp; durability score: <strong>0.78</strong>.</p>
 
-  <h3>1.4 Pricing Fairness</h3>
-  <p>The composite quality score Q&nbsp;&asymp;&nbsp;0.70 yields P/Q&nbsp;&asymp;&nbsp;$1,430. Compared with the Samsung Galaxy S24 Ultra (P/Q&nbsp;&asymp;&nbsp;$1,850), the iPhone 15 Pro&rsquo;s lower ratio indicates a more favorable price-to-quality relationship. Pricing fairness score: <strong>0.75</strong>.</p>
+    <h3>1.4 Pricing Fairness</h3>
+    <p>The composite quality score Q&nbsp;&asymp;&nbsp;0.70 yields P/Q&nbsp;&asymp;&nbsp;$1,430. Compared with the Samsung Galaxy S24 Ultra (P/Q&nbsp;&asymp;&nbsp;$1,850), the iPhone 15 Pro&rsquo;s lower ratio indicates a more favorable price-to-quality relationship. Pricing fairness score: <strong>0.75</strong>.</p>
 
-  <h3>1.5 Value for Money (VfM)</h3>
-  <p>Resale value: avg secondary-market price $680 (BankMyCell) &rarr; 0.76. Warranty &amp; support: 2-year limited warranty plus optional AppleCare+ &rarr; 0.70. Aggregated VfM score: <strong>0.72</strong>.</p>
+    <h3>1.5 Value for Money (VfM)</h3>
+    <p>Resale value: avg secondary-market price $680 (BankMyCell) &rarr; 0.76. Warranty &amp; support: 2-year limited warranty plus optional AppleCare+ &rarr; 0.70. Aggregated VfM score: <strong>0.72</strong>.</p>
 
-  <h3>1.6 Corporate Ownership</h3>
-  <p>Apple is a publicly traded corporation (market cap &gt;&nbsp;$2T) with strong governance and sustained R&amp;D investment. Corporate ownership score: <strong>0.80</strong>.</p>
+    <h3>1.6 Corporate Ownership</h3>
+    <p>Apple is a publicly traded corporation (market cap &gt;&nbsp;$2T) with strong governance and sustained R&amp;D investment. Corporate ownership score: <strong>0.80</strong>.</p>
 
-  <h3>1.7 Sourcing Truthfulness &amp; Claim Credibility</h3>
-  <p>Apple&rsquo;s environmental claims are audited by independent third parties and conform to ISO 14021 standards. Score: <strong>0.85</strong>.</p>
+    <h3>1.7 Sourcing Truthfulness &amp; Claim Credibility</h3>
+    <p>Apple&rsquo;s environmental claims are audited by independent third parties and conform to ISO 14021 standards. Score: <strong>0.85</strong>.</p>
 
-  <h3>1.8 Consumer-Education Resources</h3>
-  <p>Apple supplies extensive user guides, a dedicated support site, and in-device tips accessible to all customers. Score: <strong>0.90</strong>.</p>
+    <h3>1.8 Consumer-Education Resources</h3>
+    <p>Apple supplies extensive user guides, a dedicated support site, and in-device tips accessible to all customers. Score: <strong>0.90</strong>.</p>
 
-  <h3>1.9 Additional Dimensions (Performance, Review, NPS)</h3>
-  <p>Performance (Geekbench): 0.72 &nbsp;|&nbsp; Expert Review (CNET): 0.60 &nbsp;|&nbsp; Net Promoter Score (industry avg 52): <strong>0.55</strong>.</p>
+    <h3>1.9 Additional Dimensions (Performance, Review, NPS)</h3>
+    <p>Performance (Geekbench): 0.72 &nbsp;|&nbsp; Expert Review (CNET): 0.60 &nbsp;|&nbsp; Net Promoter Score (industry avg 52): <strong>0.55</strong>.</p>
+  </section>
 
   <!-- Section 2 – Table -->
-  <h2>2. Quantitative Scoring Summary</h2>
+  <section>
+    <p class="section-tag">02 — Quantitative Summary</p>
+    <h2>Quantitative Scoring Summary</h2>
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Dimension</th>
-          <th style="width:110px;text-align:center;">Score (0&ndash;1)</th>
-          <th style="width:180px;">Visual</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Environmental Sustainability</td>
-          <td class="score-cell">0.20</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:20%;background:#e0a800;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Labor &amp; Ethical Sourcing</td>
-          <td class="score-cell">0.85</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:85%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Product Quality &amp; Durability</td>
-          <td class="score-cell">0.78</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:78%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Pricing Fairness</td>
-          <td class="score-cell">0.75</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Value for Money</td>
-          <td class="score-cell">0.72</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:72%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Corporate Ownership</td>
-          <td class="score-cell">0.80</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Sourcing Truthfulness &amp; Credibility</td>
-          <td class="score-cell">0.85</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:85%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Consumer-Education Resources</td>
-          <td class="score-cell">0.90</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:90%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Performance (Geekbench)</td>
-          <td class="score-cell">0.72</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:72%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Expert Review (CNET)</td>
-          <td class="score-cell">0.60</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:60%;"></div></div></div></td>
-        </tr>
-        <tr>
-          <td>Net Promoter Score (NPS)</td>
-          <td class="score-cell">0.55</td>
-          <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:55%;background:#5ac8fa;"></div></div></div></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th style="width:110px;text-align:center;">Score (0&ndash;1)</th>
+            <th style="width:180px;">Visual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Environmental Sustainability</td>
+            <td class="score-cell">0.20</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:20%;background:#d89442;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Labor &amp; Ethical Sourcing</td>
+            <td class="score-cell">0.85</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:85%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Product Quality &amp; Durability</td>
+            <td class="score-cell">0.78</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:78%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Pricing Fairness</td>
+            <td class="score-cell">0.75</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Value for Money</td>
+            <td class="score-cell">0.72</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:72%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Corporate Ownership</td>
+            <td class="score-cell">0.80</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Sourcing Truthfulness &amp; Credibility</td>
+            <td class="score-cell">0.85</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:85%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Consumer-Education Resources</td>
+            <td class="score-cell">0.90</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:90%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Performance (Geekbench)</td>
+            <td class="score-cell">0.72</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:72%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Expert Review (CNET)</td>
+            <td class="score-cell">0.60</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:60%;"></div></div></div></td>
+          </tr>
+          <tr>
+            <td>Net Promoter Score (NPS)</td>
+            <td class="score-cell">0.55</td>
+            <td><div class="bar-container"><div class="bar-track"><div class="bar-fill" style="width:55%;background:#7c3aed;"></div></div></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <p>Assuming equal weighting across all dimensions, the overall composite score is:</p>
-  <div class="formula">Overall Score = (0.20 + 0.85 + 0.78 + 0.75 + 0.72 + 0.80 + 0.85 + 0.90 + 0.72 + 0.60 + 0.55) / 11 &asymp; <strong>0.71</strong></div>
-  <p style="font-size:0.88rem;color:#555;">(Using 11 distinct categories because performance, review and NPS are already embedded in quality; the result closely aligns with the starter composite quality Q&nbsp;=&nbsp;0.70 from the Tavily model.)</p>
+    <p>Assuming equal weighting across all dimensions, the overall composite score is:</p>
+    <div class="formula">Overall Score = (0.20 + 0.85 + 0.78 + 0.75 + 0.72 + 0.80 + 0.85 + 0.90 + 0.72 + 0.60 + 0.55) / 11 &asymp; <strong>0.71</strong></div>
+    <p class="note">(Using 11 distinct categories because performance, review and NPS are already embedded in quality; the result closely aligns with the starter composite quality Q&nbsp;=&nbsp;0.70 from the Tavily model.)</p>
+  </section>
 
   <!-- Section 3 -->
-  <h2>3. Consolidated Value-for-Money Assessment</h2>
-  <ol>
-    <li><strong>Purchase price:</strong> $999 (CNET)</li>
-    <li><strong>Lifecycle cost components:</strong>
-      <ul>
-        <li><strong>Resale value:</strong> $680 (BankMyCell) &rarr; 68&nbsp;% of original price retained after ~2&nbsp;years.</li>
-        <li><strong>Warranty coverage:</strong> 2-year limited warranty plus optional AppleCare+; third-party warranty (Plug) covers defects at no extra cost.</li>
-        <li><strong>Repairability:</strong> iFixit&rsquo;s updated score of <strong>7/10</strong> after the Repair Assistant rollout indicates moderate repair ease.</li>
-      </ul>
-    </li>
-    <li><strong>Cost-to-quality ratio:</strong> P/Q&nbsp;&asymp;&nbsp;$1,430 places the iPhone 15 Pro in the lower-third of flagship devices, meaning the price is relatively low for the quality delivered.</li>
-    <li><strong>Environmental cost:</strong> 66&nbsp;kg CO&sub2;e embodied emissions &mdash; a modest reduction versus the iPhone 14 Pro (71&nbsp;kg) but still higher than many Android flagships. The 20&nbsp;% recycled content offsets roughly 6&nbsp;% of the footprint.</li>
-  </ol>
-  <p><strong>Overall VfM:</strong> A composite score of 0.71 combined with a resale retention of 68&nbsp;% and a favorable P/Q ratio demonstrates that the iPhone 15 Pro offers strong value-for-money relative to its premium price point.</p>
+  <section>
+    <p class="section-tag">03 — Lifecycle Economics</p>
+    <h2>Consolidated Value-for-Money Assessment</h2>
+    <ol>
+      <li><strong>Purchase price:</strong> $999 (CNET)</li>
+      <li><strong>Lifecycle cost components:</strong>
+        <ul>
+          <li><strong>Resale value:</strong> $680 (BankMyCell) &rarr; 68&nbsp;% of original price retained after ~2&nbsp;years.</li>
+          <li><strong>Warranty coverage:</strong> 2-year limited warranty plus optional AppleCare+; third-party warranty (Plug) covers defects at no extra cost.</li>
+          <li><strong>Repairability:</strong> iFixit&rsquo;s updated score of <strong>7/10</strong> after the Repair Assistant rollout indicates moderate repair ease.</li>
+        </ul>
+      </li>
+      <li><strong>Cost-to-quality ratio:</strong> P/Q&nbsp;&asymp;&nbsp;$1,430 places the iPhone 15 Pro in the lower-third of flagship devices, meaning the price is relatively low for the quality delivered.</li>
+      <li><strong>Environmental cost:</strong> 66&nbsp;kg CO&sub2;e embodied emissions &mdash; a modest reduction versus the iPhone 14 Pro (71&nbsp;kg) but still higher than many Android flagships. The 20&nbsp;% recycled content offsets roughly 6&nbsp;% of the footprint.</li>
+    </ol>
+    <p><strong>Overall VfM:</strong> A composite score of 0.71 combined with a resale retention of 68&nbsp;% and a favorable P/Q ratio demonstrates that the iPhone 15 Pro offers strong value-for-money relative to its premium price point.</p>
+  </section>
 
   <!-- Section 4 -->
-  <h2>4. Conclusion</h2>
-  <p>Based on the proposal&rsquo;s multidimensional rubric and quantitative evidence gathered from primary Apple documentation, reputable pricing and resale sources, and third-party durability/review data, the <strong>Apple iPhone 15 Pro</strong> emerges as the single product that best satisfies the criteria while delivering the strongest value-for-money. Its high scores in labor-ethical sourcing, claim credibility, and consumer education &mdash; together with a solid overall quality rating (&asymp;&nbsp;0.71) and a competitive price-to-quality ratio (&asymp;&nbsp;$1,430) &mdash; outweigh its modest sustainability score (0.20) and higher embodied carbon. The combination of a high resale value, comprehensive warranty options, and improving repairability further enhances its lifecycle economics, confirming the iPhone 15 Pro as the optimal choice under the given framework.</p>
+  <section>
+    <p class="section-tag">04 — Conclusion</p>
+    <h2>Conclusion</h2>
+    <p>Based on the proposal&rsquo;s multidimensional rubric and quantitative evidence gathered from primary Apple documentation, reputable pricing and resale sources, and third-party durability/review data, the <strong>Apple iPhone 15 Pro</strong> emerges as the single product that best satisfies the criteria while delivering the strongest value-for-money. Its high scores in labor-ethical sourcing, claim credibility, and consumer education &mdash; together with a solid overall quality rating (&asymp;&nbsp;0.71) and a competitive price-to-quality ratio (&asymp;&nbsp;$1,430) &mdash; outweigh its modest sustainability score (0.20) and higher embodied carbon. The combination of a high resale value, comprehensive warranty options, and improving repairability further enhances its lifecycle economics, confirming the iPhone 15 Pro as the optimal choice under the given framework.</p>
+  </section>
 
   <!-- Sources -->
-  <h2>Sources (4)</h2>
-  <div class="sources-grid">
-    <a class="source-card" href="https://www.apple.com" target="_blank" rel="noopener">
-      <span class="source-icon">&#63743;</span>
-      <div>
-        <div class="source-title">[PDF] iPhone 15 Pro and iPhone 15 Pro Max Product Environmental Report</div>
-        <div class="source-domain">www.apple.com</div>
-      </div>
-    </a>
-    <a class="source-card" href="https://support.apple.com" target="_blank" rel="noopener">
-      <span class="source-icon">&#63743;</span>
-      <div>
-        <div class="source-title">iPhone 15 Pro &ndash; Tech Specs &ndash; Apple Support</div>
-        <div class="source-domain">support.apple.com</div>
-      </div>
-    </a>
-    <a class="source-card" href="https://support.apple.com" target="_blank" rel="noopener">
-      <span class="source-icon">&#63743;</span>
-      <div>
-        <div class="source-title">iPhone 15 Pro &ndash; Apple Support (IN)</div>
-        <div class="source-domain">support.apple.com</div>
-      </div>
-    </a>
-    <a class="source-card" href="https://www.ifixit.com" target="_blank" rel="noopener">
-      <span class="source-icon">&#128295;</span>
-      <div>
-        <div class="source-title">An Update on iPhone Repairability Scores &ndash; iFixit</div>
-        <div class="source-domain">www.ifixit.com</div>
-      </div>
-    </a>
-  </div>
+  <section>
+    <p class="section-tag">05 — Sources</p>
+    <h2>Sources (4)</h2>
+    <div class="sources-grid">
+      <a class="source-card" href="https://www.apple.com" target="_blank" rel="noopener">
+        <span class="source-icon">&#63743;</span>
+        <div>
+          <div class="source-title">[PDF] iPhone 15 Pro and iPhone 15 Pro Max Product Environmental Report</div>
+          <div class="source-domain">www.apple.com</div>
+        </div>
+      </a>
+      <a class="source-card" href="https://support.apple.com" target="_blank" rel="noopener">
+        <span class="source-icon">&#63743;</span>
+        <div>
+          <div class="source-title">iPhone 15 Pro &ndash; Tech Specs &ndash; Apple Support</div>
+          <div class="source-domain">support.apple.com</div>
+        </div>
+      </a>
+      <a class="source-card" href="https://support.apple.com" target="_blank" rel="noopener">
+        <span class="source-icon">&#63743;</span>
+        <div>
+          <div class="source-title">iPhone 15 Pro &ndash; Apple Support (IN)</div>
+          <div class="source-domain">support.apple.com</div>
+        </div>
+      </a>
+      <a class="source-card" href="https://www.ifixit.com" target="_blank" rel="noopener">
+        <span class="source-icon">&#128295;</span>
+        <div>
+          <div class="source-title">An Update on iPhone Repairability Scores &ndash; iFixit</div>
+          <div class="source-domain">www.ifixit.com</div>
+        </div>
+      </a>
+    </div>
+  </section>
 
-  <div class="footer">
-    Generated with Tavily Research AI &nbsp;&bull;&nbsp; Report date: June 2026
-  </div>
+  <footer class="site-footer">
+    <p>CLEARCART — iPhone 15 Pro Analysis &nbsp;·&nbsp; Generated with Tavily Research AI &nbsp;·&nbsp; Report date: June 2026</p>
+    <a class="back-link" href="index.html">← Back to research hub</a>
+  </footer>
 
 </div>
+
 </body>
 </html>

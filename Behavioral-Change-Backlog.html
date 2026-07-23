@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CLEARCART — Behavioral Change Analysis & Backlog</title>
+<meta name="description" content="Analysis of CLEARCART's current design against behavior-change science, with a prioritized enhancement backlog." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:           #F5F4F0;
+    --surface:      #FFFFFF;
+    --ink:          #18181B;
+    --muted:        #6B6B74;
+    --border:       #E2E1DC;
+    --border-strong:#C9C8C2;
+
+    --brand:        #2f7d5f;
+    --brand-dark:   #1e5d46;
+    --brand-soft:   #dcefe7;
+    --brand-mid:    #4a9e7e;
+
+    --accent:       #d89442;
+    --accent-soft:  #fff3df;
+
+    --red: #b23b3b;
+    --red-soft: #fbe4e2;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --font-mono:    'Space Mono', monospace;
+
+    --radius: 20px;
+    --shadow: 0 18px 45px rgba(20, 60, 37, 0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .top-banner {
+    background: var(--ink);
+    color: rgba(255,255,255,0.65);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.6rem 1rem;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+  a.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  a.back-link:hover { color: var(--brand); }
+
+  header.hero {
+    padding: 1.5rem 0 3rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    max-width: 780px;
+  }
+
+  h1 em { font-style: normal; color: var(--brand); }
+
+  .hero-lead {
+    font-size: clamp(1rem, 1.6vw, 1.12rem);
+    color: var(--muted);
+    max-width: 680px;
+    line-height: 1.75;
+  }
+
+  section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.6rem;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  p { margin-bottom: 1rem; max-width: 760px; }
+  p.lead { color: var(--muted); }
+  ul, ol { margin: 0 0 1rem 1.3rem; max-width: 760px; }
+  li { margin-bottom: 0.4rem; }
+  strong { font-weight: 600; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  /* ── Gap grid ── */
+  .gap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .gap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+  }
+  .gap-card h4 {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    margin-bottom: 0.35rem;
+  }
+  .gap-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .gap-card code.file { font-size: 0.72rem; }
+
+  /* ── Lever cards ── */
+  .lever-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .lever-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.6rem;
+    box-shadow: 0 4px 20px rgba(20,60,37,0.05);
+  }
+  .lever-num {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--brand);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .lever-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .lever-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.6rem; }
+  .lever-card .tie { font-size: 0.78rem; color: var(--brand-dark); background: var(--brand-soft); border-radius: 6px; padding: 0.4rem 0.6rem; display: inline-block; }
+
+  /* ── Priority tags ── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .tag-p0 { color: #7a1f1f; background: var(--red-soft); border-color: #e0a6a1; }
+  .tag-p1 { color: #7a4d10; background: var(--accent-soft); border-color: #f4c87a; }
+  .tag-p2 { color: #1e5d46; background: var(--brand-soft); border-color: #9fd4bc; }
+
+  .impact-high { color: var(--brand-dark); font-weight: 600; }
+  .impact-med { color: #7a4d10; font-weight: 600; }
+  .impact-low { color: var(--muted); font-weight: 600; }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 780px; background: var(--surface); }
+  thead th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.item-name { font-weight: 600; max-width: 220px; }
+  td.item-lever { color: var(--muted); font-size: 0.8rem; }
+
+  /* ── Quadrant ── */
+  .quadrant {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 1.5rem 0 0.75rem;
+    min-height: 420px;
+  }
+  .quad-cell {
+    background: var(--surface);
+    padding: 1rem 1.1rem;
+    position: relative;
+  }
+  .quad-cell h5 {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+  .quad-cell.now { background: var(--brand-soft); }
+  .quad-cell ul { margin-left: 1.1rem; }
+  .quad-cell li { font-size: 0.82rem; margin-bottom: 0.4rem; }
+  .quad-axis-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+  }
+  .quad-y-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+  }
+  .quad-row { display: grid; grid-template-columns: 24px 1fr; gap: 0.5rem; align-items: stretch; }
+  .quad-y-labels span { writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--ink);
+    color: rgba(255,255,255,0.9);
+    border-radius: var(--radius);
+    padding: 1.75rem 2rem;
+    margin: 1.5rem 0;
+  }
+  .callout h3 { color: #fff; margin-bottom: 0.6rem; }
+  .callout p { color: rgba(255,255,255,0.72); max-width: none; }
+  .callout code { background: rgba(255,255,255,0.12); color: #dcefe7; }
+
+  .guardrail {
+    border: 1px solid #e0a6a1;
+    background: var(--red-soft);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.25rem;
+  }
+  .guardrail h4 { color: #7a1f1f; font-family: var(--font-display); font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .guardrail p { font-size: 0.85rem; color: #7a1f1f; margin-bottom: 0; }
+
+  .site-footer { padding: 2.5rem 0 4rem; }
+  .site-footer p { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+  @media (max-width: 760px) {
+    .container { padding: 0 1.25rem; }
+    .gap-grid, .lever-grid { grid-template-columns: 1fr; }
+    .quadrant { grid-template-columns: 1fr; grid-template-rows: repeat(4, auto); }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-banner">CLEARCART &nbsp;·&nbsp; Behavioral Change Analysis &amp; Enhancement Backlog &nbsp;·&nbsp; Prepared 2026-07-23</div>
+
+<div class="container">
+
+  <header class="hero">
+    <p class="eyebrow">Internal Review — Not a Public Page</p>
+    <h1>Scoring is not the same as <em>changing behavior</em></h1>
+    <p class="hero-lead">
+      CLEARCART currently does one thing well: it makes hidden product tradeoffs visible through five independent,
+      confidence-rated pillar scores. That is necessary for behavior change but not sufficient. This document audits
+      the extension and research library against established behavior-change science, then converts the gap into a
+      prioritized backlog for the mid-August MVP and beyond.
+    </p>
+  </header>
+
+  <!-- ═══ THE GAP ═══ -->
+  <section>
+    <p class="section-tag">01 — Diagnosis</p>
+    <h2>What the current build actually does</h2>
+    <p class="lead">
+      <code>content.js</code> detects a product card, fetches scores, and renders a row of five colored pills.
+      <code>popup.js</code>/<code>popup.html</code> expand that into a per-pillar indicator breakdown with confidence
+      dots and sources. That is the entire user-facing loop today. It is an <strong>information display</strong>,
+      not a <strong>decision-support</strong> or <strong>behavior-reinforcement</strong> system.
+    </p>
+    <p class="lead">
+      Behavior-change research (Fogg's B=MAP model, the UK Behavioural Insights Team's EAST framework, Eyal's Hook
+      Model) converges on the same point: showing someone accurate information changes what they <em>know</em>, not
+      reliably what they <em>do</em>. Purchase behavior changes when the better option is easy to act on, socially
+      reinforced, framed as a loss avoided, and followed by feedback that closes the loop. None of those four exist
+      in the repo today.
+    </p>
+
+    <div class="gap-grid">
+      <div class="gap-card">
+        <h4>No action, only information</h4>
+        <p>The badge <code class="file">content.js:163</code> opens a side panel on click — it never proposes a
+        specific better-scoring alternative or lets the user act on one. The gap between "I now know this scores
+        low" and "I do something differently" is left entirely to the user.</p>
+      </div>
+      <div class="gap-card">
+        <h4>No relative framing</h4>
+        <p><code class="file">pillars.js</code> scores each product in isolation (0–100 per pillar). A shopper sees
+        "54" with no anchor for whether that's the best available option in the category or the worst. Loss-framed,
+        comparative framing changes choices more reliably than absolute scores.</p>
+      </div>
+      <div class="gap-card">
+        <h4>No personalization</h4>
+        <p>All five pillars display with equal visual weight for every user. A parent optimizing for Quality/Planet
+        and a bargain shopper optimizing for Value are shown an identical badge. Values-matched framing is one of
+        the cheapest, highest-leverage behavior-change levers and nothing in <code class="file">popup.html</code>
+        or the schema captures user priorities.</p>
+      </div>
+      <div class="gap-card">
+        <h4>No feedback loop or measurement</h4>
+        <p><code class="file">schema.prisma</code> stores products, scores, and indicators — nothing about what a
+        user saw, clicked, or did after. Without an interaction/event model, there is no way to know whether badges
+        change purchase behavior at all, which is both a product risk and a missed white-paper contribution.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RECOMMENDATIONS ═══ -->
+  <section>
+    <p class="section-tag">02 — Recommendations</p>
+    <h2>Six behavioral levers to add</h2>
+    <p class="lead">Each maps to a specific, named gap above and to established behavior-change mechanics — not
+    generic UX polish.</p>
+
+    <div class="lever-grid">
+      <div class="lever-card">
+        <span class="lever-num">Lever 01 · Ability</span>
+        <h3>One-click "better option" swap</h3>
+        <p>When a scored product isn't the category leader, surface the higher-scoring alternative directly in the
+        panel with a single action to view/add it. Fogg's model treats <em>ability</em> (how easy the action is) as
+        equally decisive as motivation — right now motivation (the score) exists but the action doesn't.</p>
+        <span class="tie">Touches: content.js badge click handler, popup.js panel, new /api/alternatives endpoint</span>
+      </div>
+      <div class="lever-card">
+        <span class="lever-num">Lever 02 · Framing</span>
+        <h3>Relative, loss-framed scores</h3>
+        <p>Replace "Planet: 54" with "12 pts below the best Cage-Free option in this aisle." Loss-framed, comparative
+        messages outperform absolute numbers in nearly every nudge literature review (Thaler &amp; Sunstein; EAST's
+        "Attractive" and "Timely" principles) because the reference point is concrete and immediate.</p>
+        <span class="tie">Touches: pillars.js scoring output, requires category-leader lookup at score time</span>
+      </div>
+      <div class="lever-card">
+        <span class="lever-num">Lever 03 · Personalization</span>
+        <h3>Let users weight what matters to them</h3>
+        <p>A short onboarding ("what matters most: Planet, People, Quality, Value, or Transparency?") reorders and
+        visually emphasizes the badge per user. Personally relevant framing increases both attention and follow-
+        through versus a one-size-fits-all display.</p>
+        <span class="tie">Touches: popup.html new settings view, chrome.storage.sync, badge render order</span>
+      </div>
+      <div class="lever-card">
+        <span class="lever-num">Lever 04 · Social Proof</span>
+        <h3>"Shoppers who saw this switched"</h3>
+        <p>Once interaction data exists (Lever 06), surface aggregate behavior — "68% of shoppers who viewed this
+        item chose the higher-scoring alternative." Social proof is one of the few nudges with consistently large,
+        replicated effect sizes in the field, but it requires real data — do not fabricate a number here.</p>
+        <span class="tie">Touches: new Interaction model, aggregation job, badge/panel copy</span>
+      </div>
+      <div class="lever-card">
+        <span class="lever-num">Lever 05 · Identity &amp; Feedback</span>
+        <h3>Cumulative impact recap</h3>
+        <p>A running "this week / this trip" summary (e.g., "4 of 6 picks were high-confidence Planet leaders")
+        reinforces the shopper's self-image as a conscious buyer — the same mechanism that makes fitness-app streaks
+        and expense-tracker summaries sticky. This is the "reward + investment" half of Eyal's Hook Model.</p>
+        <span class="tie">Touches: popup.js summary view, Interaction model, session aggregation</span>
+      </div>
+      <div class="lever-card">
+        <span class="lever-num">Lever 06 · Measurement</span>
+        <h3>Instrument the funnel now</h3>
+        <p>Add a minimal event log (badge_view, panel_open, alternative_shown, alternative_clicked) to the schema
+        before the MVP ships. This is cheap today and expensive to retrofit later — and it's the dataset that makes
+        Levers 04–05 possible and gives the white paper an actual behavior-change result to report, not just a
+        scoring methodology.</p>
+        <span class="tie">Touches: schema.prisma new Interaction model, content.js/popup.js event calls</span>
+      </div>
+    </div>
+
+    <div class="guardrail">
+      <h4>Guardrail</h4>
+      <p>The project's stated differentiator is refusing to hide tradeoffs behind a composite score. Every lever
+      above must nudge toward a genuinely higher-scoring option and disclose when data is thin (e.g. "based on 3
+      shoppers so far") — never fabricate social proof, never hide a low pillar to make a swap look better, and never
+      let personalization suppress a pillar the user chose to weigh low. Dark-pattern nudging would undermine the
+      Transparency pillar the whole product is built on.</p>
+    </div>
+  </section>
+
+  <!-- ═══ BACKLOG ═══ -->
+  <section>
+    <p class="section-tag">03 — Prioritized Backlog</p>
+    <h2>Ready for review</h2>
+    <p class="lead">Sequenced against the mid-August MVP deadline. <strong>P0</strong> items are copy/schema/small-UI
+    changes that fit before launch. <strong>P1</strong> follows in the first post-launch iteration once real usage
+    data exists. <strong>P2</strong> depends on P1 data or is a larger build.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Backlog item</th>
+            <th>Lever</th>
+            <th>Effort</th>
+            <th>Impact</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-p0">P0</span></td>
+            <td class="item-name">Add Interaction/Event model to schema</td>
+            <td class="item-lever">06 · Measurement</td>
+            <td>S</td>
+            <td class="impact-high">High</td>
+            <td>Pre-MVP</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p0">P0</span></td>
+            <td class="item-name">Loss-framed pillar copy ("12 pts below best option")</td>
+            <td class="item-lever">02 · Framing</td>
+            <td>S</td>
+            <td class="impact-high">High</td>
+            <td>Pre-MVP</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p0">P0</span></td>
+            <td class="item-name">Cost-per-use framing on Value pillar (mirror Diapers page model)</td>
+            <td class="item-lever">02 · Framing</td>
+            <td>S</td>
+            <td class="impact-med">Medium</td>
+            <td>Pre-MVP</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p0">P0</span></td>
+            <td class="item-name">Surface one "why this matters" micro-explainer at Layer 1 (not just researcher Layer 3)</td>
+            <td class="item-lever">01 · Ability</td>
+            <td>S</td>
+            <td class="impact-med">Medium</td>
+            <td>Pre-MVP</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p0">P0</span></td>
+            <td class="item-name">"Better option" swap CTA in panel (static category-leader lookup ok for pilot's 4 eggs)</td>
+            <td class="item-lever">01 · Ability</td>
+            <td>M</td>
+            <td class="impact-high">High</td>
+            <td>Pre-MVP</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p1">P1</span></td>
+            <td class="item-name">Pillar-weight personalization (onboarding + reorder)</td>
+            <td class="item-lever">03 · Personalization</td>
+            <td>M</td>
+            <td class="impact-high">High</td>
+            <td>v1.1</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p1">P1</span></td>
+            <td class="item-name">Trip/session cumulative impact recap</td>
+            <td class="item-lever">05 · Identity</td>
+            <td>M</td>
+            <td class="impact-med">Medium</td>
+            <td>v1.1</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p1">P1</span></td>
+            <td class="item-name">Dynamic category-leader lookup (replace static pilot list)</td>
+            <td class="item-lever">01 · Ability</td>
+            <td>L</td>
+            <td class="impact-high">High</td>
+            <td>v1.1</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p1">P1</span></td>
+            <td class="item-name">Localize integration wired to the swap CTA (local farm as the alternative)</td>
+            <td class="item-lever">01 · Ability</td>
+            <td>L</td>
+            <td class="impact-high">High</td>
+            <td>v1.1</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p1">P1</span></td>
+            <td class="item-name">Real social-proof line once N &gt; threshold ("X% switched")</td>
+            <td class="item-lever">04 · Social Proof</td>
+            <td>M</td>
+            <td class="impact-high">High</td>
+            <td>v1.1 (data-gated)</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p2">P2</span></td>
+            <td class="item-name">Monthly goal-setting ("buy Fair Trade eggs this month") with progress tracking</td>
+            <td class="item-lever">05 · Identity</td>
+            <td>M</td>
+            <td class="impact-med">Medium</td>
+            <td>v2</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p2">P2</span></td>
+            <td class="item-name">Shareable cart-integrity recap card</td>
+            <td class="item-lever">05 · Identity</td>
+            <td>S</td>
+            <td class="impact-low">Low–Med</td>
+            <td>v2</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p2">P2</span></td>
+            <td class="item-name">Streaks/badges for repeated high-integrity picks</td>
+            <td class="item-lever">05 · Identity</td>
+            <td>M</td>
+            <td class="impact-low">Low–Med</td>
+            <td>v2 (risk: gimmicky if overdone)</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-p2">P2</span></td>
+            <td class="item-name">Aggregate transparency reports back to retailers/brands ("N shoppers viewed this Labor score")</td>
+            <td class="item-lever">04 · Social Proof</td>
+            <td>L</td>
+            <td class="impact-high">High (systemic)</td>
+            <td>v2, post white paper</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:2rem;">Impact vs. effort</h3>
+    <div class="quadrant">
+      <div class="quad-cell now">
+        <h5>High impact · Low/med effort — do first</h5>
+        <ul>
+          <li>Interaction/event model</li>
+          <li>Loss-framed pillar copy</li>
+          <li>Swap CTA (static leader)</li>
+        </ul>
+      </div>
+      <div class="quad-cell">
+        <h5>High impact · Higher effort — plan for v1.1</h5>
+        <ul>
+          <li>Pillar-weight personalization</li>
+          <li>Dynamic category-leader lookup</li>
+          <li>Localize-backed swap CTA</li>
+          <li>Real social-proof line</li>
+          <li>Retailer transparency reports</li>
+        </ul>
+      </div>
+      <div class="quad-cell">
+        <h5>Lower impact · Low effort — cheap, do opportunistically</h5>
+        <ul>
+          <li>Cost-per-use Value framing</li>
+          <li>Layer 1 micro-explainer</li>
+          <li>Shareable recap card</li>
+        </ul>
+      </div>
+      <div class="quad-cell">
+        <h5>Lower impact · Higher effort — reconsider or defer</h5>
+        <ul>
+          <li>Streaks/gamification badges</li>
+          <li>Monthly goal tracking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MEASUREMENT & WHITE PAPER ═══ -->
+  <section>
+    <p class="section-tag">04 — Strategic Note</p>
+    <h2>This is also the white paper's second finding</h2>
+    <div class="callout">
+      <h3>Methodology alone won't distinguish the venture</h3>
+      <p>
+        The current methodology document (<code>white-paper/methodology.md</code>) makes a strong scoring-design
+        argument: independent pillars over composites, confidence-weighted evidence. That's a contribution, but it's
+        a static one. Instrumenting the funnel now (Lever 06) turns the white paper into something with an actual
+        <strong>behavioral result</strong> — e.g. "shoppers shown a comparative, loss-framed score swapped to the
+        higher-scoring option at rate X vs. baseline Y" — which is a materially stronger empirical claim for a
+        petition built on documented, active, novel work than methodology description alone.
+      </p>
+    </div>
+    <p class="lead">
+      Practically: ship the P0 event log even in skeletal form before the pilot goes live. Every day it's missing is
+      pilot data that can never be reconstructed retroactively.
+    </p>
+  </section>
+
+  <footer class="site-footer">
+    <p>CLEARCART — Behavioral Change Analysis &amp; Backlog &nbsp;·&nbsp; Internal review, prepared 2026-07-23 &nbsp;·&nbsp; Built with Claude</p>
+    <a class="back-link" href="index.html">← Back to research hub</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
