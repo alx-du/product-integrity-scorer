@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280, initial-scale=1.0" />
+<title>ClearCart — Capstone Defense</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+<style>
+  :root {
+    --ink: #18181B;
+    --muted: #6B6B74;
+    --accent: #2f7d5f;
+    --accent-dark: #1e5d46;
+    --accent-soft: #dcefe7;
+    --border: #E2E1DC;
+    --bg: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; }
+
+  .reveal {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+  }
+
+  .reveal .slides section {
+    background: var(--bg);
+    text-align: left;
+    padding: 40px 60px;
+  }
+
+  .reveal h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-transform: none;
+    margin-bottom: 0.3em;
+  }
+
+  .reveal h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-transform: none;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 0.3em;
+    margin-bottom: 0.6em;
+  }
+
+  .reveal h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    text-transform: none;
+    margin-bottom: 0.3em;
+  }
+
+  .reveal p, .reveal li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .reveal small { color: var(--muted); }
+
+  .reveal table { font-size: 0.72rem; border-collapse: collapse; width: 100%; }
+  .reveal table th, .reveal table td {
+    border-bottom: 1px solid var(--border);
+    padding: 5px 8px;
+    text-align: left;
+  }
+  .reveal table th {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.62rem;
+  }
+
+  /* ── Title slide ── */
+  .title-slide { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+  .title-slide .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    margin-bottom: 0.8em;
+  }
+  .title-slide .meta { color: var(--muted); font-size: 1rem; margin-top: 0.4em; }
+  .title-slide .meta div { margin-bottom: 0.25em; }
+
+  /* ── Big-number / quote slide (slide 2) ── */
+  .bignum-block { margin: 1.1em 0; }
+  .bignum-block .cite-line { font-weight: 700; color: var(--accent-dark); font-size: 1rem; margin-bottom: 0.25em; }
+  .bignum-block .fact-line { font-size: 1.15rem; line-height: 1.55; }
+  .bignum-block .quote-line { font-style: italic; font-size: 1.15rem; color: var(--ink); }
+
+  /* ── Two column layout ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .bottom-bar {
+    margin-top: 1.5rem;
+    border-top: 2px solid var(--accent);
+    padding-top: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* ── Pillar row ── */
+  .pillar-row { display: flex; gap: 0.6rem; margin: 0.8em 0 1.2em; }
+  .pillar-row span {
+    flex: 1;
+    text-align: center;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.5em 0.3em;
+    border-radius: 4px;
+  }
+
+  /* ── Traced chain (slide 4) ── */
+  .chain { display: flex; align-items: stretch; gap: 0.5rem; margin: 1.2em 0; }
+  .chain-step {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.7em 0.6em;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+  .chain-step .k { display:block; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.58rem; margin-bottom: 0.4em; }
+  .chain-step .v { font-weight: 700; color: var(--ink); }
+  .chain-arrow { display: flex; align-items: center; color: var(--muted); font-size: 1rem; }
+  .rule-list { margin-top: 1rem; }
+  .rule-list li { margin-bottom: 0.4em; }
+
+  /* ── Flow (slide 5) ── */
+  .flow { display: flex; align-items: stretch; gap: 0.5rem; margin: 1.5em 0; }
+  .flow-step {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.9em 0.7em;
+    font-size: 0.78rem;
+    text-align: center;
+  }
+  .flow-arrow { display: flex; align-items: center; color: var(--muted); }
+  .output-label {
+    text-align: center;
+    font-weight: 700;
+    color: var(--accent-dark);
+    font-size: 1.1rem;
+    margin-top: 0.6em;
+  }
+
+  /* ── Slide 6 composite comparison ── */
+  .composite-table td.highlight { background: var(--accent-soft); font-weight: 700; }
+  .composite-table td.warn { background: #fff3df; font-weight: 700; color: #7a4d10; }
+  .live-example {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2em;
+    text-align: center;
+  }
+  .live-example .score-big { font-size: 3rem; font-weight: 700; color: var(--accent-dark); line-height: 1; margin: 0.2em 0; }
+  .live-example .gap-flag { color: #7a1f1f; font-weight: 700; font-size: 0.85rem; margin-top: 0.6em; }
+  .pillar-bars { display: flex; gap: 0.6rem; margin-top: 1.2em; align-items: flex-end; height: 90px; }
+  .pillar-bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .pillar-bar .bar { width: 60%; background: var(--accent); border-radius: 3px 3px 0 0; }
+  .pillar-bar .label { font-size: 0.62rem; color: var(--muted); margin-top: 0.3em; text-align: center; }
+  .pillar-bar .val { font-size: 0.7rem; font-weight: 700; }
+
+  /* ── Awareness index grid (slide 7) ── */
+  .concern-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6rem; margin-top: 1em; }
+  .concern-cell {
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--c-stripe, var(--accent));
+    border-radius: 4px;
+    padding: 0.6em 0.7em;
+    font-size: 0.68rem;
+  }
+  .concern-cell .name { font-weight: 700; display: block; margin-bottom: 0.2em; }
+  .concern-cell .type { color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.56rem; }
+  .concern-cell.env    { --c-stripe: #4ADE80; }
+  .concern-cell.health  { --c-stripe: #F87171; }
+  .concern-cell.labor   { --c-stripe: #FBBF24; }
+  .concern-cell.mono    { --c-stripe: #60A5FA; }
+
+  /* ── Coverage matrix placeholder + caption (slide 8) ── */
+  .matrix-caption { font-size: 0.85rem; color: var(--muted); margin-top: 0.8em; }
+  .matrix-caption strong { color: var(--ink); }
+
+  /* ── Placeholder ── */
+  .placeholder {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 380px;
+    margin: 0.8em auto;
+    padding: 1.5em;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .placeholder small { display: block; margin-top: 0.6em; font-weight: 400; font-size: 0.75rem; max-width: 480px; }
+
+  /* ── Concentration panels (slide 9) ── */
+  .panel-row { display: flex; gap: 1rem; margin-top: 1em; align-items: stretch; }
+  .panel {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1em;
+  }
+  .panel h3 { margin-bottom: 0.5em; }
+  .panel p { font-size: 0.82rem; }
+
+  /* ── Governance arrows (slide 11) ── */
+  .gov-cols { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin-top: 1.2em; }
+  .gov-col { border: 1px solid var(--border); border-radius: 8px; padding: 1em; }
+  .gov-col ul { margin: 0.4em 0 0.6em 1.1em; }
+  .gov-col .label { font-size: 0.78rem; font-style: italic; color: var(--muted); }
+  .gov-arrows { display: flex; flex-direction: column; align-items: center; font-size: 1.6rem; color: var(--accent); }
+
+  /* ── Deliverable slide (12) ── */
+  .demo-wrap { position: relative; height: 400px; margin: 0.8em auto; }
+  .demo-wrap video { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; display: block; }
+  .demo-wrap .placeholder { position: absolute; inset: 0; height: 100%; display: none; }
+  .lib-url { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 0.6em; }
+
+  /* ── Contribution slide (13) ── */
+  .contribution-quote {
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding-left: 0.8em;
+    margin: 0.8em 0 1.2em;
+  }
+  .limitations li { margin-bottom: 0.5em; font-size: 0.95rem; }
+
+  /* ── Citation footer (static per-slide, print-safe) ── */
+  .cite-footer {
+    position: absolute;
+    bottom: 14px;
+    right: 20px;
+    font-size: 0.55rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  @media print {
+    .reveal .slides section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- 1 — Title -->
+    <section data-timing="15">
+      <div class="title-slide">
+        <p class="eyebrow">M.S. Global Affairs — Capstone Defense</p>
+        <h1>ClearCart: A Source-Audited Product Integrity Score</h1>
+        <p style="font-size:1.1rem; color:var(--muted); margin-top:0.2em;">Capstone deliverable presentation</p>
+        <div class="meta">
+          <div>Alex Du</div>
+          <div>M.S. Global Affairs — Global Economy concentration</div>
+          <div>Advisor: [ADVISOR]</div>
+          <div>[DATE]</div>
+        </div>
+      </div>
+      <aside class="notes">
+        Name, concentration, one sentence on what you built. No agenda preview.
+      </aside>
+    </section>
+
+    <!-- 2 — The problem, in one number -->
+    <section data-timing="60">
+      <h2>The problem, in one number</h2>
+      <div class="bignum-block">
+        <div class="cite-line">Channel 4 Dispatches, Guatemala, 2020</div>
+        <div class="fact-line">Children on all twelve farms visited — seven supplying Nespresso, five supplying Starbucks.</div>
+      </div>
+      <div class="bignum-block">
+        <div class="cite-line">ABC Impact x Nightline, Chiapas, 2022</div>
+        <div class="fact-line">Children as young as six on a Rainforest Alliance–certified farm.</div>
+      </div>
+      <div class="bignum-block">
+        <div class="cite-line">Rainforest Alliance regional lead, on camera:</div>
+        <div class="quote-line">not all certified farms are inspected.</div>
+      </div>
+      <div class="cite-footer">S1, S2</div>
+      <aside class="notes">
+        Lead with the fact, not the setup. Two investigations, two countries, five years apart. The consumer's designated tool for resolving ethical uncertainty is the certification label — and the certifier's own regional lead conceded that certification does not imply inspection. This is not consumers failing to care. The verification infrastructure they are instructed to trust does not reliably verify.
+      </aside>
+    </section>
+
+    <!-- 3 — Market failure, research questions, client -->
+    <section data-timing="60">
+      <h2>Market failure, research questions, client</h2>
+      <div class="two-col">
+        <div>
+          <h3>Credence goods</h3>
+          <p>Sustainability and labor claims cannot be verified before purchase, during use, or after the fact. The buyer never learns the true quality of what they bought.</p>
+        </div>
+        <div>
+          <h3>Research questions</h3>
+          <ol style="font-size:0.9rem; margin-left:1.1em;">
+            <li>[RQ1]</li>
+            <li>[RQ2]</li>
+            <li>[RQ3]</li>
+            <li>[RQ4]</li>
+          </ol>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <strong>End user:</strong> [CLIENT]
+      </div>
+      <aside class="notes">
+        Sustainability and labor claims are credence attributes — unverifiable before, during, or after purchase. That asymmetry means integrity cannot be priced, so producers who invest in it cannot capture a premium and exit the market. Say the words market failure out loud. Then the client in one sentence, using the phrase hypothetical end-user.
+      </aside>
+    </section>
+
+    <!-- 4 — Methodology I: the rubric -->
+    <section data-timing="75">
+      <h2>Methodology I: the rubric</h2>
+      <div class="pillar-row">
+        <span>🌱 Planet</span>
+        <span>🤝 People &amp; Supply Chain</span>
+        <span>⭐ Quality</span>
+        <span>💰 Value</span>
+        <span>🔍 Transparency</span>
+      </div>
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.4em;">Traced example — Trader Joe's Organic Pasture Raised Eggs (1 dz)</p>
+      <div class="chain">
+        <div class="chain-step"><span class="k">Claim</span><span class="v">Pasture-raised / high welfare land use</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step"><span class="k">Source</span><span class="v">Certified Humane (HFAC)</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step"><span class="k">Evidence type</span><span class="v">3rd-party certification</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step"><span class="k">Confidence tier</span><span class="v">High</span></div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-step"><span class="k">Pillar score</span><span class="v">Planet 86 / 100</span></div>
+      </div>
+      <ul class="rule-list">
+        <li>No score without a source.</li>
+        <li>Every score carries a confidence tier — High is independently verified, Medium is a brand claim plus corroborating evidence, Low is inferred.</li>
+      </ul>
+      <p style="text-align:center; margin-top:1em;"><small>12 product types · 0–5 rubric · 39 references</small></p>
+      <aside class="notes">
+        Walk this one chain out loud in real product terms. Then the two rules. No score without a source. And every score carries a confidence tier — High is independently verified, Medium is a brand claim plus corroborating evidence, Low is inferred. One traced example, not an abstract description of the system.
+      </aside>
+    </section>
+
+    <!-- 5 — Methodology II: the source pipeline -->
+    <section data-timing="60">
+      <h2>Methodology II: the source pipeline</h2>
+      <div class="flow">
+        <div class="flow-step">Source URL / transcript</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Extraction</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Per-pillar claims, evidence-typed</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Gap markers</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Attribution block</div>
+      </div>
+      <div class="output-label">Output: claims, not scores.</div>
+      <aside class="notes">
+        Two design decisions worth defending. First, the pipeline ingests claims rather than other people's scores, so you never inherit someone else's weighting. Second, when a source does not address a pillar, that absence is recorded as data rather than scored around. Most aggregation silently fills gaps. Yours flags them — and that choice is what makes the next slide possible.
+      </aside>
+    </section>
+
+    <!-- 6 — The no-composite decision -->
+    <section data-timing="75">
+      <h2>The no-composite decision</h2>
+      <div class="two-col">
+        <div>
+          <h3>iPhone 15 Pro — equal-weighted composite</h3>
+          <table class="composite-table">
+            <thead><tr><th>Dimension</th><th>Score</th></tr></thead>
+            <tbody>
+              <tr class="warn"><td>Environmental Sustainability</td><td class="warn">0.20</td></tr>
+              <tr><td>Labor &amp; Ethical Sourcing</td><td>0.85</td></tr>
+              <tr><td>Product Quality &amp; Durability</td><td>0.78</td></tr>
+              <tr><td>Pricing Fairness</td><td>0.75</td></tr>
+              <tr><td>Value for Money</td><td>0.72</td></tr>
+              <tr><td>Corporate Ownership</td><td>0.80</td></tr>
+              <tr><td>Sourcing Truthfulness &amp; Credibility</td><td>0.85</td></tr>
+              <tr><td>Consumer-Education Resources</td><td>0.90</td></tr>
+              <tr><td>Performance (Geekbench)</td><td>0.72</td></tr>
+              <tr><td>Expert Review (CNET)</td><td>0.60</td></tr>
+              <tr><td>Net Promoter Score</td><td>0.55</td></tr>
+              <tr class="highlight"><td><strong>Composite (equal-weighted)</strong></td><td class="highlight">0.71</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Live example — Clarity Insight Advisory</h3>
+          <div class="live-example">
+            <div>de Buyer Mineral B Pro Carbon Steel</div>
+            <div class="score-big">10 / 10</div>
+            <small>one of only two 10/10 ratings across 180+ cookware lines audited</small>
+            <div class="gap-flag">People &amp; Supply Chain: no data (gap) · Planet: brand-claim only</div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-bars">
+        <div class="pillar-bar"><div class="val">0.20</div><div class="bar" style="height:20%; background:#d89442;"></div><div class="label">Planet</div></div>
+        <div class="pillar-bar"><div class="val">0.85</div><div class="bar" style="height:85%;"></div><div class="label">People</div></div>
+        <div class="pillar-bar"><div class="val">0.78</div><div class="bar" style="height:78%;"></div><div class="label">Quality</div></div>
+        <div class="pillar-bar"><div class="val">0.72</div><div class="bar" style="height:72%;"></div><div class="label">Value</div></div>
+        <div class="pillar-bar"><div class="val">0.85</div><div class="bar" style="height:85%;"></div><div class="label">Transparency</div></div>
+      </div>
+      <aside class="notes">
+        Show what you tried first. Equal weighting across eleven dimensions produced 0.71, which reads as a solid product — and a 0.20 environmental score disappears completely inside it. The average did not summarize the tradeoff, it concealed it. This is not hypothetical: an active review site does the same thing today. State plainly that you tested a method, found it misleading, and changed course.
+      </aside>
+    </section>
+
+    <!-- 7 — Finding 1: Awareness Index -->
+    <section data-timing="45">
+      <h2>Finding 1: Awareness Index</h2>
+      <div class="concern-grid">
+        <div class="concern-cell env"><span class="name">Carbonated Soft Drinks</span><span class="type">Environment</span></div>
+        <div class="concern-cell mono"><span class="name">Beer</span><span class="type">Monopoly</span></div>
+        <div class="concern-cell health"><span class="name">Salty Snacks</span><span class="type">Health</span></div>
+        <div class="concern-cell env"><span class="name">Toilet Paper</span><span class="type">Environment</span></div>
+        <div class="concern-cell env"><span class="name">Paper Towels</span><span class="type">Environment</span></div>
+        <div class="concern-cell labor"><span class="name">Coffee</span><span class="type">Labor</span></div>
+        <div class="concern-cell health"><span class="name">Laundry Detergent</span><span class="type">Health</span></div>
+        <div class="concern-cell mono"><span class="name">Bottled Water</span><span class="type">Monopoly</span></div>
+        <div class="concern-cell env"><span class="name">Disposable Diapers</span><span class="type">Environment</span></div>
+        <div class="concern-cell health"><span class="name">Breakfast Cereal</span><span class="type">Health</span></div>
+      </div>
+      <aside class="notes">
+        Explain the selection criterion, not the contents — scale, because research capacity is finite and behavior change compounds where transactions are most numerous. Then voice exactly one entry. Coca-Cola, top plastic polluter six consecutive years, branded plastic found in forty of forty-two audited countries, more than the next two polluters combined. Then move on. This slide is a setup, not a destination.
+      </aside>
+    </section>
+
+    <!-- 8 — Finding 2: the pillar coverage gap -->
+    <section data-timing="90">
+      <h2>Finding 2: The Pillar Coverage Gap</h2>
+      <div class="placeholder">
+        TODO — coverage matrix SVG
+        <small>5 columns (pillars) x 3 rows (sources: Prudent Reviews, Clarity Insight Advisory, Fineas Jackson). Planet and People &amp; Supply Chain columns empty.</small>
+      </div>
+      <p class="matrix-caption"><strong>Pilot audit</strong> — 3 sources profiled, 6 products assessed.</p>
+      <aside class="notes">
+        Slow down here. If certification is unreliable, does independent review media fill the gap? Method — profile each source's stated methodology, extract per-product claims, map them to the pillars. Result — the strongest reviewers cover two to three pillars, and Planet and People and Supply Chain are near-universally absent. State the sample size before anyone asks and call it a pilot audit. Implication — the information does not exist at product level anywhere. Not in certification, not in review media. That is the gap the deliverable fills.
+      </aside>
+    </section>
+
+    <!-- 9 — Finding 3: market concentration -->
+    <section data-timing="75">
+      <h2>Finding 3: Market Concentration</h2>
+      <div class="panel-row">
+        <div class="panel">
+          <h3>Beer</h3>
+          <p>AB InBev — 500+ brands globally, distribution lock-in on tap handles, wholesaler relationships, and retail shelf placement.</p>
+        </div>
+        <div class="panel">
+          <h3>Cereal</h3>
+          <p>~75% three-firm market concentration in packaged breakfast cereal.</p>
+        </div>
+        <div class="panel">
+          <h3>Bottled Water</h3>
+          <p>Markups up to 3,000×. Nestlé/BlueTriton pumped 130M+ gallons/year from Michigan wells for $200/year in extraction fees.</p>
+        </div>
+      </div>
+      <div class="cite-footer">S6</div>
+      <aside class="notes">
+        Frame this as choice architecture under oligopoly — the appearance of variety with concentrated ownership behind it. The craft aisle is less independent than it looks. On bottled water, name the Flint timing; that is where market power stops being abstract. Close by tying it back — this is why the Value pillar scores brand ownership, not just price.
+      </aside>
+    </section>
+
+    <!-- 10 — Finding 4: value chain distribution -->
+    <section data-timing="75">
+      <h2>Finding 4: Value Chain Distribution</h2>
+      <div class="placeholder" style="height:440px;">
+        TODO — waterfall chart, single bag of coffee
+        <small>Stages: retail price → roaster/brand margin → distributor/logistics → exporter → mill → smallholder farmer. Smallholder share labeled at 1–3% of retail price.</small>
+      </div>
+      <div class="cite-footer">S3, S7</div>
+      <aside class="notes">
+        Reframe the Value pillar. The consumer asks whether they are overpaying for the brand. The analytically useful question is at which node of the chain the margin settles. Smallholders capture one to three percent of retail price. Connect this back to slide two — that share is the mechanism behind the child labor finding, not a separate issue. Say global value chain governance so the grader can locate you in a literature.
+      </aside>
+    </section>
+
+    <!-- 11 — Finding 5: the governance gap -->
+    <section data-timing="45">
+      <h2>Finding 5: The Governance Gap</h2>
+      <div class="gov-cols">
+        <div class="gov-col">
+          <h3>Certification bodies</h3>
+          <ul>
+            <li>Rainforest Alliance</li>
+            <li>Fairtrade</li>
+            <li>B Corp</li>
+          </ul>
+          <div class="label">non-state actors, no legal standing in producing jurisdictions</div>
+        </div>
+        <div class="gov-arrows">↑</div>
+        <div class="gov-col">
+          <h3>Mandatory disclosure</h3>
+          <ul>
+            <li>CSRD</li>
+            <li>CSDDD</li>
+            <li>UFLPA</li>
+            <li>EU Green Claims Directive</li>
+          </ul>
+          <div class="label">binding, extraterritorial</div>
+        </div>
+      </div>
+      <div class="cite-footer">S2, S4</div>
+      <aside class="notes">
+        Certification bodies exercise quasi-regulatory authority where they have no legal standing, and slide two showed the failure mode. Meanwhile mandatory disclosure is arriving from the EU and the US and propagating up chains that terminate in Asia and Latin America. This tool sits at the last mile of that regime. And the line only I can deliver — K-ESG and CSRC produce different data availability than CSRD, so confidence tiers for the same product vary by where it is made.
+      </aside>
+    </section>
+
+    <!-- 12 — The deliverable -->
+    <section data-timing="75">
+      <h2>The Deliverable</h2>
+      <div class="demo-wrap">
+        <video data-autoplay muted playsinline
+               poster="assets/demo-poster.png"
+               src="assets/clearcart-demo.mp4"
+               onerror="this.style.display='none'; document.getElementById('demo-placeholder').style.display='flex';"></video>
+        <div class="placeholder" id="demo-placeholder">
+          TODO — record demo video
+          <small>Narrate the three disclosure layers: badge pills on the product card, the expanded pillar panel, the full source breakdown. Poster frame: assets/demo-poster.png (also used as the PDF-export fallback frame).</small>
+        </div>
+      </div>
+      <p class="lib-url">Research library: alx-du.github.io/product-integrity-scorer</p>
+      <aside class="notes">
+        Narrate the three disclosure layers as they play — badge pills on the product card, the expanded pillar panel, the full source breakdown. Then fifteen seconds on what this deliberately does not do. No checkout injection, no affiliate automation, minimal permissions, open methodology. The browser extension category has a reputation and this needs to be visibly outside it.
+      </aside>
+    </section>
+
+    <!-- 13 — Contribution, limitations, close -->
+    <section data-timing="75">
+      <h2>Contribution, Limitations, Close</h2>
+      <div class="contribution-quote">
+        A replicable, source-audited methodology for producing product-level integrity information, and documented evidence that neither certification schemes nor independent review media currently produce it.
+      </div>
+      <ul class="limitations">
+        <li>LLM hallucination and overconfident scoring</li>
+        <li>Data availability varies by jurisdiction — confidence tiers are not comparable across origins</li>
+        <li>Individual purchasing is a weak lever against structural concentration</li>
+      </ul>
+      <aside class="notes">
+        Read the contribution sentence — both legs, method and evidence. Then the limitations, unhedged. On the third one: the tool lowers search costs and applies reputational pressure at the margin. It does not fix oligopoly. Close with one sentence on why this matters for global affairs, then stop talking.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    plugins: [ RevealNotes ],
+    totalTime: 900,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    width: 1280,
+    height: 720
+  });
+</script>
+</body>
+</html>
