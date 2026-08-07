@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Method note: populating the ClearCart People and Supply Chain pillar for the Schlage Encode Plus using Sayari supply-chain intelligence, with confidence tiering and redaction rules.">
+<title>People &amp; Supply Chain pillar: method note — Schlage Encode Plus | ClearCart</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+<style>
+:root {
+  --cc-surface-page: #f0efe9;
+  --cc-surface-card: #ffffff;
+  --cc-surface-sunken: #f5f4f0;
+  --cc-border: rgba(0,0,0,0.12);
+  --cc-text: #1f1f1e;
+  --cc-text-secondary: #5f5e5a;
+  --cc-text-muted: #8a8983;
+  --cc-caution-bg: #faeeda;
+  --cc-caution-border: #ef9f27;
+  --cc-caution-text: #633806;
+  --cc-caution-label: #854f0b;
+  --cc-radius: 8px;
+  --cc-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --cc-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cc-surface-page: #1b1b1a;
+    --cc-surface-card: #262624;
+    --cc-surface-sunken: #2e2e2b;
+    --cc-border: rgba(255,255,255,0.14);
+    --cc-text: #ececea;
+    --cc-text-secondary: #b0afa9;
+    --cc-text-muted: #8a8983;
+    --cc-caution-bg: #412402;
+    --cc-caution-border: #ba7517;
+    --cc-caution-text: #fac775;
+    --cc-caution-label: #ef9f27;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0 1rem 4rem;
+  background: var(--cc-surface-page);
+  color: var(--cc-text);
+  font-family: var(--cc-font);
+  line-height: 1.65;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.cc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cc-wrap { max-width: 720px; margin: 0 auto; }
+.cc-back { font-size: 13px; margin: 1.5rem 0 0; }
+.cc-back a { color: var(--cc-text-muted); text-decoration: none; }
+.cc-back a:hover { text-decoration: underline; }
+.cc-banner {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  background: var(--cc-caution-bg);
+  border-bottom: 2px solid var(--cc-caution-border);
+  border-radius: 0;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cc-caution-text);
+}
+.cc-banner strong { font-weight: 500; }
+h1 { font-size: 26px; font-weight: 500; line-height: 1.3; margin: 2.5rem 0 0.5rem; }
+h2 { font-size: 19px; font-weight: 500; margin: 2.5rem 0 0.75rem; }
+h3 { font-size: 16px; font-weight: 500; margin: 1.75rem 0 0.5rem; }
+p { margin: 0 0 1rem; }
+.cc-dek { color: var(--cc-text-secondary); margin-bottom: 2rem; }
+.cc-rule { border: 0; border-top: 1px solid var(--cc-border); margin: 3rem 0; }
+code { font-family: var(--cc-mono); font-size: 0.88em; background: var(--cc-surface-sunken); padding: 1px 5px; border-radius: 4px; }
+a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 14px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--cc-border); vertical-align: top; }
+th { font-weight: 500; color: var(--cc-text-secondary); font-size: 13px; }
+ol.cc-steps { padding-left: 0; list-style: none; counter-reset: step; margin: 1rem 0 1.5rem; }
+ol.cc-steps > li { counter-increment: step; padding: 0 0 1.25rem 2.25rem; position: relative; }
+ol.cc-steps > li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 1px;
+  width: 22px; height: 22px;
+  background: var(--cc-surface-sunken);
+  border-radius: 50%;
+  font-size: 12px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--cc-text-secondary);
+}
+ol.cc-steps h3 { margin: 0 0 0.25rem; }
+ol.cc-steps p { margin: 0 0 0.4rem; font-size: 15px; }
+.cc-tool { font-family: var(--cc-mono); font-size: 12px; color: var(--cc-text-muted); }
+ul.cc-list { padding-left: 1.1rem; margin: 0 0 1.25rem; }
+ul.cc-list li { margin-bottom: 0.45rem; }
+td ul { padding-left: 1rem; margin: 0; }
+td ul li { margin-bottom: 0.4rem; }
+td ul li:last-child { margin-bottom: 0; }
+.cc-callout {
+  background: var(--cc-surface-card);
+  border: 1px solid var(--cc-border);
+  border-radius: var(--cc-radius);
+  padding: 14px 16px;
+  margin: 1.25rem 0 1.5rem;
+  font-size: 15px;
+}
+.cc-callout p:last-child { margin-bottom: 0; }
+.cc-callout strong { font-weight: 500; }
+.cc-panel {
+  max-width: 380px;
+  margin: 1.5rem auto;
+  background: var(--cc-surface-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cc-chrome { padding: 12px 14px; border-bottom: 1px solid var(--cc-border); display: flex; align-items: center; gap: 8px; }
+.cc-wordmark { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; }
+.cc-product { font-size: 12px; color: var(--cc-text-muted); margin-left: auto; }
+.cc-badges { padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+.cc-pill { font-size: 12px; padding: 4px 9px; border-radius: 20px; background: var(--cc-surface-sunken); color: var(--cc-text-secondary); border: 1px solid var(--cc-border); cursor: pointer; font-family: inherit; }
+.cc-pill--empty { color: var(--cc-text-muted); }
+.cc-pill--flag { background: var(--cc-caution-bg); color: var(--cc-caution-label); border-color: var(--cc-caution-border); }
+.cc-pill:focus-visible, .cc-btn:focus-visible { outline: 2px solid var(--cc-caution-border); outline-offset: 2px; }
+.cc-detail { border-top: 1px solid var(--cc-border); padding: 14px; }
+.cc-detail-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.cc-detail-head h2 { font-size: 15px; font-weight: 500; margin: 0; }
+.cc-finding { font-size: 14px; margin: 0 0 12px; }
+.cc-caution { background: var(--cc-caution-bg); border-radius: var(--cc-radius); padding: 10px 12px; margin-bottom: 12px; }
+.cc-caution p { font-size: 13px; line-height: 1.5; margin: 0; color: var(--cc-caution-text); }
+.cc-caution strong { font-weight: 500; }
+.cc-meta { display: flex; gap: 8px; margin: 0 0 12px; }
+.cc-meta div { flex: 1; background: var(--cc-surface-sunken); border-radius: var(--cc-radius); padding: 9px 10px; }
+.cc-meta dt { font-size: 11px; color: var(--cc-text-muted); margin: 0 0 3px; }
+.cc-meta dd { font-size: 14px; font-weight: 500; margin: 0; }
+.cc-label { font-size: 12px; color: var(--cc-text-muted); margin: 0 0 6px; }
+.cc-chain { border: 1px solid var(--cc-border); border-radius: var(--cc-radius); overflow: hidden; margin-bottom: 12px; }
+.cc-chain ol { margin: 0; padding: 0; }
+.cc-chain li { padding: 8px 11px; border-bottom: 1px solid var(--cc-border); font-size: 13px; list-style: none; }
+.cc-chain li:last-child { border-bottom: 0; color: var(--cc-text-secondary); }
+.cc-arrow { color: var(--cc-text-muted); }
+.cc-actions { display: flex; gap: 8px; }
+.cc-btn { flex: 1; font: inherit; font-size: 13px; padding: 8px 10px; background: transparent; color: var(--cc-text); border: 1px solid var(--cc-border); border-radius: var(--cc-radius); cursor: pointer; }
+.cc-btn:hover { background: var(--cc-surface-sunken); }
+.cc-caption { max-width: 380px; margin: 0 auto 2rem; font-size: 12px; color: var(--cc-text-muted); text-align: center; }
+footer { font-size: 13px; color: var(--cc-text-muted); margin-top: 3rem; }
+footer p { margin-bottom: 0.5rem; }
+.cc-run {
+  background: var(--cc-surface-card);
+  border: 1px solid var(--cc-border);
+  border-radius: var(--cc-radius);
+  padding: 14px 16px;
+  margin: 0 0 2rem;
+}
+.cc-run-grid { display: flex; flex-wrap: wrap; gap: 20px; margin: 0 0 10px; }
+.cc-run-grid div { min-width: 92px; }
+.cc-run-grid dt { font-size: 11px; color: var(--cc-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+.cc-run-grid dd { font-size: 18px; font-weight: 500; margin: 0; }
+.cc-run-tools { font-family: var(--cc-mono); font-size: 11.5px; color: var(--cc-text-muted); line-height: 1.7; margin: 0; padding-top: 10px; border-top: 1px solid var(--cc-border); }
+.cc-ba { display: flex; gap: 10px; flex-wrap: wrap; margin: 1rem 0 1.5rem; }
+.cc-ba > div { flex: 1; min-width: 200px; background: var(--cc-surface-card); border: 1px solid var(--cc-border); border-radius: var(--cc-radius); padding: 12px 14px; }
+.cc-ba h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--cc-text-muted); margin: 0 0 8px; font-weight: 500; }
+.cc-ba p { font-size: 13.5px; margin: 8px 0 0; color: var(--cc-text-secondary); }
+.cc-strike { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--cc-text-muted); }
+.cc-quote { font-size: 14px; margin: 0; }
+footer { font-size: 13px; color: var(--cc-text-muted); margin-top: 3rem; }
+</style>
+</head>
+<body>
+
+<div class="cc-banner">
+<strong>Interface mockup from an academic capstone. Not a shipped product.</strong>
+Findings below are inferred network relationships derived from trade and corporate records. They are not verified claims about labour conditions at any facility, and they are not allegations against any named company.
+</div>
+
+<div class="cc-wrap">
+
+<p class="cc-back"><a href="./">&larr; ClearCart dashboard</a></p>
+
+<h1>Sayari demo: filling the People &amp; Supply Chain pillar</h1>
+<p class="cc-dek">Populating one empty pillar for one product using commercial supply-chain intelligence, and what that exposes about the limits of product-level transparency. Schlage Encode Plus Smart Lock, 7 August 2026.</p>
+
+<div class="cc-run">
+<dl class="cc-run-grid">
+<div><dt>Tool calls</dt><dd>6</dd></div>
+<div><dt>Candidates</dt><dd>554 &rarr; 1</dd></div>
+<div><dt>Supplier links</dt><dd>165</dd></div>
+<div><dt>Risk flags</dt><dd>3 kept</dd></div>
+<div><dt>Redacted</dt><dd>2</dd></div>
+</dl>
+<p class="cc-run-tools">get_investigation_guidance &middot; search_entities &middot; get_entity_profile &middot; find_beneficial_owners &middot; get_upstream_supply_chain &middot; lookup_risk_factors</p>
+</div>
+
+<h2>Before and after</h2>
+<p>In the six-product pilot audit, People &amp; Supply Chain was the emptiest pillar: five of six products had no product-level labour evidence from any certification scheme or independent reviewer. The Encode Plus was one of two where the pillar was a total gap — no brand claim to evaluate, no reviewer coverage, nothing to score.</p>
+
+<div class="cc-ba">
+<div>
+<h4>Before</h4>
+<span class="cc-pill cc-pill--empty">People &middot; no data</span>
+<p>No certification, no reviewer coverage, no brand claim. The pillar rendered as a gap because there was nothing to render.</p>
+</div>
+<div>
+<h4>After</h4>
+<span class="cc-pill cc-pill--flag">People &middot; check this</span>
+<p>Ownership resolved and corroborated, supplier network traversed to tier 3, three risk indicators interpreted and confidence-capped.</p>
+</div>
+</div>
+
+<p>The Encode Plus was selected for a further reason. Its parent, Allegion plc, is publicly traded, which means findings can be published without the accuracy risk that attaches to supply-chain claims about small private firms.</p>
+
+<h2>The resulting pillar card</h2>
+
+<div class="cc-panel">
+  <div class="cc-chrome">
+    <span class="cc-wordmark">CLEARCART</span>
+    <span class="cc-product">Schlage Encode Plus</span>
+  </div>
+  <div class="cc-badges">
+    <button class="cc-pill cc-pill--empty" type="button">Planet · no data</button>
+    <button class="cc-pill cc-pill--flag" type="button">People · check this</button>
+    <button class="cc-pill" type="button">Quality · tested</button>
+    <button class="cc-pill" type="button">Value · tested</button>
+    <button class="cc-pill" type="button">Transparency · brand only</button>
+  </div>
+  <section class="cc-detail">
+    <div class="cc-detail-head">
+      <i class="ti ti-users" style="font-size:18px;color:var(--cc-text-secondary)" aria-hidden="true"></i>
+      <h2>People and supply chain</h2>
+      <i class="ti ti-chevron-down" style="font-size:16px;color:var(--cc-text-muted);margin-left:auto" aria-hidden="true"></i>
+    </div>
+    <p class="cc-finding">This lock's parent company buys electronic parts through suppliers that sit near known forced-labour risk, several steps up the chain.</p>
+    <div class="cc-caution">
+      <p><strong>This is a pattern, not a proven case.</strong> Nothing here says a worker was harmed making this lock. It says the parts trail runs through companies flagged in forced-labour research.</p>
+    </div>
+    <dl class="cc-meta">
+      <div><dt>Confidence</dt><dd>Medium</dd></div>
+      <div><dt>Applies to</dt><dd>The company</dd></div>
+      <div><dt>Checked</dt><dd>Aug 2026</dd></div>
+    </dl>
+    <p class="cc-label">How we got here</p>
+    <div class="cc-chain">
+      <ol>
+        <li>Schlage <span class="cc-arrow">&rarr; owned by</span> Allegion plc</li>
+        <li>Ships from <span class="cc-arrow">&rarr;</span> an Indonesian assembler</li>
+        <li>Which buys from <span class="cc-arrow">&rarr;</span> parts brokers in Asia</li>
+        <li><i class="ti ti-alert-triangle" style="font-size:14px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>Trail goes dark past this point</li>
+      </ol>
+    </div>
+    <div class="cc-actions">
+      <a class="cc-btn" style="text-decoration:none;text-align:center" href="https://graph.sayari.com/resource/entity/mYqYdo-toIyWAmlSPqkXrQ" target="_blank" rel="noopener">See the records</a>
+      <a class="cc-btn" style="text-decoration:none;text-align:center" href="#confidence">Why only medium?</a>
+    </div>
+  </section>
+</div>
+<p class="cc-caption">Supply-chain relationships retrieved via Sayari, August 2026.</p>
+
+<hr class="cc-rule">
+
+<h2>Method</h2>
+<p>Retrieval used Sayari's Model Context Protocol server, which exposes its corporate and trade knowledge graph as callable tools. Seven steps, each producing a record retained in the source pipeline.</p>
+
+<ol class="cc-steps">
+
+<li>
+<h3>Resolve the brand to a legal entity</h3>
+<p>A name search for &ldquo;Schlage&rdquo; returned 554 candidate entities. Selection was made on registration identifiers, jurisdiction, and trade-record volume rather than name similarity: SEC CIK 0001604114, United States, active as of 30 June 2026.</p>
+<p class="cc-tool">search_entities &rarr; entity mYqYdo-toIyWAmlSPqkXrQ</p>
+</li>
+
+<li>
+<h3>Profile the entity</h3>
+<p>14,106 inbound trade records, 2,918 outbound, 165 supplier relationships, 35 customer relationships. Not sanctioned, no politically exposed persons. Three forced-labour risk indicators present.</p>
+<p class="cc-tool">get_entity_profile</p>
+</li>
+
+<li>
+<h3>Verify ownership</h3>
+<p>Beneficial-ownership traversal resolved to Allegion plc. This is the only step in the chain rated High confidence, because it is independently corroborated by SEC filings — Allegion's own subsidiary disclosures name the entity.</p>
+<p class="cc-tool">find_beneficial_owners, max_depth 5</p>
+</li>
+
+<li>
+<h3>Traverse upstream</h3>
+<p>Nineteen of twenty returned paths route through a single Indonesian contract assembler at tier 2, beyond which the network opens into electronic-component brokers and distributors across Asia. Most returned paths carried a <code>partial_path</code> quality flag, meaning the trace is incomplete by the provider's own assessment.</p>
+<p class="cc-tool">get_upstream_supply_chain, max_depth 3</p>
+</li>
+
+<li>
+<h3>Interpret the risk indicators rather than repeat them</h3>
+<p>All three forced-labour flags share a methodology: they denote <em>indirect</em> trade with a third party named in published forced-labour research, assessed across tiers 2 to 4 within a rolling 730-day window, using a proprietary product-component mapping. None denotes an observed condition at a facility. This distinction determines the confidence tier and the wording of the consumer card.</p>
+<p class="cc-tool">lookup_risk_factors</p>
+</li>
+
+<li id="confidence">
+<h3>Apply the confidence rule</h3>
+<p>Under the pipeline's existing tiering, evidence that is cited from a third party and derived by inference is capped at Medium. It cannot reach High without independent corroboration, and the inference chain here is explicitly probabilistic. The card states Medium and states why.</p>
+</li>
+
+<li>
+<h3>Redact what should not reach a consumer surface</h3>
+<p>See below. This step is not optional.</p>
+</li>
+
+</ol>
+
+<h2>What was excluded, and why</h2>
+
+<p>Two Allegion board members carry flags in the ownership data indicating association with sanctioned and forced-labour-linked entities. These attach because the individuals hold directorships at other companies. They say nothing about Allegion, and nothing about this product.</p>
+
+<div class="cc-ba">
+<div>
+<h4>What a naive pipeline renders</h4>
+<p class="cc-quote cc-strike">This product's owner is linked to a sanctioned entity.</p>
+<p>Technically traceable to the provider's output. False in every sense a shopper would understand it, and potentially defamatory.</p>
+</div>
+<div>
+<h4>What this pipeline renders</h4>
+<p class="cc-quote">Nothing.</p>
+<p>Person-level and director-level flags are dropped at the adapter boundary. They never enter the record that feeds a consumer surface.</p>
+</div>
+</div>
+
+<div class="cc-callout">
+<p><strong>The design decision this forces is worth stating plainly: the correct output is not everything the data provider returns.</strong></p>
+<p>Provider data is engineered for a compliance analyst who is trained to read a flag as a lead requiring investigation. A shopper reads it as a verdict. The same field, rendered to the same standard of fidelity, means opposite things to the two audiences.</p>
+</div>
+
+<h2>Limitations</h2>
+<ul class="cc-list">
+<li><strong>Entity-level, not product-level.</strong> Nothing retrieved ties to the Encode Plus specifically. The finding concerns Schlage Lock Co. LLC and is apportioned to the product by assumption. This is the central unresolved problem of product-level transparency, and it is not solved here.</li>
+<li><strong>Incomplete traversal.</strong> The provider marks most returned paths as partial. The visible chain ends where the data ends, not where the supply chain ends.</li>
+<li><strong>Rolling window.</strong> Risk indicators reflect a 730-day lookback. A relationship that ended 25 months ago is invisible; one that begins next month will not appear until it is recorded.</li>
+<li><strong>Import-record bias.</strong> Coverage is strongest for flows into jurisdictions that publish customs data. Domestic sourcing, intra-regional flows, and air freight are under-represented.</li>
+<li><strong>Single source.</strong> All supply-chain evidence in this card comes from one commercial provider. It has not been triangulated.</li>
+</ul>
+
+<h2>Could this have been done without a commercial provider?</h2>
+<p>Substantially, yes — for the inputs. Ownership is available free from SEC filings. US bills of lading are public and searchable without cost. Sanctions lists, the UFLPA Entity List, the ILAB list of goods, and the academic reports underlying the forced-labour indicators are all free downloads.</p>
+<p>What is not replicable independently is the join: resolving 554 name matches to one legal entity, and recursing from tier 1 to tiers 2, 3, and 4 across jurisdictions. Roughly speaking, the evidence is public and the resolution is not. That is a finding about where the transparency bottleneck actually sits.</p>
+
+<hr class="cc-rule">
+
+<h2>Scope of use across the framework</h2>
+<p>The obvious next question is whether the same source can fill the remaining gaps. It is admitted for two pillars and excluded from the other three.</p>
+
+<table>
+<thead>
+<tr><th style="width:16%">Pillar</th><th style="width:14%">Fit</th><th style="width:35%">Can do</th><th style="width:35%">Cannot do</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>People &amp; Supply Chain</td>
+<td>Strong, direct</td>
+<td>
+<ul>
+<li>Resolve a brand to its legal entity and beneficial owner</li>
+<li>Traverse supplier relationships beyond tier 1</li>
+<li>Screen entities against sanctions and forced-labour designations</li>
+<li>Evidence trade lanes and manufacturing jurisdictions from customs records</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>Observe conditions at any facility</li>
+<li>Attribute a supplier relationship to a specific product</li>
+<li>Exceed Medium confidence on inferred relationships; only corroborated ownership reaches High</li>
+<li>See relationships outside the 730-day window or outside published customs data</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Transparency</td>
+<td>Strong, derived</td>
+<td>
+<ul>
+<li>Test a stated country of manufacture against shipment records</li>
+<li>Check whether a named factory or supplier appears in the trade record at all</li>
+<li>Test whether a claimed short or direct supply chain is consistent with observed intermediaries</li>
+<li>Distinguish a claim that survives the record from one that is merely repeated</li>
+</ul>
+</td>
+<td>
+<ul>
+<li>Confirm a claim is true — absence from the record is not disproof</li>
+<li>Evaluate claims with no physical trade footprint, such as wage or governance assertions</li>
+<li>Assess domestic-only production, where customs records do not exist</li>
+<li>Distinguish an evasive disclosure from an incomplete dataset</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Excluded pillars</h3>
+<p>Planet, Quality, and Value were evaluated against this source and excluded. In each case a plausible-looking calculation was available and was rejected as unsound.</p>
+<ul class="cc-list">
+<li><strong>Planet.</strong> Manufacturing jurisdiction, shipping lane, and commodity codes are retrievable, but no emissions, water, or waste data is. Building a footprint estimate on freight distance and country of origin would produce a number with no measurement behind it.</li>
+<li><strong>Quality.</strong> Shared contract manufacturers across price tiers are visible in the record. Common sourcing is not evidence of common durability or performance, and presenting it as such would license exactly the unfounded inference the framework exists to resist.</li>
+<li><strong>Value.</strong> Declared customs value against retail price appears to yield a markup ratio. Declared values are frequently aggregated per shipment, distorted by transfer pricing between related entities, and exclude tooling, development, warranty, and distribution. The calculation is available and would be wrong.</li>
+</ul>
+
+<div class="cc-callout">
+<p><strong>Two of five is the finding.</strong> The pilot audit found that no independent reviewer covered more than two or three pillars for any product. A commercial supply-chain intelligence provider — a far more expensive and specialised source — is admissible for two, and only under stated confidence limits.</p>
+<p>No single source spans the framework. That is the argument against a composite score, and it now holds on both the media side and the commercial-data side.</p>
+</div>
+
+<h2>Pipeline integration</h2>
+<p>This retrieval is treated as one more source adapter alongside creator and reviewer ingestion. It emits the same record shape: per-pillar claims with evidence typing, confidence tier, gap markers, and attribution. Three adapter-specific rules apply.</p>
+<ul class="cc-list">
+<li>Provider risk indicators are stored with their methodology identifier, never as bare booleans. A flag whose definition says &ldquo;inferred, indirect, tier 2 to 4&rdquo; cannot be rendered as a finding.</li>
+<li>Entity-level evidence is tagged as such at ingestion. Any downstream card that displays it must carry a scope statement.</li>
+<li>Person-level and director-level flags are excluded from consumer rendering at the adapter boundary, not filtered later.</li>
+</ul>
+
+<footer>
+<p><strong style="font-weight:500">Reproducibility.</strong> Run 7 August 2026 against the Sayari Model Context Protocol server. Six tool calls, listed at the top of this page, executed in sequence against entity <code>mYqYdo-toIyWAmlSPqkXrQ</code>. Traversal depth 3, response mode compact. Underlying trade data refreshes on a weekly cycle and risk indicators use a rolling 730-day window, so a later run may return a different network and different flags. Figures on this page are fixed to the run date and are not updated.</p>
+<p><strong style="font-weight:500">Suggested citation.</strong> Du, A. (2026). <em>Sayari demo: filling the People &amp; Supply Chain pillar</em>. ClearCart product integrity framework, NYU M.S. Global Affairs capstone. https://alx-du.github.io/product-integrity-scorer/sayari-demo.html</p>
+<p>Method note for the ClearCart product integrity framework. NYU M.S. Global Affairs capstone, 2026.</p>
+<p>Supply-chain and corporate ownership data retrieved via Sayari, August 2026. Named entities and risk indicators are reproduced for methodological illustration and do not constitute allegations.</p>
+</footer>
+
+</div>
+</body>
+</html>
