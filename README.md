@@ -1,5 +1,7 @@
 # Product Integrity Scorer
 
+> 📄 **[Read the capstone paper](CAPSTONE.md)** — "Human Rights Due Diligence, Information Asymmetry, and the Limits of Good-Level Transparency in Global Value Chains" (NYU M.S. Global Affairs, Summer 2026). This is the research this repo implements; start there for the argument, the audit findings, and the methodology behind the framework below.
+
 A Chrome browser extension that overlays product integrity scores on e-commerce product pages, helping consumers make informed purchasing decisions.
 
 ## What it does

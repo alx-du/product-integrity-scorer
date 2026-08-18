@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLEARCART — Capstone Paper</title>
+  <meta name="description" content="Human Rights Due Diligence, Information Asymmetry, and the Limits of Good-Level Transparency in Global Value Chains — NYU M.S. Global Affairs capstone, front matter and abstract." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F5F4F0;
+      --surface:      #FFFFFF;
+      --ink:          #18181B;
+      --muted:        #6B6B74;
+      --border:       #E2E1DC;
+      --border-strong:#C9C8C2;
+
+      --brand:        #2f7d5f;
+      --brand-dark:   #1e5d46;
+      --brand-soft:   #dcefe7;
+      --brand-mid:    #4a9e7e;
+
+      --accent:       #d89442;
+      --accent-soft:  #fff3df;
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+
+      --radius:       20px;
+      --shadow:       0 18px 45px rgba(20, 60, 37, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--ink);
+      color: rgba(255,255,255,0.65);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.6rem 1rem;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      overflow-x: auto;
+      padding: 1.1rem 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .top-nav::-webkit-scrollbar { display: none; }
+
+    .top-nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .top-nav-link:hover { color: var(--ink); }
+
+    .top-nav-link.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    a.back-link:hover { color: var(--ink); }
+
+    /* ── HERO / TITLE BLOCK ── */
+    header.hero {
+      padding: 1.5rem 0 2.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 2px;
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      max-width: 760px;
+    }
+
+    .byline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0;
+      flex-direction: column;
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .byline .author {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.75rem 1.2rem;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.18); }
+
+    /* ── STATS STRIP ── */
+    section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    p { margin-bottom: 1rem; max-width: 720px; font-size: 0.95rem; }
+    p.lead { color: var(--muted); font-size: 1.02rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--ink);
+      border-radius: 10px;
+      padding: 1.25rem 1.1rem;
+    }
+
+    .stat-card .num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.6rem;
+    }
+
+    .stat-card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* ── KEYWORDS ── */
+    .keyword-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .keyword-pill {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.3rem 0.65rem;
+      line-height: 1.4;
+    }
+
+    /* ── PROPOSITIONS ── */
+    .prop-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .prop-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.3rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .prop-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 4px;
+      padding: 0.3rem 0.55rem;
+      white-space: nowrap;
+    }
+    .prop-card.derived .prop-tag { background: var(--muted); }
+
+    .prop-card h3 {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .prop-card p { font-size: 0.86rem; margin-bottom: 0; }
+    .prop-card .derived-flag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      display: block;
+    }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc-list {
+      list-style: none;
+      counter-reset: toc;
+    }
+
+    .toc-list li {
+      counter-increment: toc;
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .toc-list li:last-child { border-bottom: none; }
+
+    .toc-list li::before {
+      content: counter(toc);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      min-width: 1.2rem;
+    }
+
+    .toc-list .toc-desc {
+      color: var(--muted);
+      font-size: 0.82rem;
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    .toc-appendix {
+      margin-top: 1.25rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .toc-appendix strong { color: var(--ink); }
+
+    /* ── CITATION ── */
+    .citation-box {
+      background: var(--ink);
+      color: rgba(255,255,255,0.85);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+    }
+    .citation-box p {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 0;
+      max-width: none;
+    }
+    .citation-box a { color: #dcefe7; }
+
+    /* ── FOOTER ── */
+    .site-footer { padding: 2rem 0 3.5rem; }
+    .site-footer p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .container { padding: 0 1.25rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .prop-card { grid-template-columns: 1fr; }
+      .top-nav { gap: 1.25rem; }
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    Consumer Awareness &amp; Product Integrity Research &nbsp;·&nbsp; CLEARCART &nbsp;·&nbsp; Summer 2026
+  </div>
+
+  <div class="container">
+
+    <!-- TOP NAV -->
+    <nav class="top-nav" aria-label="Section navigation">
+      <a class="top-nav-link" href="index.html">Overview</a>
+      <a class="top-nav-link active" href="Capstone.html">Capstone Paper</a>
+      <a class="top-nav-link" href="Cart-Concerns.html">Cart Concerns</a>
+      <a class="top-nav-link" href="Product_Assessment_Framework.html">Framework</a>
+      <a class="top-nav-link" href="Source-Pipeline.html">Source Pipeline</a>
+      <a class="top-nav-link" href="Diapers-combined.html">Diaper Guide</a>
+      <a class="top-nav-link" href="iphone15pro-analysis.html">iPhone Analysis</a>
+      <a class="top-nav-link" href="presentation/index.html">Presentation</a>
+      <a class="top-nav-link" href="sayari-demo.html">Sayari Demo</a>
+    </nav>
+
+    <!-- HERO / FRONT MATTER -->
+    <header class="hero">
+      <span class="eyebrow">Capstone Paper · NYU M.S. Global Affairs</span>
+      <h1>Human Rights Due Diligence, Information Asymmetry, and the Limits of Good-Level Transparency in Global Value Chains</h1>
+
+      <div class="byline">
+        <span class="author">Alex Du</span>
+        <span>M.S. Global Affairs, Global Economy Concentration</span>
+        <span>NYU School of Professional Studies, Center for Global Affairs</span>
+        <span>Capstone Project · Summer 2026</span>
+        <span>Advisor: Yorke Rhodes III</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://docs.google.com/document/d/e/2PACX-1vRrWlwz8_CzCwnzKOeTKlFGeg6k7ljyLH4TzOkv5up3nkx0GgTZ85gK0NQNnmGlbSSp6tCHFWhCm1c1/pub" target="_blank" rel="noopener">Read the full paper →</a>
+      </div>
+    </header>
+
+    <!-- KEY FINDINGS STATS -->
+    <section>
+      <p class="section-tag">At a Glance</p>
+      <h2>What the audit found</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num">0 of 6</div>
+          <p>Goods audited that had an independently evidenced claim on either the Planet or People &amp; Supply Chain dimension — from any of three review sources.</p>
+        </div>
+        <div class="stat-card">
+          <div class="num">554 → 1</div>
+          <p>Candidate entities narrowed to one legal entity via commercial supply-chain retrieval — testing whether specialist data closes the gap public sources leave.</p>
+        </div>
+        <div class="stat-card">
+          <div class="num">2 of 5</div>
+          <p>Dimensions admissible even from paid, compliance-grade intelligence — confirming the deficit is structural, not a sourcing failure.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABSTRACT -->
+    <section id="abstract">
+      <p class="section-tag">Abstract</p>
+      <h2>Summary</h2>
+      <p class="lead">
+        The United Nations Guiding Principles on Business and Human Rights establish a corporate responsibility
+        to prevent and account for adverse human rights impacts across value chains, including those arising
+        through environmental harm. Fifteen years on, the Office of the High Commissioner for Human Rights notes
+        that accountability gaps persist.
+      </p>
+      <p class="lead">
+        Such gaps are addressed through several mechanisms; this study examines a precondition of one: demand-side
+        pressure at the point of purchase. Labor rights violations cut production costs; certification without
+        independent verification lets that saving hide behind a claim; and the premium paid for the certified good
+        flows to the concealing firm rather than to remedy. Such pressure depends on evidence reaching the terminal
+        node of the chain, and research makes that evidence necessary but not sufficient: disclosing concealment
+        reduces intent toward the concealing actor, while price and availability still dominate what people buy.
+        The study therefore asks not whether disclosure changes conduct, but whether the evidence it depends on is
+        available at all.
+      </p>
+      <p class="lead">
+        Two propositions are tested: that the gap is one of distribution rather than absence, and that no single
+        source class covers every dimension due diligence requires. Both hold. An audit of six goods found no
+        assessor covering more than three of five dimensions, and no evidenced claim on the environmental or labor
+        dimension for any good. A retrieval against commercial supply-chain intelligence was admissible for two
+        dimensions and rejected for three: the inputs are largely public, but the entity resolution needed to use
+        them is not.
+      </p>
+      <p class="lead">
+        The precondition is not met. A third proposition follows without separate test: any composite blends
+        dimensions that are backed by entirely different bodies of evidence. The study specifies a
+        non-compensatory architecture accordingly, and a rule for disclosing compliance-grade evidence to
+        non-expert readers without implying harm it does not establish. Whether meeting the precondition delivers
+        remedy is not tested here.
+      </p>
+
+      <p class="section-tag" style="margin-top: 1.75rem;">Keywords</p>
+      <div class="keyword-row">
+        <span class="keyword-pill">business and human rights</span>
+        <span class="keyword-pill">UNGPs</span>
+        <span class="keyword-pill">human rights due diligence</span>
+        <span class="keyword-pill">forced labor</span>
+        <span class="keyword-pill">value chain transparency</span>
+        <span class="keyword-pill">composite indicators</span>
+        <span class="keyword-pill">non-compensatory aggregation</span>
+        <span class="keyword-pill">information asymmetry</span>
+      </div>
+    </section>
+
+    <!-- PROPOSITIONS -->
+    <section>
+      <p class="section-tag">Central Claims</p>
+      <h2>Propositions tested</h2>
+      <div class="prop-grid">
+        <div class="prop-card">
+          <span class="prop-tag">P1</span>
+          <div>
+            <h3>Distributional deficit</h3>
+            <p>The evidence needed for good-level due diligence is unevenly distributed, not missing. Its raw inputs are largely public. What is proprietary is the entity resolution that makes them usable.</p>
+          </div>
+        </div>
+        <div class="prop-card">
+          <span class="prop-tag">P2</span>
+          <div>
+            <h3>Non-spanning</h3>
+            <p>No single source class covers all five dimensions material to due diligence at the level of the individual traded good.</p>
+          </div>
+        </div>
+        <div class="prop-card derived">
+          <span class="prop-tag">P3</span>
+          <div>
+            <h3>Aggregation</h3>
+            <p>Each dimension rests on different sources of different quality. A composite rolls them into one number and hides the unevenness.</p>
+            <span class="derived-flag">Derived from P2 — not tested separately</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLE OF CONTENTS -->
+    <section>
+      <p class="section-tag">Contents</p>
+      <h2>Table of contents</h2>
+      <ol class="toc-list">
+        <li>
+          <div>
+            Aim, Problem, and Research Questions
+            <span class="toc-desc">The problem, objectives, propositions, end-users, and the four research questions</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            Context and Literature
+            <span class="toc-desc">The normative frame, scale of the harm, the concealment mechanism, and three gaps in the literature</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            Method
+            <span class="toc-desc">Framework specification, confidence tiering, the audit design, and the Sayari source-admission test</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            Findings
+            <span class="toc-desc">Coverage absence across six goods, persistence in commercial sources, and the four published outputs</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            Contribution
+            <span class="toc-desc">A rendering standard for compliance-grade evidence, and a measurement instrument for future testing</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            Limitations
+            <span class="toc-desc">The attribution problem, reach of the evidence, framework gaps, and the causal boundary</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            Conclusions and Future Research
+            <span class="toc-desc">Five directions, including a display-architecture experiment and free-source replication</span>
+          </div>
+        </li>
+      </ol>
+      <p class="toc-appendix">
+        <strong>Appendices A–D</strong> — reproducibility statement, Sayari retrieval parameters, the downstream
+        Value prong, and the assisted-research protocol. <strong>42 footnotes</strong> with full source citations.
+      </p>
+    </section>
+
+    <!-- CITATION -->
+    <section>
+      <p class="section-tag">Cite This Work</p>
+      <h2>Suggested citation</h2>
+      <div class="citation-box">
+        <p>
+          Du, A. (2026). <em>Human Rights Due Diligence, Information Asymmetry, and the Limits of Good-Level
+          Transparency in Global Value Chains.</em> NYU M.S. Global Affairs Capstone, Center for Global Affairs.
+          <a href="https://github.com/alx-du/product-integrity-scorer/blob/main/CAPSTONE.md" target="_blank" rel="noopener">https://github.com/alx-du/product-integrity-scorer/blob/main/CAPSTONE.md</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <p>CLEARCART — Capstone Paper Front Matter &nbsp;·&nbsp; Full text on GitHub &nbsp;·&nbsp; Built with Claude</p>
+      <a class="back-link" href="index.html">← Back to research hub</a>
+    </footer>
+
+  </div>
+
+</body>
+</html>
