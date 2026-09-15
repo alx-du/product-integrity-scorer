@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Product Integrity Scorer",
+  "name": "ClearCart — Product Integrity Scorer",
   "version": "0.1.0",
-  "description": "Overlays product integrity scores on e-commerce pages. Analyzes Planet, People, Quality, Value, and Transparency pillars.",
+  "description": "Shows what is and is not known about a product across five dimensions: Planet, People & Supply Chain, Quality, Value, Transparency.",
   "permissions": [
     "storage",
     "activeTab",
@@ -17,7 +17,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Product Integrity Scorer",
+    "default_title": "ClearCart",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

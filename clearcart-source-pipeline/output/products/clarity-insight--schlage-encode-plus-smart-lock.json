@@ -1,0 +1,42 @@
+{
+  "product_name": "Schlage Encode Plus Smart Lock",
+  "brand": "Schlage",
+  "category": "smart home / smart locks",
+  "reviewer_verdict": "The reviewer recommends this as the only consumer smart lock holding both ANSI Grade 1 commercial and BHMA AAA residential security certifications, citing independently tested 99%+ Apple Home Key reliability, over the Level Lock Pro (weaker single-battery motor, roughly 10% Home Key failure rate) and Yale Assure Lock 2 Plus (lower Grade 2 certification), while flagging the lack of Matter/Thread support and a split mechanical/electronic warranty as tradeoffs.",
+  "pillars": {
+    "planet": { "status": "gap", "claims": [], "gap_note": "No environmental-impact information was provided for this product; ClearCart must source this independently." },
+    "people_supply_chain": { "status": "gap", "claims": [], "gap_note": "No labor or supply-chain sourcing information was given for this product." },
+    "quality": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "Only consumer smart lock certified to both ANSI Grade 1 (commercial) and BHMA AAA (highest residential) standards, built to survive 250,000 open-close cycles and 10 consecutive 75 ft-lb ramming blows", "evidence_kind": "cited_third_party", "confidence": "medium" },
+        { "claim": "Apple Home Key achieves over 99% first-attempt reliability across six months of independent testing by Power Moves blog, versus roughly 10% failure rate for the competing Level Lock Pro", "evidence_kind": "cited_third_party", "confidence": "medium" },
+        { "claim": "Reviewer rejected the Yale Assure Lock 2 Plus for dropping to the lower BHMA Grade 2 certification, meaning measurably less resistance to forced entry", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "value": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "At roughly $280 backed by a lifetime mechanical warranty, the reviewer calculates a cost of about $28/year over a decade", "evidence_kind": "tested", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "transparency": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "Schlage discloses that the lifetime warranty covers only the mechanical lock body, with electronic components carrying a separate 3-year warranty — a distinction the reviewer notes most buyers miss", "evidence_kind": "brand_claim_repeated", "confidence": "low" }
+      ],
+      "gap_note": ""
+    }
+  },
+  "notable_signals": [
+    "Cites a specific, named third-party reliability study (Power Moves blog, six-month Apple Home Key testing) with a quantified failure-rate comparison across competing smart locks.",
+    "Flags a disclosed-but-easy-to-miss warranty structure (lifetime mechanical vs. 3-year electronic) as a transparency positive, distinct from marketing claims."
+  ],
+  "source_slug": "clarity-insight",
+  "source_trust_tier": "medium",
+  "source_url": "https://clarityinsightadvisory.com/gear/",
+  "fetched_at": "2026-07-20T16:31:12.000Z",
+  "attribution": { "reviewer": "Clarity Insight Advisory (Buy Better With Brian)", "review_url": "https://clarityinsightadvisory.com/gear/", "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis." }
+}

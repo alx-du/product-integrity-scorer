@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Integrity Scorer</title>
+  <title>ClearCart — Product Integrity Scorer</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -55,29 +55,57 @@
       font-size: 13px;
       font-weight: 500;
     }
+    /* The value slot holds "4/5" when evidence exists, and a glyph when it
+       does not. An absence is grey and unfilled — never the red of a bad
+       result. Painting "nobody will tell you" as a failing grade blames the
+       product for the information environment around it. */
     .pillar-score {
       font-size: 18px;
       font-weight: 700;
     }
-    .pillar-score--high { color: #22a853; }
-    .pillar-score--mid  { color: #f59e0b; }
-    .pillar-score--low  { color: #ef4444; }
+    .pillar-score--pass   { color: #22a853; }
+    .pillar-score--below  { color: #ef4444; }
+    .pillar-score--absent { color: #9aa0a6; font-weight: 500; }
 
-    .pillar-bar {
+    /* Five discrete steps, not a percentage bar. The scale has six points
+       (0–5) and a bar implies a continuum that can always be part-filled —
+       which leaves no way to show a dimension that has no value at all. */
+    .dimension-steps {
       margin-top: 6px;
+      display: flex;
+      gap: 3px;
+    }
+    .step {
+      flex: 1;
       height: 4px;
+      border-radius: 2px;
       background: #eee;
-      border-radius: 2px;
-      overflow: hidden;
     }
-    .pillar-bar-fill {
-      height: 100%;
-      border-radius: 2px;
-      transition: width 0.4s ease;
+    .step--filled { background: #22a853; }
+    .step--below  { background: #ef4444; }
+    /* Unknown and Claimed fill nothing: an outline, so the row reads as
+       "not established" rather than "scored zero". */
+    .dimension-steps--absent .step {
+      background: transparent;
+      border: 1px dashed #d5d7da;
+      height: 4px;
     }
-    .pillar-bar-fill--high { background: #22a853; }
-    .pillar-bar-fill--mid  { background: #f59e0b; }
-    .pillar-bar-fill--low  { background: #ef4444; }
+
+    .coverage-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: #f1f3f4;
+      color: #5f6368;
+      margin-left: 6px;
+    }
+    .coverage-tag--scored   { background: #e6f4ea; color: #137333; }
+    .coverage-tag--inferred { background: #fef7e0; color: #b06000; }
+    .coverage-tag--claimed  { background: #fce8e6; color: #a50e0e; }
+    .coverage-tag--unknown  { background: #f1f3f4; color: #5f6368; }
 
     .pillar-detail {
       display: none;
@@ -133,8 +161,8 @@
 
   <div class="header">
     <div>
-      <h1>Product Integrity Scorer</h1>
-      <div class="subtitle">5 independent pillar scores</div>
+      <h1>ClearCart</h1>
+      <div class="subtitle">Five dimensions, assessed independently</div>
     </div>
   </div>
 
@@ -142,17 +170,17 @@
     <div id="product-name" class="product-name">Loading...</div>
 
     <div class="pillars" id="pillars-container">
-      <!-- Pillar rows injected by popup.js -->
+      <!-- Dimension rows injected by popup.js -->
     </div>
 
     <div class="footer">
-      Scores based on publicly available data.
-      <a href="#" id="methodology-link">How we score</a>
+      Assessments cite their sources. Dimensions are never combined.
+      <a href="#" id="methodology-link">How this works</a>
     </div>
   </div>
 
   <div id="no-product">
-    <p>Navigate to a supported product page to see integrity scores.</p>
+    <p>Navigate to a supported product page to see its assessment.</p>
     <br/>
     <p style="font-size:11px">Supported: Trader Joe's</p>
   </div>

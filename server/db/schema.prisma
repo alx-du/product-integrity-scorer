@@ -1,6 +1,17 @@
-// Prisma schema — Product Integrity Scorer
+// Prisma schema — ClearCart
 // Database: PostgreSQL via Supabase
 // Run: npx prisma migrate dev --name init
+//
+// The data model implements CAPSTONE.md §3.1. Two properties matter more than
+// the rest and are enforced structurally rather than by convention:
+//
+//   1. `score` is NULLABLE. Coverage states 'claimed' and 'unknown' carry no
+//      number at all. A non-null score column would make the framework's
+//      central claim unrepresentable and would force every absence to be
+//      written as a low number.
+//   2. There is no composite column, and there must never be one. Dimensions
+//      rest on different evidence of different quality and are reported
+//      independently (§3.5).
 
 generator client {
   provider = "prisma-client-js"
@@ -11,6 +22,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ─── Enums ─────────────────────────────────────────────────────────────────
+
+/// Whether the dimension was assessable at all (§3.1).
+/// Scored and Inferred carry a number; Claimed and Unknown do not.
+enum Coverage {
+  scored   // tier 1 or 2 source addresses the dimension for the good itself
+  inferred // entity- or category-level evidence, reaching the good by a stated assumption
+  claimed  // only the selling enterprise's own material addresses it
+  unknown  // no source addresses it at any level
+}
+
+/// Independence of the verifying source (§3.3) — not the strength of the
+/// finding. Reported alongside the score, never multiplied into it.
+enum Confidence {
+  high
+  medium
+  low
+}
+
+/// What a piece of evidence actually attaches to. Entity-level evidence is not
+/// conduct evidence about a good; tagging it at ingestion is what lets
+/// downstream rendering carry a scope statement (§6.1).
+enum SourceScope {
+  good
+  entity
+  category
+}
+
+/// The five dimensions, fixed across all product categories (§3.1).
+/// Indicators inside them vary by category; these do not.
+enum Dimension {
+  planet
+  people
+  quality
+  value
+  transparency
+}
+
 // ─── Products ──────────────────────────────────────────────────────────────
 model Product {
   id          String       @id @default(uuid())
@@ -18,70 +67,154 @@ model Product {
   retailer    String       // 'trader_joes' | 'amazon' | etc.
   productUrl  String       @unique
   barcode     String?
-  category    String?      // 'eggs' | 'produce' | 'apparel'
+  category    String?      // drives which indicator set applies — 'cookware' | 'eggs' | 'apparel'
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
-  pillarScores PillarScore[]
-  indicators   Indicator[]
+  assessments DimensionAssessment[]
+  indicators  Indicator[]
 
   @@index([retailer, name])
   @@map("products")
 }
 
-// ─── Pillar Scores ─────────────────────────────────────────────────────────
-// One row per pillar per scoring event
-// 5 pillars: planet | people | quality | value | transparency
-model PillarScore {
-  id         String   @id @default(uuid())
+// ─── Dimension assessments ─────────────────────────────────────────────────
+// One row per dimension per assessment event. Five rows describe a good
+// completely; there is no sixth row holding an overall verdict.
+model DimensionAssessment {
+  id         String     @id @default(uuid())
   productId  String
-  pillar     String   // 'planet' | 'people' | 'quality' | 'value' | 'transparency'
-  score      Int      // 0-100
-  confidence String   // 'high' | 'medium' | 'low'
-  scoredAt   DateTime @default(now())
-  scoredBy   String   @default("ai") // 'ai' | 'manual' | 'cached'
+  dimension  Dimension
 
-  product    Product  @relation(fields: [productId], references: [id])
+  /// 0–5, or NULL. 0 means assessed and adverse. NULL means there was nothing
+  /// to assess — see `coverage`. The distinction is the point of the schema.
+  score      Int?
 
-  @@index([productId, scoredAt])
-  @@map("pillar_scores")
+  /// NULL wherever score is NULL: confidence describes evidence that exists.
+  confidence Confidence?
+
+  coverage   Coverage
+
+  /// Set when coverage is 'inferred' — the stated assumption by which
+  /// entity- or category-level evidence was allowed to reach this good.
+  assumption String?
+
+  assessedAt DateTime   @default(now())
+  assessedBy String     @default("pipeline") // 'pipeline' | 'manual' | 'second_coder'
+
+  product    Product    @relation(fields: [productId], references: [id])
+
+  // One assessment per dimension per event; five per good.
+  @@unique([productId, dimension, assessedAt])
+  @@index([productId, assessedAt])
+  @@map("dimension_assessments")
 }
 
 // ─── Indicators ────────────────────────────────────────────────────────────
-// Evidence items that back each score (used in Layer 3 display)
+// The evidence items a dimension score gates on. Indicators are declared per
+// product category; the anchor they gate is what makes gating possible.
 model Indicator {
-  id             String  @id @default(uuid())
-  productId      String
-  pillar         String  // which pillar this indicator belongs to
-  label          String  // human-readable indicator name
-  present        Boolean // does this product have this indicator?
-  confidence     String  // 'high' | 'medium' | 'low'
-  source         String? // 'USDA' | 'B Lab' | 'Brand claim' | etc.
-  sourceUrl      String?
-  pointsEarned   Int
-  pointsMax      Int
+  id          String      @id @default(uuid())
+  productId   String
+  dimension   Dimension
+  label       String      // human-readable requirement
 
-  product        Product @relation(fields: [productId], references: [id])
+  /// Which 0–5 anchor this indicator gates. A missing requirement at anchor 3
+  /// caps the dimension at 2 regardless of what is satisfied above it.
+  anchor      Int
 
-  @@index([productId, pillar])
+  /// true = requirement met, false = checked and not met,
+  /// NULL = nothing addressed it. NULL is not false.
+  met         Boolean?
+
+  /// 1 regulatory · 2 independent testing · 3 journalism · 4 trade · 5 seller
+  sourceTier  Int?
+  sourceScope SourceScope?
+  source      String?     // 'USDA AMS' | 'HFAC' | 'Prudent Reviews' | 'Brand claim'
+  sourceUrl   String?
+
+  /// Method identifier behind a risk indicator, kept so downstream rendering
+  /// can read the indicator's own definition rather than treating it as a
+  /// bare boolean (Appendix B).
+  methodId    String?
+
+  product     Product     @relation(fields: [productId], references: [id])
+
+  @@index([productId, dimension])
   @@map("indicators")
 }
 
-// ─── Certifications Lookup ─────────────────────────────────────────────────
+// ─── Gaps ──────────────────────────────────────────────────────────────────
+// Absence is first-class data, not a missing row. Every dimension a source
+// fails to cover is recorded with what must be sourced independently — this
+// is what Table 1 of the paper is a direct read of, and what the disclosure
+// ledger is built from.
+model Gap {
+  id           String    @id @default(uuid())
+  productId    String
+  dimension    Dimension
+
+  /// What would have to exist for this dimension to become assessable.
+  needs        String
+
+  /// Under UNGP Principle 21 an Unknown is a communication failure by a named
+  /// enterprise. This records who has not answered.
+  responsible  String?
+
+  recordedAt   DateTime  @default(now())
+
+  @@index([productId, dimension])
+  @@map("gaps")
+}
+
+// ─── Sources ───────────────────────────────────────────────────────────────
+// A source is profiled once — methodology, monetization, conflicts — and that
+// profile sets the confidence ceiling for every claim ingested from it.
+model Source {
+  id             String   @id @default(uuid())
+  slug           String   @unique
+  name           String
+  homepage       String?
+  methodologyUrl String?
+
+  /// 1 regulatory · 2 independent testing · 3 journalism · 4 trade · 5 seller
+  tier           Int
+
+  /// Affiliate relationships and sponsorship, disclosed in the UI wherever
+  /// this source's assessments are shown.
+  monetization   String?
+  conflictNotes  String?
+
+  profiledAt     DateTime @default(now())
+
+  @@map("sources")
+}
+
+// ─── Certifications lookup ─────────────────────────────────────────────────
 model Certification {
-  id                String  @id @default(uuid())
-  name              String  @unique // 'USDA Organic' | 'B Corp' | etc.
-  issuer            String
-  verificationType  String  // 'third_party' | 'self_certified' | 'retailer_badge'
-  confidenceWeight  Float   // how much this boosts confidence (0.0-1.0)
-  primaryPillar     String  // which pillar it primarily affects
-  description       String?
+  id               String  @id @default(uuid())
+  name             String  @unique // 'USDA Organic' | 'Certified Humane' | 'B Corp'
+  issuer           String
+
+  /// Whether the mark involves independent verification. §2.4 documents the
+  /// verification deficit: a mark obtainable without it cannot lift a
+  /// rights-bearing dimension above Claimed.
+  verificationType String  // 'third_party_audited' | 'self_certified' | 'retailer_badge'
+
+  /// Highest source tier a claim resting on this mark can carry.
+  sourceTier       Int
+
+  /// Highest anchor this mark alone can gate. Deliberately not a boost: a
+  /// certification is evidence for a requirement, not points added to a total.
+  maxAnchor        Int
+  dimension        Dimension
+  description      String?
 
   @@map("certifications")
 }
 
-// ─── Local Farms Cache ─────────────────────────────────────────────────────
-// For Localize integration — local farm alternatives
+// ─── Local farms cache ─────────────────────────────────────────────────────
+// For Localize integration — local alternatives shown alongside assessments.
 model LocalFarm {
   id           String   @id @default(uuid())
   name         String
@@ -89,9 +222,9 @@ model LocalFarm {
   lng          Float?
   zip          String?
   state        String?
-  categories   String[] // ['eggs', 'dairy', 'produce']
+  categories   String[]
   productCount Int      @default(0)
-  localizeId   String?  // Localize's internal farm ID
+  localizeId   String?
   lastSynced   DateTime @default(now())
 
   @@map("local_farms")
