@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node run.js",
-    "preview": "node src/previewServer.js"
+    "preview": "node src/previewServer.js",
+    "reports": "node src/buildReports.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0",

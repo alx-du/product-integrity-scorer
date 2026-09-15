@@ -1,0 +1,84 @@
+{
+  "_instructions": [
+    "Copy this file to output/products/<source-slug>--<product-slug>.json and fill it in.",
+    "Use this template when a source can't run through the automated pipeline (node run.js) —",
+    "a PDF, a paywalled article, a screenshot, or your own notes from a site. If the source is",
+    "an ordinary webpage or YouTube video the pipeline can fetch itself, add it to data/sources.json",
+    "and run `node run.js <slug>` instead — that path needs no manual entry at all.",
+    "",
+    "Once this file is saved into output/products/, it is indistinguishable from an automated",
+    "record: `npm run preview` will render it, and `node src/buildReports.js` will pull it into",
+    "the scored report and the coverage leaderboard, same as any other source.",
+    "",
+    "status must be exactly one of: evidenced | brand_claim_only | gap",
+    "  evidenced         at least one claim backed by something other than the seller itself",
+    "  brand_claim_only  every claim on this dimension traces back to the product's own seller",
+    "  gap               nothing found for this dimension — leave claims empty and fill gap_note",
+    "",
+    "evidence_kind must be exactly one of: tested | cited_third_party | brand_claim_repeated | anecdotal",
+    "  tested                 the reviewer personally measured or instrumented this",
+    "  cited_third_party      the reviewer cites a study, filing, or independent source",
+    "  brand_claim_repeated   the reviewer is repeating what the seller itself says",
+    "  anecdotal              a forum post, owner report, or similar uncorroborated account",
+    "",
+    "Do not fill in a numeric score anywhere in this file. Scores are computed later by",
+    "extension/scoring/pillars.js from evidence_kind and status — that's what keeps every",
+    "product on the same rules. If you're tempted to write a number here, that's a sign the",
+    "claim belongs in reviewer_verdict as context, not as a claim.",
+    "",
+    "Delete this _instructions block before committing the finished file."
+  ],
+
+  "product_name": "",
+  "brand": "",
+  "category": "",
+
+  "reviewer_verdict": "",
+
+  "pillars": {
+    "planet": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": ""
+    },
+    "people_supply_chain": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": ""
+    },
+    "quality": {
+      "status": "gap",
+      "claims": [
+        {
+          "claim": "",
+          "evidence_kind": "tested",
+          "confidence": "high"
+        }
+      ],
+      "gap_note": ""
+    },
+    "value": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": ""
+    },
+    "transparency": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": ""
+    }
+  },
+
+  "notable_signals": [],
+
+  "source_slug": "",
+  "source_trust_tier": "medium",
+  "source_url": "",
+  "fetched_at": "",
+
+  "attribution": {
+    "reviewer": "",
+    "review_url": "",
+    "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis."
+  }
+}

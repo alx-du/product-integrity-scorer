@@ -1,0 +1,121 @@
+{
+  "product_name": "AspenClean Laundry Powder + Booster",
+  "brand": "AspenClean",
+  "category": "laundry detergent",
+  "slug": "aspenclean-laundry-powder-booster",
+  "dimensions": {
+    "planet": {
+      "dimension": "planet",
+      "label": "Planet",
+      "rightsBearing": true,
+      "score": 3,
+      "confidence": "medium",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "AspenClean's glucoside-based surfactant formulation is EWG Verified and avoids the MIT/BIT preservatives the reviewer links to aquatic toxicity, which caused 13 of 21 competing 'natural' brands to fail the reviewer's screen",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "people": {
+      "dimension": "people",
+      "label": "People & Supply Chain",
+      "rightsBearing": true,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "quality": {
+      "dimension": "quality",
+      "label": "Quality",
+      "rightsBearing": false,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "value": {
+      "dimension": "value",
+      "label": "Value",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "medium",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "AspenClean's full product line costs roughly $20-30/month for a family of four, per the reviewer's cost breakdown of the passing cleaning brands",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "transparency": {
+      "dimension": "transparency",
+      "label": "Transparency",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "medium",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "First cleaning company to receive EWG Verified certification, and holds 21 EWG Verified products rating EWG A across its line, following the reviewer's zero-tolerance ingredient audit that failed 13 of 21 competing 'natural' cleaning brands for undisclosed preservatives (MIT/BIT) and ethoxylated surfactants",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/"
+        }
+      ],
+      "note": "Acceptable"
+    }
+  },
+  "screen": {
+    "qualifies": false,
+    "failedOnEvidence": [
+      "people",
+      "quality"
+    ],
+    "failedOnPerformance": [],
+    "reason": "Fails on evidence, not on performance. Nothing establishes how this good performs on People & Supply Chain, Quality."
+  },
+  "sources": [
+    {
+      "slug": "clarity-insight",
+      "reviewer": "Clarity Insight Advisory (Buy Better With Brian)",
+      "trust_tier": "medium",
+      "url": "https://clarityinsightadvisory.com/non-toxic-cleaning-products-audit/"
+    }
+  ],
+  "ranking": {
+    "populatedDimensions": 3,
+    "rightsBearingPopulated": 1,
+    "totalClaims": 3,
+    "sourceCount": 1,
+    "sources": [
+      "clarity-insight"
+    ]
+  },
+  "generated_at": "2026-09-15T20:52:23.024Z",
+  "generator_note": "Scores use a placeholder single-anchor scheme (anchor 3 only) pending category-specific indicator rubrics (BACKLOG.md D1). Coverage and confidence are computed by the real scoring engine and are not placeholders."
+}

@@ -1,0 +1,103 @@
+{
+  "product_name": "Feathered Friends Bavarian 850 Fill Comforter",
+  "brand": "Feathered Friends",
+  "category": "comforters/bedding",
+  "slug": "feathered-friends-bavarian-850-fill-comforter",
+  "dimensions": {
+    "planet": {
+      "dimension": "planet",
+      "label": "Planet",
+      "rightsBearing": true,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "people": {
+      "dimension": "people",
+      "label": "People & Supply Chain",
+      "rightsBearing": true,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "quality": {
+      "dimension": "quality",
+      "label": "Quality",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "medium",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "850+ fill European white goose down gives high loft (air-trapping capacity) relative to weight, so less material is needed to achieve the same warmth as lower fill-power alternatives, and a cotton shell keeps the comforter thinner and lighter than synthetic-fill comforters",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Fineas Jackson",
+          "sourceUrl": "https://www.youtube.com/watch?v=oHKDXIYv2Bo"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "value": {
+      "dimension": "value",
+      "label": "Value",
+      "rightsBearing": false,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "transparency": {
+      "dimension": "transparency",
+      "label": "Transparency",
+      "rightsBearing": false,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    }
+  },
+  "screen": {
+    "qualifies": false,
+    "failedOnEvidence": [
+      "planet",
+      "people",
+      "value",
+      "transparency"
+    ],
+    "failedOnPerformance": [],
+    "reason": "Fails on evidence, not on performance. Nothing establishes how this good performs on Planet, People & Supply Chain, Value, Transparency."
+  },
+  "sources": [
+    {
+      "slug": "fineas-jackson",
+      "reviewer": "Fineas Jackson",
+      "trust_tier": "low",
+      "url": "https://www.youtube.com/watch?v=oHKDXIYv2Bo"
+    }
+  ],
+  "ranking": {
+    "populatedDimensions": 1,
+    "rightsBearingPopulated": 0,
+    "totalClaims": 1,
+    "sourceCount": 1,
+    "sources": [
+      "fineas-jackson"
+    ]
+  },
+  "generated_at": "2026-09-15T20:52:23.027Z",
+  "generator_note": "Scores use a placeholder single-anchor scheme (anchor 3 only) pending category-specific indicator rubrics (BACKLOG.md D1). Coverage and confidence are computed by the real scoring engine and are not placeholders."
+}

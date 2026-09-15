@@ -1,0 +1,80 @@
+[
+  {
+    "key": "naturepedic::naturepedic eos classic mattress",
+    "slug": "naturepedic-eos-classic-mattress",
+    "name": "Naturepedic EOS Classic Mattress",
+    "populatedDimensions": 4,
+    "rightsBearingPopulated": 1,
+    "totalClaims": 8,
+    "sourceCount": 1,
+    "sources": [
+      "clarity-insight"
+    ],
+    "qualifies": false
+  },
+  {
+    "key": "de buyer::de buyer mineral b pro carbon steel",
+    "slug": "de-buyer-mineral-b-pro-carbon-steel",
+    "name": "de Buyer Mineral B Pro Carbon Steel",
+    "populatedDimensions": 3,
+    "rightsBearingPopulated": 1,
+    "totalClaims": 6,
+    "sourceCount": 1,
+    "sources": [
+      "clarity-insight"
+    ],
+    "qualifies": false
+  },
+  {
+    "key": "aspenclean::aspenclean laundry powder + booster",
+    "slug": "aspenclean-laundry-powder-booster",
+    "name": "AspenClean Laundry Powder + Booster",
+    "populatedDimensions": 3,
+    "rightsBearingPopulated": 1,
+    "totalClaims": 3,
+    "sourceCount": 1,
+    "sources": [
+      "clarity-insight"
+    ],
+    "qualifies": false
+  },
+  {
+    "key": "made in::made in stainless clad frying pan",
+    "slug": "made-in-stainless-clad-frying-pan",
+    "name": "Made In Stainless Clad Frying Pan",
+    "populatedDimensions": 3,
+    "rightsBearingPopulated": 0,
+    "totalClaims": 8,
+    "sourceCount": 1,
+    "sources": [
+      "prudent-reviews"
+    ],
+    "qualifies": false
+  },
+  {
+    "key": "schlage::schlage encode plus smart lock",
+    "slug": "schlage-encode-plus-smart-lock",
+    "name": "Schlage Encode Plus Smart Lock",
+    "populatedDimensions": 2,
+    "rightsBearingPopulated": 0,
+    "totalClaims": 5,
+    "sourceCount": 1,
+    "sources": [
+      "clarity-insight"
+    ],
+    "qualifies": false
+  },
+  {
+    "key": "feathered friends::feathered friends bavarian 850 fill comforter",
+    "slug": "feathered-friends-bavarian-850-fill-comforter",
+    "name": "Feathered Friends Bavarian 850 Fill Comforter",
+    "populatedDimensions": 1,
+    "rightsBearingPopulated": 0,
+    "totalClaims": 1,
+    "sourceCount": 1,
+    "sources": [
+      "fineas-jackson"
+    ],
+    "qualifies": false
+  }
+]

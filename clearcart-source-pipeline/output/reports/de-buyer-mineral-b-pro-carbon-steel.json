@@ -1,0 +1,149 @@
+{
+  "product_name": "de Buyer Mineral B Pro Carbon Steel",
+  "brand": "de Buyer",
+  "category": "cookware",
+  "slug": "de-buyer-mineral-b-pro-carbon-steel",
+  "dimensions": {
+    "planet": {
+      "dimension": "planet",
+      "label": "Planet",
+      "rightsBearing": true,
+      "score": 3,
+      "confidence": "medium",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "Has no coating to degrade, avoiding the microplastic-shedding failure mode documented in PTFE-coated pans (the reviewer cites a University of Newcastle 2022 study measuring roughly 9,100 microplastic particles released per cooking cycle from a single scratch in PTFE coating) — though this is evidence about a category risk being avoided by construction, not a direct environmental test of this product",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "people": {
+      "dimension": "people",
+      "label": "People & Supply Chain",
+      "rightsBearing": true,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "quality": {
+      "dimension": "quality",
+      "label": "Quality",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "low",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "One of only two cookware lines (of 180+ rated) to earn a 10/10 chemistry-safety rating, based on manufacturer PTFE/PFOA-free disclosure for its uncoated 99% iron / 1% carbon construction",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+        },
+        {
+          "label": "Rated above competing carbon steel brands (Lodge 7/10, OXO 6/10, IKEA VARDAGEN 6/10, Made In 8/10) on finish quality and long-term ownership reports from r/carbonsteel and r/Cooking communities",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 4,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+        },
+        {
+          "label": "Requires initial seasoning, reacts with acidic foods until well-seasoned, and is not dishwasher-safe",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 4,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "value": {
+      "dimension": "value",
+      "label": "Value",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "high",
+      "coverage": "scored",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "At $45-$90 for a skillet the reviewer expects to last 30+ years, cost works out to under $3/year, which the reviewer contrasts with a $25 T-Fal pan replaced annually",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 2,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "transparency": {
+      "dimension": "transparency",
+      "label": "Transparency",
+      "rightsBearing": false,
+      "score": null,
+      "confidence": null,
+      "coverage": "claimed",
+      "passes": false,
+      "indicators": [
+        {
+          "label": "Its PTFE/PFOA-free status rests on the manufacturer's own product disclosure rather than independent lab verification (unlike some other picks in the same guide, which cite third-party XRF or leach testing)",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 5,
+          "sourceScope": "good",
+          "source": "Clarity Insight Advisory (Buy Better With Brian)",
+          "sourceUrl": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+        }
+      ],
+      "note": "Only the seller's own material addresses this. Asks the enterprise to substantiate."
+    }
+  },
+  "screen": {
+    "qualifies": false,
+    "failedOnEvidence": [
+      "people",
+      "transparency"
+    ],
+    "failedOnPerformance": [],
+    "reason": "Fails on evidence, not on performance. Nothing establishes how this good performs on People & Supply Chain, Transparency."
+  },
+  "sources": [
+    {
+      "slug": "clarity-insight",
+      "reviewer": "Clarity Insight Advisory (Buy Better With Brian)",
+      "trust_tier": "medium",
+      "url": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/"
+    }
+  ],
+  "ranking": {
+    "populatedDimensions": 3,
+    "rightsBearingPopulated": 1,
+    "totalClaims": 6,
+    "sourceCount": 1,
+    "sources": [
+      "clarity-insight"
+    ]
+  },
+  "generated_at": "2026-09-15T20:52:23.025Z",
+  "generator_note": "Scores use a placeholder single-anchor scheme (anchor 3 only) pending category-specific indicator rubrics (BACKLOG.md D1). Coverage and confidence are computed by the real scoring engine and are not placeholders."
+}

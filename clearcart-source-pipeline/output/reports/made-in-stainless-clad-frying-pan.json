@@ -1,0 +1,167 @@
+{
+  "product_name": "Made In Stainless Clad Frying Pan",
+  "brand": "Made In",
+  "category": "cookware",
+  "slug": "made-in-stainless-clad-frying-pan",
+  "dimensions": {
+    "planet": {
+      "dimension": "planet",
+      "label": "Planet",
+      "rightsBearing": true,
+      "score": null,
+      "confidence": null,
+      "coverage": "unknown",
+      "passes": false,
+      "indicators": [],
+      "note": "No source addresses this dimension at any level. Asks the enterprise to disclose."
+    },
+    "people": {
+      "dimension": "people",
+      "label": "People & Supply Chain",
+      "rightsBearing": true,
+      "score": null,
+      "confidence": null,
+      "coverage": "claimed",
+      "passes": false,
+      "indicators": [
+        {
+          "label": "Made In sources raw materials from suppliers in Kentucky, Pennsylvania, and Illinois, and partners with family-owned manufacturers in Italy and France to produce the cookware",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 5,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        }
+      ],
+      "note": "Only the seller's own material addresses this. Asks the enterprise to substantiate."
+    },
+    "quality": {
+      "dimension": "quality",
+      "label": "Quality",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "low",
+      "coverage": "scored",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "The 12-inch stainless frying pan reached a rolling boil faster (2 min 21 sec) than All-Clad, Calphalon, and most other brands tested, attributed to its 5-ply construction with a triple-layer aluminum core",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 2,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        },
+        {
+          "label": "In heat-retention testing, the pan held more heat after 5 and 10 minutes than All-Clad, Calphalon, and most competitors, trailing only the Demeyere Atlantis",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 2,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        },
+        {
+          "label": "Over three-plus years of regular use, the reviewer found no quality-control issues despite Made In not owning its own factories",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 2,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        },
+        {
+          "label": "A small crevice at the base of the handle is difficult to clean and becomes stained over time",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 4,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "value": {
+      "dimension": "value",
+      "label": "Value",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "high",
+      "coverage": "scored",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "Made In is priced below traditional premium brands like All-Clad while matching or exceeding their measured heat performance, positioning it as strong value within the premium cookware tier",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 2,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        },
+        {
+          "label": "In a structured, blinded customer-service test (3 emails per brand across 9 cookware brands, using fake identities), Made In was the only brand to earn top marks on factual, expertise, and warranty questions, with fast, knowledgeable, real-person replies",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 2,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        }
+      ],
+      "note": "Acceptable"
+    },
+    "transparency": {
+      "dimension": "transparency",
+      "label": "Transparency",
+      "rightsBearing": false,
+      "score": 3,
+      "confidence": "medium",
+      "coverage": "inferred",
+      "passes": true,
+      "indicators": [
+        {
+          "label": "Made In publishes a detailed, product-by-product manufacturing-country table and discloses recent manufacturing changes (e.g. stainless steel production moving from the USA to Italy in late 2023)",
+          "anchor": 3,
+          "met": true,
+          "sourceTier": 3,
+          "sourceScope": "good",
+          "source": "Prudent Reviews",
+          "sourceUrl": "https://prudentreviews.com/made-in-cookware-review/"
+        }
+      ],
+      "note": "Acceptable"
+    }
+  },
+  "screen": {
+    "qualifies": false,
+    "failedOnEvidence": [
+      "planet",
+      "people"
+    ],
+    "failedOnPerformance": [],
+    "reason": "Fails on evidence, not on performance. Nothing establishes how this good performs on Planet, People & Supply Chain."
+  },
+  "sources": [
+    {
+      "slug": "prudent-reviews",
+      "reviewer": "Prudent Reviews",
+      "trust_tier": "high",
+      "url": "https://prudentreviews.com/made-in-cookware-review/"
+    }
+  ],
+  "ranking": {
+    "populatedDimensions": 3,
+    "rightsBearingPopulated": 0,
+    "totalClaims": 8,
+    "sourceCount": 1,
+    "sources": [
+      "prudent-reviews"
+    ]
+  },
+  "generated_at": "2026-09-15T20:52:23.027Z",
+  "generator_note": "Scores use a placeholder single-anchor scheme (anchor 3 only) pending category-specific indicator rubrics (BACKLOG.md D1). Coverage and confidence are computed by the real scoring engine and are not placeholders."
+}
