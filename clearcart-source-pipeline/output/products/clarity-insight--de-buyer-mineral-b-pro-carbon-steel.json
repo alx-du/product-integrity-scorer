@@ -1,0 +1,53 @@
+{
+  "product_name": "de Buyer Mineral B Pro Carbon Steel",
+  "brand": "de Buyer",
+  "category": "cookware",
+  "reviewer_verdict": "The reviewer rates de Buyer Mineral B Pro carbon steel cookware 10/10 — one of only two 10/10 ratings across 180+ cookware lines audited — citing its uncoated, chemical-free construction (99% iron, 1% carbon) as a durable alternative to PTFE-coated pans like the T-Fal Easy Care line, which the reviewer rated 0/10 for an undifferentiated PTFE coating.",
+  "pillars": {
+    "planet": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "Has no coating to degrade, avoiding the microplastic-shedding failure mode documented in PTFE-coated pans (the reviewer cites a University of Newcastle 2022 study measuring roughly 9,100 microplastic particles released per cooking cycle from a single scratch in PTFE coating) — though this is evidence about a category risk being avoided by construction, not a direct environmental test of this product", "evidence_kind": "cited_third_party", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "people_supply_chain": {
+      "status": "gap",
+      "claims": [],
+      "gap_note": "No labor or supply-chain sourcing information was given for this product beyond it being French-made and the brand being owned by Groupe SEB."
+    },
+    "quality": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "One of only two cookware lines (of 180+ rated) to earn a 10/10 chemistry-safety rating, based on manufacturer PTFE/PFOA-free disclosure for its uncoated 99% iron / 1% carbon construction", "evidence_kind": "cited_third_party", "confidence": "medium" },
+        { "claim": "Rated above competing carbon steel brands (Lodge 7/10, OXO 6/10, IKEA VARDAGEN 6/10, Made In 8/10) on finish quality and long-term ownership reports from r/carbonsteel and r/Cooking communities", "evidence_kind": "anecdotal", "confidence": "low" },
+        { "claim": "Requires initial seasoning, reacts with acidic foods until well-seasoned, and is not dishwasher-safe", "evidence_kind": "anecdotal", "confidence": "low" }
+      ],
+      "gap_note": ""
+    },
+    "value": {
+      "status": "evidenced",
+      "claims": [
+        { "claim": "At $45-$90 for a skillet the reviewer expects to last 30+ years, cost works out to under $3/year, which the reviewer contrasts with a $25 T-Fal pan replaced annually", "evidence_kind": "tested", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    },
+    "transparency": {
+      "status": "brand_claim_only",
+      "claims": [
+        { "claim": "Its PTFE/PFOA-free status rests on the manufacturer's own product disclosure rather than independent lab verification (unlike some other picks in the same guide, which cite third-party XRF or leach testing)", "evidence_kind": "brand_claim_repeated", "confidence": "medium" }
+      ],
+      "gap_note": ""
+    }
+  },
+  "notable_signals": [
+    "Sources every rating in the underlying guide to one of four evidence tiers (manufacturer disclosure, independent XRF/leach lab test, class-action settlement or regulatory filing, or direct manufacturer verification) and states which tier backs each product — a reusable rigor framework.",
+    "The guide publishes a public corrections log (5 corrections with original rating, corrected rating, and the source that triggered the change) — a transparency practice around the source's own errors.",
+    "Cites a specific peer-reviewed study (University of Newcastle 2022, Science of the Total Environment) quantifying microplastic release from degrading PTFE coatings — a concrete, checkable data point for the category risk this product avoids."
+  ],
+  "source_slug": "clarity-insight",
+  "source_trust_tier": "medium",
+  "source_url": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/",
+  "fetched_at": "2026-07-20T16:31:12.000Z",
+  "attribution": { "reviewer": "Clarity Insight Advisory (Buy Better With Brian)", "review_url": "https://clarityinsightadvisory.com/non-toxic-cookware-guide/", "note": "Assessment derived from this reviewer's published work; see review_url for their full analysis." }
+}

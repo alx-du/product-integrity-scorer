@@ -165,6 +165,39 @@ footer p { margin-bottom: 0.5rem; }
 .cc-strike { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--cc-text-muted); }
 .cc-quote { font-size: 14px; margin: 0; }
 footer { font-size: 13px; color: var(--cc-text-muted); margin-top: 3rem; }
+
+/* ── Site nav ───────────────────────────────────────────────────────────── */
+/* Uses the cc-* tokens so it follows this page into dark mode along with
+   everything else, rather than needing its own colour rules. */
+.cc-nav {
+  max-width: 720px;
+  margin: 0 auto 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0 16px 0.25rem;
+  scrollbar-width: none;
+}
+.cc-nav::-webkit-scrollbar { display: none; }
+.cc-nav a {
+  font-family: var(--cc-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cc-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.cc-nav a:hover { color: var(--cc-text); }
+.cc-nav a.active {
+  color: var(--cc-text);
+  border-bottom-color: var(--cc-caution-border);
+}
 </style>
 </head>
 <body>
@@ -173,6 +206,18 @@ footer { font-size: 13px; color: var(--cc-text-muted); margin-top: 3rem; }
 <strong>Interface mockup from an academic capstone. Not a shipped product.</strong>
 Findings below are inferred network relationships derived from trade and corporate records. They are not verified claims about labour conditions at any facility, and they are not allegations against any named company.
 </div>
+
+<nav class="cc-nav" aria-label="Section navigation">
+<a href="index.html">Overview</a>
+<a href="Capstone.html">Capstone Paper</a>
+<a href="Product_Assessment_Framework.html">Framework</a>
+<a href="Source-Pipeline.html">Source Pipeline</a>
+<a href="Behavioral-Change-Backlog.html">Behavioral Backlog</a>
+<a href="Diapers-combined.html">Diaper Guide</a>
+<a class="active" href="sayari-demo.html">Sayari Demo</a>
+<a href="Cart-Concerns.html">Cart Concerns</a>
+<a href="iphone15pro-analysis.html">iPhone Analysis</a>
+</nav>
 
 <div class="cc-wrap">
 

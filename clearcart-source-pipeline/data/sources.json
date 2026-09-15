@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "prudent-reviews",
+    "name": "Prudent Reviews",
+    "homepage": "https://prudentreviews.com/",
+    "methodology_url": "https://prudentreviews.com/how-we-test-and-review-products/",
+    "product_urls": [
+      "https://prudentreviews.com/made-in-cookware-review/"
+    ]
+  },
+  {
+    "slug": "clarity-insight",
+    "name": "Clarity Insight Advisory (Buy Better With Brian)",
+    "homepage": "https://clarityinsightadvisory.com/",
+    "methodology_url": "https://clarityinsightadvisory.com/method/",
+    "product_urls": []
+  },
+  {
+    "slug": "fineas-jackson",
+    "name": "Fineas Jackson",
+    "homepage": "https://www.youtube.com/@FineasJackson",
+    "methodology_url": "https://www.youtube.com/watch?v=Q160uF5VBKA",
+    "product_urls": [
+      "https://www.youtube.com/watch?v=oHKDXIYv2Bo"
+    ]
+  }
+]

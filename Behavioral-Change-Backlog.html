@@ -317,8 +317,44 @@
   @media (max-width: 760px) {
     .container { padding: 0 1.25rem; }
     .gap-grid, .lever-grid { grid-template-columns: 1fr; }
+    .top-nav { gap: 1.25rem; }
     .quadrant { grid-template-columns: 1fr; grid-template-rows: repeat(4, auto); }
   }
+
+  /* ── Top nav ── */
+  .top-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    overflow-x: auto;
+    padding: 1.1rem 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .top-nav::-webkit-scrollbar { display: none; }
+
+  .top-nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .top-nav-link:hover { color: var(--ink); }
+
+  .top-nav-link.active {
+    color: var(--brand-dark);
+    border-bottom-color: var(--brand);
+  }
+
 </style>
 </head>
 <body>
@@ -326,6 +362,18 @@
 <div class="top-banner">CLEARCART &nbsp;·&nbsp; Behavioral Change Analysis &amp; Enhancement Backlog &nbsp;·&nbsp; Prepared 2026-07-23</div>
 
 <div class="container">
+
+  <nav class="top-nav" aria-label="Section navigation">
+    <a class="top-nav-link" href="index.html">Overview</a>
+    <a class="top-nav-link" href="Capstone.html">Capstone Paper</a>
+    <a class="top-nav-link" href="Product_Assessment_Framework.html">Framework</a>
+    <a class="top-nav-link" href="Source-Pipeline.html">Source Pipeline</a>
+    <a class="top-nav-link active" href="Behavioral-Change-Backlog.html">Behavioral Backlog</a>
+    <a class="top-nav-link" href="Diapers-combined.html">Diaper Guide</a>
+    <a class="top-nav-link" href="sayari-demo.html">Sayari Demo</a>
+    <a class="top-nav-link" href="Cart-Concerns.html">Cart Concerns</a>
+    <a class="top-nav-link" href="iphone15pro-analysis.html">iPhone Analysis</a>
+  </nav>
 
   <header class="hero">
     <p class="eyebrow">Internal Review — Not a Public Page</p>
@@ -636,8 +684,8 @@
     <div class="callout">
       <h3>Methodology alone won't distinguish the venture</h3>
       <p>
-        The current methodology document (<code>white-paper/methodology.md</code>) makes a strong scoring-design
-        argument: independent pillars over composites, confidence-weighted evidence. That's a contribution, but it's
+        The methodology (now consolidated into <code>CAPSTONE.md</code>) makes a strong scoring-design
+        argument: independent dimensions over composites, with confidence reported as its own axis. That's a contribution, but it's
         a static one. Instrumenting the funnel now (Lever 06) turns the white paper into something with an actual
         <strong>behavioral result</strong> — e.g. "shoppers shown a comparative, loss-framed score swapped to the
         higher-scoring option at rate X vs. baseline Y" — which is a materially stronger empirical claim for a

@@ -1,0 +1,14 @@
+{
+  "name": "clearcart-source-pipeline",
+  "version": "0.1.0",
+  "description": "Evaluate content-creator review sites against ClearCart's five pillars",
+  "type": "module",
+  "scripts": {
+    "start": "node run.js",
+    "preview": "node src/previewServer.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5"
+  }
+}

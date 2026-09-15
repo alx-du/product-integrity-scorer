@@ -1,0 +1,20 @@
+{
+  "source_name": "Prudent Reviews",
+  "evidence_type": "hands_on_testing",
+  "methodology_summary": "Prudent Reviews physically buys and uses each product for weeks to years, running real-world use tests (cooking, cleaning, cutting) alongside controlled instrumented experiments such as heat-conduction and heat-retention timing with surface thermometers. For categories that are impractical to fully test (large appliances, paint), they supplement with structured expert interviews, and they retain tested products as long-term benchmarks against future competitors.",
+  "monetization": ["free_products_from_brands", "newsletter"],
+  "conflict_of_interest_notes": "The methodology page discloses that brands occasionally send free samples and that most such offers are declined; when accepted, the site states it reviews the product the same as a purchased one and will report negative findings. No explicit affiliate-link or commission disclosure appeared in the fetched text (disclosures are commonly placed in page footers, which are stripped before analysis) — this should be verified directly on the site before being treated as an unmonetized source.",
+  "pillar_coverage": {
+    "planet": { "coverage": "absent", "note": "No environmental impact, sustainability, or materials-footprint content found in the fetched pages." },
+    "people_supply_chain": { "coverage": "partial", "note": "Reports country of manufacture and general raw-material sourcing regions (e.g. steel from Kentucky/Pennsylvania suppliers, assembly in Italy/France), but no labor conditions, factory audits, or worker welfare information." },
+    "quality": { "coverage": "strong", "note": "Extensive instrumented, real-world testing: heat conduction/retention measurements, multi-year use, structured cross-brand comparisons." },
+    "value": { "coverage": "strong", "note": "Explicit price-vs-competitor positioning and buy/don't-buy guidance tied directly to test results." },
+    "transparency": { "coverage": "strong", "note": "Dedicated, detailed methodology page; named individual reviewer; published raw data tables across many competing products; structured, disclosed testing protocols." }
+  },
+  "trust_tier": "high",
+  "trust_tier_rationale": "Demonstrates repeatable, instrumented testing (documented boil-time and heat-retention tables across 15+ competing pans) plus a structured, blinded customer-service experiment across 9 brands — practices well beyond marketing claims. The main gaps are the absence of a visible monetization disclosure in the fetched text and no coverage of environmental or labor-ethics pillars.",
+  "verifiability": "Numeric results (boil times, retention temperatures) are published in comparison tables against many named competing products using a stated, repeatable protocol (same water volume, heat setting, timing), so a third party could rerun the same test. The underlying photos and raw data are the site's own and are not independently audited.",
+  "slug": "prudent-reviews",
+  "fetched_at": "2026-07-19T01:26:51.000Z",
+  "attribution": { "name": "Prudent Reviews", "url": "https://prudentreviews.com/" }
+}

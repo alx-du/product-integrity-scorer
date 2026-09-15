@@ -1,7 +1,7 @@
 {
-  "name": "product-integrity-scorer",
+  "name": "clearcart",
   "version": "0.1.0",
-  "description": "Chrome extension + API backend for scoring product integrity across 5 pillars",
+  "description": "ClearCart \u2014 Product Integrity Scorer. Chrome extension + API for assessing goods across five independent dimensions with explicit coverage and confidence.",
   "private": true,
   "engines": {
     "node": ">=18.0.0"

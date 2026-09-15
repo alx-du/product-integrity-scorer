@@ -1,7 +1,18 @@
 /**
- * content.js — Product Integrity Scorer
- * Injected into supported retailer pages (Trader Joe's, Amazon)
- * Detects product pages and overlays pillar score badges
+ * content.js — ClearCart
+ * Injected into supported retailer pages. Detects product cards and overlays
+ * the five dimension assessments.
+ *
+ * Rendering rule (CAPSTONE.md §3.8): faithful display and honest display are
+ * not the same thing. Two consequences are enforced here:
+ *
+ *   - An absence never renders like a bad score. Unknown and Claimed get their
+ *     own neutral treatment and carry no number. Painting an absence red says
+ *     "this product is bad" when the truth is "nobody will tell you".
+ *   - Entity-level evidence is labelled as entity-level in the tooltip, so a
+ *     finding about a parent company is never read as a finding about the good.
+ *
+ * Keep this file under 200 lines — logic belongs in scoring/.
  */
 
 (function () {
@@ -11,18 +22,36 @@
   const SUPPORTED_RETAILERS = {
     'traderjoes.com': {
       productSelector: '[class*="Product_card"]',
-      nameSelector: '[class*="Product_title"]',
-      urlPattern: //products//
+      nameSelector: '[class*="Product_title"]'
     }
   };
 
-  const API_BASE = 'https://your-api.railway.app'; // replace with deployed URL
+  const API_BASE = 'http://localhost:3000'; // TODO: point at the deployed API
+
+  const DIMENSIONS = [
+    { key: 'planet', label: 'Planet', emoji: '🌱' },
+    { key: 'people', label: 'People & Supply Chain', emoji: '🤝' },
+    { key: 'quality', label: 'Quality', emoji: '⭐' },
+    { key: 'value', label: 'Value', emoji: '💰' },
+    { key: 'transparency', label: 'Transparency', emoji: '🔍' }
+  ];
+
+  // What each coverage state shows where a number would otherwise sit.
+  // '?' and '—' are deliberately not digits: a glyph cannot be mistaken for a
+  // low score, and cannot be averaged by anyone reading the page.
+  const COVERAGE_GLYPH = { unknown: '?', claimed: '—' };
+
+  const COVERAGE_EXPLAINER = {
+    unknown: 'No source addresses this. The seller has not disclosed it.',
+    claimed: 'Only the seller says so. No independent source verifies it.',
+    inferred: 'Evidence reaches this product indirectly, at capped confidence.',
+    scored: 'Independently evidenced for this product.'
+  };
 
   // ─── Main ──────────────────────────────────────────────────────────────────
   function init() {
     const retailer = detectRetailer();
     if (!retailer) return;
-
     observeProductCards(retailer);
   }
 
@@ -33,9 +62,7 @@
   function detectRetailer() {
     const hostname = window.location.hostname;
     for (const [domain, config] of Object.entries(SUPPORTED_RETAILERS)) {
-      if (hostname.includes(domain)) {
-        return { domain, ...config };
-      }
+      if (hostname.includes(domain)) return { domain, ...config };
     }
     return null;
   }
@@ -45,35 +72,28 @@
    * @param {object} retailer - retailer config
    */
   function observeProductCards(retailer) {
-    const observer = new MutationObserver(() => {
-      injectBadgesOnPage(retailer);
-    });
-
+    const observer = new MutationObserver(() => injectBadgesOnPage(retailer));
     observer.observe(document.body, { childList: true, subtree: true });
     injectBadgesOnPage(retailer); // initial pass
   }
 
   /**
-   * Find all un-scored product cards and inject badges
+   * Find all un-assessed product cards and inject badges
    * @param {object} retailer
    */
   function injectBadgesOnPage(retailer) {
-    const cards = document.querySelectorAll(retailer.productSelector);
-    cards.forEach(card => {
-      if (card.dataset.pisScored) return; // already processed
-      card.dataset.pisScored = 'pending';
+    document.querySelectorAll(retailer.productSelector).forEach((card) => {
+      if (card.dataset.ccAssessed) return;
+      card.dataset.ccAssessed = 'pending';
 
       const productName = extractProductName(card, retailer);
-      const productUrl = extractProductUrl(card);
-
       if (productName) {
-        fetchAndInjectBadge(card, productName, productUrl);
+        fetchAndInjectBadge(card, productName, extractProductUrl(card));
       }
     });
   }
 
   /**
-   * Extract product name from a card element
    * @param {Element} card
    * @param {object} retailer
    * @returns {string|null}
@@ -84,7 +104,6 @@
   }
 
   /**
-   * Extract product URL from a card element
    * @param {Element} card
    * @returns {string|null}
    */
@@ -94,35 +113,32 @@
   }
 
   /**
-   * Fetch scores from API and inject badge onto card
+   * Fetch the assessment and inject a badge onto the card
    * @param {Element} card
    * @param {string} productName
    * @param {string|null} productUrl
    */
   async function fetchAndInjectBadge(card, productName, productUrl) {
     try {
-      const scores = await fetchScores(productName, productUrl);
-      if (scores) {
-        const badge = createBadge(scores);
-        card.style.position = 'relative';
-        card.appendChild(badge);
-        card.dataset.pisScored = 'done';
-      }
+      const assessment = await fetchAssessment(productName, productUrl);
+      if (!assessment || !assessment.dimensions) return;
+
+      card.style.position = 'relative';
+      card.appendChild(createBadge(assessment));
+      card.dataset.ccAssessed = 'done';
     } catch (err) {
-      console.warn('[PIS] Failed to fetch scores for', productName, err);
-      card.dataset.pisScored = 'error';
+      console.warn('[ClearCart] Assessment failed for', productName, err);
+      card.dataset.ccAssessed = 'error';
     }
   }
 
   /**
-   * Fetch pillar scores from the backend API
-   * Checks cache first (7-day TTL in backend)
    * @param {string} productName
    * @param {string|null} productUrl
-   * @returns {Promise<object|null>} pillar scores
+   * @returns {Promise<object|null>}
    */
-  async function fetchScores(productName, productUrl) {
-    const response = await fetch(`${API_BASE}/api/score`, {
+  async function fetchAssessment(productName, productUrl) {
+    const response = await fetch(`${API_BASE}/api/assess`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productName, productUrl, retailer: 'traderjoes' })
@@ -133,50 +149,71 @@
   }
 
   /**
-   * Create the score badge element (5 pillar pills)
-   * @param {object} scores - { planet, people, quality, value, transparency }
+   * Build the badge: one pill per dimension, no overall verdict.
+   * @param {object} assessment - { dimensions, screen }
    * @returns {Element}
    */
-  function createBadge(scores) {
+  function createBadge(assessment) {
     const badge = document.createElement('div');
-    badge.className = 'pis-badge';
-    badge.setAttribute('aria-label', 'Product Integrity Scores');
+    badge.className = 'cc-badge';
+    badge.setAttribute('aria-label', 'ClearCart assessment — five independent dimensions');
 
-    const pillars = [
-      { key: 'planet', label: 'Planet', emoji: '🌱' },
-      { key: 'people', label: 'People', emoji: '🤝' },
-      { key: 'quality', label: 'Quality', emoji: '⭐' },
-      { key: 'value', label: 'Value', emoji: '💰' },
-      { key: 'transparency', label: 'Transparency', emoji: '🔍' }
-    ];
-
-    pillars.forEach(({ key, label, emoji }) => {
-      const score = scores[key];
-      const pill = document.createElement('span');
-      pill.className = `pis-pill pis-pill--${getScoreTier(score)}`;
-      pill.title = `${label}: ${score}/100`;
-      pill.textContent = `${emoji} ${score}`;
-      badge.appendChild(pill);
+    DIMENSIONS.forEach(({ key, label, emoji }) => {
+      badge.appendChild(createPill(assessment.dimensions[key], label, emoji));
     });
 
-    // Click to open side panel
     badge.addEventListener('click', (e) => {
       e.stopPropagation();
-      chrome.runtime.sendMessage({ action: 'openPanel', scores });
+      chrome.runtime.sendMessage({ action: 'openPanel', assessment });
     });
 
     return badge;
   }
 
   /**
-   * Map score to tier for CSS color coding
-   * @param {number} score
-   * @returns {'high'|'mid'|'low'}
+   * One dimension pill. Carries a number only when evidence exists.
+   * @param {object|undefined} dimension
+   * @param {string} label
+   * @param {string} emoji
+   * @returns {Element}
    */
-  function getScoreTier(score) {
-    if (score >= 70) return 'high';
-    if (score >= 45) return 'mid';
-    return 'low';
+  function createPill(dimension, label, emoji) {
+    const pill = document.createElement('span');
+    const coverage = dimension ? dimension.coverage : 'unknown';
+    const hasScore = dimension && dimension.score !== null && dimension.score !== undefined;
+
+    // The modifier is the coverage state, never the score. CSS keys colour off
+    // this, so an absence can never be styled as a failing grade.
+    pill.className = `cc-pill cc-pill--${coverage}`;
+    if (hasScore) pill.classList.add(dimension.passes ? 'cc-pill--pass' : 'cc-pill--below');
+
+    const value = hasScore ? `${dimension.score}/5` : COVERAGE_GLYPH[coverage] || '?';
+    pill.textContent = `${emoji} ${value}`;
+    pill.title = buildTooltip(dimension, label, coverage, hasScore);
+
+    return pill;
+  }
+
+  /**
+   * @param {object|undefined} dimension
+   * @param {string} label
+   * @param {string} coverage
+   * @param {boolean} hasScore
+   * @returns {string}
+   */
+  function buildTooltip(dimension, label, coverage, hasScore) {
+    const lines = [`${label} — ${coverage}`, COVERAGE_EXPLAINER[coverage]];
+
+    if (hasScore) {
+      lines.push(`Score ${dimension.score}/5 · ${dimension.confidence} confidence`);
+    }
+    // §6.1: evidence about a company is not evidence about a product, and has
+    // to say so wherever it is shown.
+    if (dimension && dimension.assumption) {
+      lines.push(`Reaches this product by assumption: ${dimension.assumption}`);
+    }
+
+    return lines.join('\n');
   }
 
   // ─── Boot ──────────────────────────────────────────────────────────────────
